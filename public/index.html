@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DailyAura Enterprise Outreach CRM & Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- LOGIN MODAL / SCREEN -->
+  <div id="loginScreen" class="login-wrapper">
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="login-badge-top">
+          <span class="pulse-orb"></span> Enterprise Architecture v2.5
+        </div>
+        <h2>DailyAura <span>Growth OS</span></h2>
+        <p>Enterprise Dual-Engine Suite: Off-Page Link Outreach & Contributor Community</p>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label>Admin Username</label>
+          <input type="text" id="loginUsername" value="admin" required placeholder="Enter username">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" value="dailyaura@123" required placeholder="Enter password">
+        </div>
+
+        <!-- DESTINATION WORKSPACE SELECTOR -->
+        <div class="login-workspace-label">
+          <span>Choose Starting Workspace</span>
+          <span style="font-size: 10px; color: #60a5fa;">Switch anytime inside</span>
+        </div>
+        <div class="login-workspace-selector" id="loginWorkspaceSelector">
+          <div class="login-workspace-card active" data-target-mode="cold_outreach">
+            <div class="card-head">
+              <span class="card-icon">🚀</span>
+              <span class="card-check">✓</span>
+            </div>
+            <h4>B2B Cold Outreach</h4>
+            <p>Off-page SEO prospecting, 2-min throttle & 100k database</p>
+            <span class="card-pill">Active Outbound</span>
+          </div>
+          <div class="login-workspace-card" data-target-mode="contributor_lifecycle">
+            <div class="card-head">
+              <span class="card-icon">👥</span>
+              <span class="card-check">✓</span>
+            </div>
+            <h4>Contributor & Marketing</h4>
+            <p>Registered authors, Welcome SLA, Day 2-4 digests with images</p>
+            <span class="card-pill">Author Lifecycle</span>
+          </div>
+        </div>
+
+        <div id="loginError" class="login-error hidden"></div>
+        <button type="submit" id="loginSubmitBtn" class="btn btn-primary btn-block">🚀 Sign In to Cold Outreach Suite</button>
+        <p class="login-hint">Credentials: <code>admin</code> / <code>dailyaura@123</code></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- MAIN CRM APP LAYOUT -->
+  <div id="appContainer" class="app-layout hidden">
+    
+    <!-- MOBILE TOP BAR -->
+    <header class="mobile-topbar">
+      <button id="menuToggleBtn" class="icon-btn" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="mobile-title">
+        <span class="logo-dot"></span> DailyAura CRM
+      </div>
+      <div id="topStatusPill" class="status-pill idle">IDLE</div>
+    </header>
+
+    <!-- LEFT SIDEBAR WITH DUAL-WORKSPACE NAVIGATION -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <span class="brand-icon" id="sidebarBrandIcon">⚡</span>
+          <div>
+            <h3>DailyAura</h3>
+            <span class="sub" id="sidebarWorkspaceSubtitle">Cold Outreach Suite</span>
+          </div>
+        </div>
+        <button id="closeSidebarBtn" class="close-sidebar-btn">&times;</button>
+      </div>
+
+      <!-- WORKSPACE A: COLD OUTREACH NAVIGATION (20 TABS) -->
+      <nav id="navColdOutreach" class="sidebar-nav">
+        <!-- GROUP 1: OVERVIEW & INTELLIGENCE -->
+        <div class="nav-section-title">CORE INTELLIGENCE</div>
+        <button class="nav-item active" data-tab="dashboard">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Dashboard</span>
+        </button>
+        <!-- AI AGENT PROMINENTLY AT POSITION #2 AS REQUESTED -->
+        <button class="nav-item nav-highlight" data-tab="ai-agent">
+          <span class="nav-icon">🤖</span>
+          <span class="nav-label">AI Outreach Agent</span>
+          <span class="badge-pill pink">AI Copilot</span>
+        </button>
+        <button class="nav-item" data-tab="analytics">
+          <span class="nav-icon">📈</span>
+          <span class="nav-label">Performance Analytics</span>
+        </button>
+        <button class="nav-item" data-tab="live-feed">
+          <span class="nav-icon">⚡</span>
+          <span class="nav-label">Live Activity Stream</span>
+        </button>
+        <button class="nav-item" data-tab="funnel">
+          <span class="nav-icon">🎯</span>
+          <span class="nav-label">Conversion Funnel</span>
+        </button>
+
+        <!-- GROUP 2: CAMPAIGN AUTOMATION -->
+        <div class="nav-section-title">CAMPAIGN AUTOMATION</div>
+        <button class="nav-item" data-tab="campaigns">
+          <span class="nav-icon">🚀</span>
+          <span class="nav-label">Active Campaigns</span>
+        </button>
+        <button class="nav-item" data-tab="sequences">
+          <span class="nav-icon">✉️</span>
+          <span class="nav-label">Drip Sequences</span>
+        </button>
+        <button class="nav-item" data-tab="templates">
+          <span class="nav-icon">📝</span>
+          <span class="nav-label">Template Studio</span>
+        </button>
+        <button class="nav-item" data-tab="schedule">
+          <span class="nav-icon">⏱️</span>
+          <span class="nav-label">2-Min Throttling</span>
+          <span class="badge-pill green">120s</span>
+        </button>
+
+        <!-- GROUP 3: LEADS & 100K PIPELINE -->
+        <div class="nav-section-title">LEADS & 100K PIPELINE</div>
+        <button class="nav-item" data-tab="leads">
+          <span class="nav-icon">👥</span>
+          <span class="nav-label">Master Leads Base</span>
+        </button>
+        <button class="nav-item" data-tab="niche-hub">
+          <span class="nav-icon">🏷️</span>
+          <span class="nav-label">Niche Rankings</span>
+          <span class="badge-pill yellow">8 Niches</span>
+        </button>
+        <button class="nav-item" data-tab="vip-leads">
+          <span class="nav-icon">🏆</span>
+          <span class="nav-label">VIP High-DA Targets</span>
+        </button>
+        <button class="nav-item" data-tab="generator">
+          <span class="nav-icon">📥</span>
+          <span class="nav-label">100k Lead Generator</span>
+        </button>
+        <button class="nav-item" data-tab="blacklist">
+          <span class="nav-icon">🚫</span>
+          <span class="nav-label">Suppression List</span>
+        </button>
+
+        <!-- GROUP 4: CREATIVE & REPLIES -->
+        <div class="nav-section-title">CREATIVE & INBOX</div>
+        <button class="nav-item" data-tab="ai-generator">
+          <span class="nav-icon">💡</span>
+          <span class="nav-label">AI Pitch & Subject Studio</span>
+        </button>
+        <button class="nav-item" data-tab="inbox">
+          <span class="nav-icon">💬</span>
+          <span class="nav-label">Replies & Inbox Hub</span>
+          <span class="badge-pill green">3 New</span>
+        </button>
+
+        <!-- GROUP 5: SYSTEM & SECURITY -->
+        <div class="nav-section-title">DELIVERABILITY & SYSTEM</div>
+        <button class="nav-item" data-tab="domain-health">
+          <span class="nav-icon">🛡️</span>
+          <span class="nav-label">Domain Deliverability</span>
+        </button>
+        <button class="nav-item" data-tab="smtp-settings">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Hostinger SMTP Setup</span>
+        </button>
+        <button class="nav-item" data-tab="security">
+          <span class="nav-icon">🔒</span>
+          <span class="nav-label">Admin Security</span>
+        </button>
+        <button class="nav-item" data-tab="backup-export">
+          <span class="nav-icon">💾</span>
+          <span class="nav-label">Backup & CSV Export</span>
+        </button>
+      </nav>
+
+      <!-- WORKSPACE B: CONTRIBUTOR & EMAIL MARKETING HUB NAVIGATION -->
+      <nav id="navContributorHub" class="sidebar-nav hidden">
+        <div class="nav-section-title">COMMUNITY INTELLIGENCE</div>
+        <button class="nav-item active" data-tab="contrib-dashboard">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Contributor Overview</span>
+        </button>
+        <button class="nav-item nav-highlight" data-tab="contrib-users">
+          <span class="nav-icon">👥</span>
+          <span class="nav-label">Registered Authors</span>
+          <span class="badge-pill green" id="navBadgeSubscribers">5 Registered</span>
+        </button>
+        <button class="nav-item" data-tab="contrib-triggers">
+          <span class="nav-icon">⏱️</span>
+          <span class="nav-label">3-Stage Lifecycle Flow</span>
+          <span class="badge-pill yellow">Auto SLA</span>
+        </button>
+
+        <div class="nav-section-title">CONTENT & SHOWCASE</div>
+        <button class="nav-item" data-tab="contrib-articles">
+          <span class="nav-icon">📰</span>
+          <span class="nav-label">DailyAura Blog Feed</span>
+          <span class="badge-pill blue">Live Posts</span>
+        </button>
+        <button class="nav-item" data-tab="contrib-templates">
+          <span class="nav-icon">📝</span>
+          <span class="nav-label">Marketing & AI Templates</span>
+          <span class="badge-pill pink">English Only</span>
+        </button>
+
+        <div class="nav-section-title">ENGAGEMENT & HOOKS</div>
+        <button class="nav-item" data-tab="contrib-stream">
+          <span class="nav-icon">⚡</span>
+          <span class="nav-label">Delivery & Click Stream</span>
+        </button>
+        <button class="nav-item" data-tab="contrib-settings">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Webhook & SMTP Health</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="sidebarWorkspaceSwitchBtn" class="sidebar-workspace-switcher to-contributor" title="Switch Workspace">
+          <span class="switch-icon">⇄</span>
+          <span id="sidebarSwitchBtnLabel">Switch to Contributor Hub</span>
+        </button>
+        <div class="user-info">
+          <div class="avatar" id="sidebarUserAvatar">DA</div>
+          <div>
+            <div class="user-name">DailyAura Team</div>
+            <div class="user-email" id="sidebarUserEmail">outreach@dailyaura.in</div>
+          </div>
+        </div>
+        <button id="logoutBtn" class="logout-btn" title="Logout">🚪</button>
+      </div>
+    </aside>
+
+    <!-- BACKDROP FOR MOBILE MENU -->
+    <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+    <!-- MAIN CONTENT VIEW -->
+    <main class="main-content">
+
+      <!-- ================= TOP ULTRA-PREMIUM STATUS BAR ================= -->
+      <div class="enterprise-header-bar">
+        <div class="header-breadcrumb">
+          <span class="badge-tag">ENTERPRISE CRM</span>
+          <span class="slash">/</span>
+          <strong id="activeBreadcrumbTitle">Executive Dashboard</strong>
+        </div>
+        <div class="workspace-mode-switcher">
+          <button class="mode-btn active" id="modeColdOutreachBtn" data-mode="cold_outreach" title="Cold Outreach & Link Building Mode">
+            <span>&#x1F680; Cold Outreach</span>
+          </button>
+          <button class="mode-btn" id="modeContributorLifecycleBtn" data-mode="contributor_lifecycle" title="Contributor Lifecycle, Onboarding & HTML Newsletters">
+            <span>&#x1F465; Contributor & Newsletter</span>
+          </button>
+        </div>
+        <div class="header-right-meta">
+          <div class="system-status-pill">
+            <span class="pulse-dot"></span> Hostinger SMTP: <strong>Active</strong>
+          </div>
+          <div class="safety-indicator">
+            <span class="shield-icon">🛡️</span> 2-Min Pacing: <strong>120-180s</strong>
+          </div>
+          <div class="live-clock" id="systemLiveClock">--:--:--</div>
+        </div>
+      </div>
+
+      <!-- ================= 1. TAB: DASHBOARD ================= -->
+      <section id="tab-dashboard" class="tab-pane active">
+        <div class="section-header">
+          <div>
+            <h1>Executive Overview</h1>
+            <p class="subtitle">Live outreach metrics, Primary Inbox deliverability, and automated speed monitoring</p>
+          </div>
+          <div class="header-actions">
+            <button id="quickStartBtn" class="btn btn-success">▶ Start Outreach</button>
+            <button id="quickPauseBtn" class="btn btn-warning hidden">⏸ Pause Outreach</button>
+          </div>
+        </div>
+
+        <!-- STATS CARDS -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon sent-bg">✉️</div>
+            <div class="stat-info">
+              <span class="stat-label">Total Outbound Sent</span>
+              <h2 id="statTotalSent">0</h2>
+              <span class="stat-meta text-success" id="statTodaySent">0 today</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon opened-bg">👁️</div>
+            <div class="stat-info">
+              <span class="stat-label">Verified Opens (Seen)</span>
+              <h2 id="statTotalOpened">0</h2>
+              <span class="stat-meta text-primary" id="statOpenRate">0% Open Rate</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon clicked-bg">🔗</div>
+            <div class="stat-info">
+              <span class="stat-label">Website Link Clicks</span>
+              <h2 id="statTotalClicked">0</h2>
+              <span class="stat-meta text-info" id="statClickRate">0% Click Rate</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon leads-bg">📋</div>
+            <div class="stat-info">
+              <span class="stat-label">Total Prospect Pool</span>
+              <h2 id="statTotalLeads">0</h2>
+              <span class="stat-meta" id="statPendingLeads">0 Pending</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DASHBOARD SPLIT -->
+        <div class="dashboard-split">
+          <div class="card">
+            <div class="card-header">
+              <h3>Live Activity Feed</h3>
+              <button class="btn btn-sm btn-ghost" id="refreshFeedBtn">🔄 Refresh</button>
+            </div>
+            <div class="activity-list" id="activityList">
+              <div class="empty-state">Loading activity feed...</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Dispatch Controller</h3>
+              <span id="quickStatusBadge" class="status-badge idle">Idle</span>
+            </div>
+            <div class="quick-settings-body">
+              <div class="info-row">
+                <span>Sender Identity:</span>
+                <strong>DailyAura Editorial Team</strong>
+              </div>
+              <div class="info-row">
+                <span>Sender Domain:</span>
+                <code>outreach@dailyaura.in</code>
+              </div>
+              <div class="info-row">
+                <span>Safe Throttle Gap:</span>
+                <strong class="text-success" id="dispGap">120 - 180s (2-3 min)</strong>
+              </div>
+              <div class="info-row">
+                <span>Target Website:</span>
+                <strong>guestposts.dailyaura.in</strong>
+              </div>
+              <div class="info-row">
+                <span>Open Tracking:</span>
+                <span class="badge badge-success">1x1 Invisible PNG</span>
+              </div>
+              <div class="info-row">
+                <span>Click Tracking:</span>
+                <span class="badge badge-success">Active Redirect</span>
+              </div>
+
+              <div class="quick-cta">
+                <button id="dashStartBtn" class="btn btn-primary btn-block">🚀 Launch Safe Outreach Batch</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 2. TAB: AI OUTREACH AGENT (POSITION #2) ================= -->
+      <section id="tab-ai-agent" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>DailyAura AI Outreach Assistant</h1>
+            <p class="subtitle">Interactive AI intelligence — responds strictly in professional English to control campaigns, write pitches, and optimize deliverability</p>
+          </div>
+        </div>
+
+        <div class="card chat-card">
+          <div class="chat-messages" id="chatMessages"></div>
+          <div class="chat-quick-prompts">
+            <button class="prompt-chip" data-prompt="Give me a comprehensive performance report">📊 Full Report</button>
+            <button class="prompt-chip" data-prompt="Start the campaign with 2-minute safety delays">🚀 Start Campaign</button>
+            <button class="prompt-chip" data-prompt="Pause the campaign">⏸️ Pause Campaign</button>
+            <button class="prompt-chip" data-prompt="Generate a high-converting subject line for Tech blogs">✍️ Subject Lines</button>
+            <button class="prompt-chip" data-prompt="How do I ensure 100% Primary Inbox deliverability?">🛡️ Deliverability Tips</button>
+          </div>
+          <form id="chatForm" class="chat-input-bar">
+            <input type="text" id="chatInput" placeholder="Ask AI Assistant anything or issue a command (in Punjabi or English)..." required>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ================= 3. TAB: PERFORMANCE ANALYTICS ================= -->
+      <section id="tab-analytics" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Performance Analytics</h1>
+            <p class="subtitle">Multi-series trend timeline, comparative date ranges, and period variance analysis</p>
+          </div>
+          <div class="header-actions">
+            <select id="gscRangeSelect" class="form-control select-control">
+              <option value="7d">Last 7 Days</option>
+              <option value="28d" selected>Last 28 Days</option>
+              <option value="90d">Last 3 Months (90 Days)</option>
+              <option value="365d">Last 12 Months</option>
+            </select>
+            <button id="gscCompareToggle" class="btn btn-secondary active-toggle">⚖️ Compare: Previous Period</button>
+          </div>
+        </div>
+
+        <!-- 4-SCOREBOARD TOP CARDS -->
+        <div class="gsc-scoreboard">
+          <div class="gsc-card selected card-sent" data-series="sent">
+            <div class="gsc-card-title">Total Sent</div>
+            <div class="gsc-card-metric" id="gscMetricSent">0</div>
+            <div class="gsc-card-diff" id="gscDiffSent">+0 vs prev period</div>
+          </div>
+          <div class="gsc-card selected card-opened" data-series="opened">
+            <div class="gsc-card-title">Total Opens (Seen)</div>
+            <div class="gsc-card-metric" id="gscMetricOpened">0</div>
+            <div class="gsc-card-diff" id="gscDiffOpened">+0 vs prev period</div>
+          </div>
+          <div class="gsc-card selected card-clicked" data-series="clicked">
+            <div class="gsc-card-title">Total Link Clicks</div>
+            <div class="gsc-card-metric" id="gscMetricClicked">0</div>
+            <div class="gsc-card-diff" id="gscDiffClicked">+0 vs prev period</div>
+          </div>
+          <div class="gsc-card selected card-rate" data-series="rate">
+            <div class="gsc-card-title">Average Open Rate</div>
+            <div class="gsc-card-metric" id="gscMetricRate">0%</div>
+            <div class="gsc-card-diff" id="gscDiffRate">+0% vs prev period</div>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE CHART -->
+        <div class="card gsc-chart-card">
+          <div class="chart-header">
+            <h4>Performance Timeline</h4>
+            <div class="chart-legends">
+              <span class="legend-dot dot-sent"></span> Sent
+              <span class="legend-dot dot-opened"></span> Opened
+              <span class="legend-dot dot-clicked"></span> Clicked
+            </div>
+          </div>
+          <div class="gsc-chart-viewport" id="gscChartViewport">
+            <svg id="gscSvgChart" viewBox="0 0 1000 280" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="chart-dates-axis" id="gscDatesAxis"></div>
+        </div>
+
+        <!-- NICHE RANKING TABLE -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Niche Performance & Efficiency Rankings</h3>
+            <span class="variables-hint">Ranked by combined engagement volume and open rate</span>
+          </div>
+          <div class="table-container">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Category / Niche</th>
+                  <th>Total Leads</th>
+                  <th>Sent</th>
+                  <th>Pending</th>
+                  <th>Opens</th>
+                  <th>Clicks</th>
+                  <th>Open Rate</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="nicheTableBody">
+                <tr><td colspan="9" class="text-center">Loading niche rankings...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. TAB: LIVE FEED ================= -->
+      <section id="tab-live-feed" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Real-Time Tracking Stream</h1>
+            <p class="subtitle">Filterable log of every sent message, verified open, and website link click</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="filter-bar">
+            <select id="liveEventTypeFilter" class="form-control select-control" style="max-width: 180px;">
+              <option value="all">All Events</option>
+              <option value="open">Opens (Seen)</option>
+              <option value="click">Link Clicks</option>
+              <option value="sent">Dispatched</option>
+            </select>
+            <select id="liveEventTimeFilter" class="form-control select-control" style="max-width: 180px;">
+              <option value="all">All Time</option>
+              <option value="today">Today</option>
+              <option value="yesterday">Yesterday</option>
+              <option value="this_week">This Week</option>
+              <option value="last_week">Last Week</option>
+            </select>
+            <input type="text" id="liveEventSearch" class="form-control search-input" placeholder="Search event by site or email...">
+          </div>
+          <div class="activity-list full-height" id="fullActivityList">
+            <div class="empty-state">Streaming events...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 5. TAB: CONVERSION FUNNEL ================= -->
+      <section id="tab-funnel" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Outreach Conversion Funnel</h1>
+            <p class="subtitle">Complete conversion drop-off analysis from outbound dispatch to link engagement</p>
+          </div>
+        </div>
+        <div class="card funnel-card">
+          <div class="funnel-container">
+            <div class="funnel-stage">
+              <span class="funnel-label">1. Outbound Sent</span>
+              <div class="funnel-bar-bg">
+                <div class="funnel-bar-fill fill-sent" id="fBarSent" style="width: 100%;"></div>
+              </div>
+              <span class="funnel-count" id="fCountSent">0 (100%)</span>
+            </div>
+            <div class="funnel-stage">
+              <span class="funnel-label">2. Delivered & Inboxed</span>
+              <div class="funnel-bar-bg">
+                <div class="funnel-bar-fill fill-delivered" style="width: 98%;"></div>
+              </div>
+              <span class="funnel-count" id="fCountDelivered">98% Inboxed</span>
+            </div>
+            <div class="funnel-stage">
+              <span class="funnel-label">3. Opened (Seen by Recipient)</span>
+              <div class="funnel-bar-bg">
+                <div class="funnel-bar-fill fill-opened" id="fBarOpened" style="width: 0%;"></div>
+              </div>
+              <span class="funnel-count" id="fCountOpened">0 (0%)</span>
+            </div>
+            <div class="funnel-stage">
+              <span class="funnel-label">4. Clicked Target Website</span>
+              <div class="funnel-bar-bg">
+                <div class="funnel-bar-fill fill-clicked" id="fBarClicked" style="width: 0%;"></div>
+              </div>
+              <span class="funnel-count" id="fCountClicked">0 (0%)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 6. TAB: ACTIVE CAMPAIGNS ================= -->
+      <section id="tab-campaigns" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Active Campaigns & Automation Runner</h1>
+            <p class="subtitle">Manage multi-campaign dispatch with customized audiences and strict 2-minute safety delay</p>
+          </div>
+          <div class="campaign-ctrl-group">
+            <button id="openNewCampModalBtn" class="btn btn-primary">+ Add New Campaign</button>
+            <button id="campStartBtn" class="btn btn-success">▶ Start Active</button>
+            <button id="campPauseBtn" class="btn btn-warning">⏸ Pause</button>
+            <button id="campStopBtn" class="btn btn-danger">⏹ Stop</button>
+          </div>
+        </div>
+
+        <!-- CAMPAIGNS LIST CARDS -->
+        <div class="campaigns-deck" id="campaignsDeck">
+          <!-- Dynamic campaign cards -->
+        </div>
+
+        <div class="campaign-grid" style="margin-top: 24px;">
+          <div class="card">
+            <div class="card-header">
+              <h3>Active Campaign Configuration</h3>
+              <span class="variables-hint">Tags: <code>{{name}}</code>, <code>{{website}}</code>, <code>{{niche}}</code></span>
+            </div>
+            <form id="campaignForm">
+              <div class="form-group">
+                <label>Target Audience Segment</label>
+                <select id="campNicheSelect" class="form-control">
+                  <option value="All Niches">All Niches (Blended)</option>
+                  <option value="Artificial Intelligence & Machine Learning">Artificial Intelligence & Machine Learning</option>
+                  <option value="Digital Marketing & SEO Link Building">Digital Marketing & SEO Link Building</option>
+                  <option value="Technology & Software Development">Technology & Software Development</option>
+                  <option value="SaaS, Cloud Computing & DevOps">SaaS, Cloud Computing & DevOps</option>
+                  <option value="Business, Startups & Entrepreneurship">Business, Startups & Entrepreneurship</option>
+                  <option value="Finance, Fintech & Web3">Finance, Fintech & Web3</option>
+                  <option value="Health, Fitness & Wellness">Health, Fitness & Wellness</option>
+                  <option value="E-Commerce, Web Design & UI/UX">E-Commerce, Web Design & UI/UX</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Subject Line</label>
+                <input type="text" id="campSubject" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Email Body</label>
+                <textarea id="campTemplate" class="form-control" rows="12" required></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group col">
+                  <label>Min Delay (Seconds) — 2 Min Minimum</label>
+                  <input type="number" id="campMinDelay" class="form-control" min="120" max="600" value="120">
+                </div>
+                <div class="form-group col">
+                  <label>Max Delay (Seconds)</label>
+                  <input type="number" id="campMaxDelay" class="form-control" min="150" max="900" value="180">
+                </div>
+                <div class="form-group col">
+                  <label>Daily Limit (Cap)</label>
+                  <input type="number" id="campDailyLimit" class="form-control" min="1" max="200" value="50">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Save Campaign Settings</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Live Verification Test</h3>
+            </div>
+            <p class="card-desc">Send an authentic test email to any mailbox to verify inbox placement.</p>
+            <form id="testEmailForm">
+              <div class="form-group">
+                <label>Recipient Address</label>
+                <input type="email" id="testEmailTarget" class="form-control" value="amritpal44117@gmail.com" required>
+              </div>
+              <button type="submit" class="btn btn-secondary btn-block">📨 Dispatch Test Email</button>
+              <div id="testEmailResult" class="test-result-box hidden"></div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 7. TAB: DRIP SEQUENCES ================= -->
+      <section id="tab-sequences" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Automated Drip Follow-ups & Lifecycle Engine</h1>
+            <p class="subtitle">Multi-step automation: Cold outreach follow-ups vs. Contributor welcome & Bi-weekly digests</p>
+          </div>
+          <div class="header-actions">
+            <div class="template-category-pills" style="margin-bottom:0;">
+              <button class="tmpl-filter-pill seq-track-pill active" data-track="all">All Sequences (7)</button>
+              <button class="tmpl-filter-pill seq-track-pill" data-track="cold_outreach">&#x1F680; Cold Outreach (3)</button>
+              <button class="tmpl-filter-pill seq-track-pill" data-track="contributor_lifecycle">&#x1F465; Contributor Lifecycle (4)</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="sequence-list" id="sequenceList"></div>
+        </div>
+      </section>
+
+      <!-- ================= 8. TAB: TEMPLATE STUDIO & AI BUILDER ================= -->
+      <section id="tab-templates" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Template Studio & AI Template Builder</h1>
+            <p class="subtitle">10 Pre-loaded high-converting templates + Autonomous AI Generator (English Only)</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-secondary" id="toggleAiBuilderBtn">&#x2728; AI Template Builder</button>
+            <button class="btn btn-primary" id="openNewTemplateModalBtn">+ Create Custom Template</button>
+          </div>
+        </div>
+
+        <!-- AI TEMPLATE BUILDER CARD -->
+        <div class="card" id="aiTemplateBuilderCard" style="border-left: 4px solid #8b5cf6; margin-bottom: 24px;">
+          <div class="card-header">
+            <h3>&#x2728; AI Email Template Generator (English Only)</h3>
+            <span class="variables-hint">Enter prompt in English &bull; Outputs plain text + Responsive HTML</span>
+          </div>
+          <form id="aiTemplateBuilderForm">
+            <div class="form-row">
+              <div class="form-group col">
+                <label>Campaign Purpose / Goal</label>
+                <select id="aiTmplGoal" class="form-control">
+                  <option value="pitch">Cold Guest Post Collaboration Pitch</option>
+                  <option value="swap">Mutual Do-Follow Link Exchange</option>
+                  <option value="welcome">Contributor Welcome & Publishing SLA (Instant)</option>
+                  <option value="day7">Day 7 Contributor Retention & Indexing Review</option>
+                  <option value="day15">Day 15 Authority Boost & Internal Link Synergy</option>
+                  <option value="digest">Bi-Weekly Trending Article Showcase & Community Digest</option>
+                  <option value="spotlight">Featured Partner & Sponsored Brand Spotlight</option>
+                  <option value="custom">Custom Email Flow</option>
+                </select>
+              </div>
+              <div class="form-group col">
+                <label>Category Track</label>
+                <select id="aiTmplCategory" class="form-control">
+                  <option value="outreach">Cold Outreach (Link Building)</option>
+                  <option value="lifecycle">Contributor Lifecycle (Onboarding/Retention)</option>
+                  <option value="digest">HTML Newsletter Digest</option>
+                  <option value="advertising">Sponsored & Brand Spotlight</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col">
+                <label>Tone of Voice</label>
+                <select id="aiTmplTone" class="form-control">
+                  <option value="authoritative">Authoritative & Editorial (Recommended)</option>
+                  <option value="friendly">Friendly & Collaborative</option>
+                  <option value="direct">Short, Direct & High Impact</option>
+                </select>
+              </div>
+              <div class="form-group col">
+                <label>Email Format Output</label>
+                <select id="aiTmplFormat" class="form-control">
+                  <option value="html">Rich Responsive HTML (Visual Cards, Buttons & Footers)</option>
+                  <option value="text">Clean Plain Text (Classic Cold Email)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Custom Instructions / Details (In English)</label>
+              <textarea id="aiTmplPrompt" class="form-control" rows="3" placeholder="e.g. Write a friendly 10-day check-in email for guest authors who published on DailyAura, highlighting our new AI & Cloud guides and inviting their second article draft..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" id="aiGenerateTmplBtn">&#x2728; Generate Template with AI</button>
+          </form>
+
+          <!-- AI OUTPUT AREA -->
+          <div id="aiTmplOutputContainer" class="hidden" style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <div>
+                <h4 id="aiGeneratedName" style="color: #60a5fa; font-size: 16px;">AI Template</h4>
+                <span id="aiGeneratedStage" style="font-size: 12px; color: var(--text-muted);">Stage: Custom</span>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-sm btn-secondary" id="aiPreviewHtmlBtn">&#x1F441;&#xFE0F; Live HTML Preview</button>
+                <button class="btn btn-sm btn-success" id="aiSaveTmplBtn">&#x1F4BE; Save to My Templates</button>
+                <button class="btn btn-sm btn-primary" id="aiUseInCampBtn">&#x1F680; Use in Active Campaign</button>
+              </div>
+            </div>
+            <div id="aiSubjectLinesList" style="margin-bottom: 16px;"></div>
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px;">
+              <pre id="aiTmplBodyPreview" style="white-space: pre-wrap; font-family: inherit; font-size: 13px; color: #cbd5e1; max-height: 250px; overflow-y: auto;"></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATEGORY FILTER PILLS -->
+        <div class="template-category-pills">
+          <button class="tmpl-filter-pill active" data-cat="all">All Templates (<span id="countTmplAll">10</span>)</button>
+          <button class="tmpl-filter-pill" data-cat="outreach">&#x1F680; Cold Outreach (<span id="countTmplOutreach">5</span>)</button>
+          <button class="tmpl-filter-pill" data-cat="lifecycle">&#x1F465; Contributor Lifecycle (<span id="countTmplLifecycle">3</span>)</button>
+          <button class="tmpl-filter-pill" data-cat="digest">&#x1F4F0; HTML Digests (<span id="countTmplDigest">1</span>)</button>
+          <button class="tmpl-filter-pill" data-cat="advertising">&#x2B50; Brand Spotlight (<span id="countTmplAdvertising">1</span>)</button>
+        </div>
+
+        <!-- DYNAMIC TEMPLATES DECK -->
+        <div class="templates-grid-modern" id="templatesDeck">
+          <!-- Dynamic templates rendered via app.js -->
+        </div>
+      </section>
+
+      <!-- ================= 9. TAB: 2-MIN THROTTLING ================= -->
+      <section id="tab-schedule" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Sending Schedule & 2-Minute Throttle Controls</h1>
+            <p class="subtitle">Strict human-like dispatch pacing (120s – 180s) to guarantee zero spam detection</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="quick-settings-body">
+            <div class="info-row">
+              <span>Minimum Safety Delay:</span>
+              <strong>120 seconds (2.0 minutes)</strong>
+            </div>
+            <div class="info-row">
+              <span>Maximum Random Delay:</span>
+              <strong>180 seconds (3.0 minutes)</strong>
+            </div>
+            <div class="info-row">
+              <span>Sending Window:</span>
+              <strong>09:00 AM – 06:00 PM (Monday – Friday)</strong>
+            </div>
+            <div class="info-row">
+              <span>Hourly Sending Volume:</span>
+              <strong>~20 to 25 emails / hour (Safe zone)</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 10. TAB: MASTER LEADS DATABASE ================= -->
+      <section id="tab-leads" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Master Leads Database</h1>
+            <p class="subtitle">Complete prospect repository with niche tagging, open/click status, and search</p>
+          </div>
+          <div class="header-actions">
+            <button id="openImportModalBtn" class="btn btn-secondary">📥 Import CSV</button>
+            <button id="openAddLeadModalBtn" class="btn btn-primary">+ Add New Prospect</button>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <input type="text" id="leadSearchInput" class="form-control search-input" placeholder="Search by site, email, or niche...">
+          <select id="leadNicheFilter" class="form-control select-control">
+            <option value="all">All Niches</option>
+            <option value="Artificial Intelligence & Machine Learning">AI & Machine Learning</option>
+            <option value="Digital Marketing & SEO Link Building">Digital Marketing & SEO</option>
+            <option value="Technology & Software Development">Tech & Software</option>
+            <option value="SaaS, Cloud Computing & DevOps">SaaS & Cloud</option>
+            <option value="Business, Startups & Entrepreneurship">Business & Startups</option>
+            <option value="Finance, Fintech & Web3">Finance & Web3</option>
+            <option value="Health, Fitness & Wellness">Health & Wellness</option>
+            <option value="E-Commerce, Web Design & UI/UX">E-Commerce & Design</option>
+          </select>
+          <div class="status-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="sent">Sent</button>
+            <button class="filter-btn" data-filter="opened">Opened (Seen)</button>
+            <button class="filter-btn" data-filter="clicked">Clicked</button>
+            <button class="filter-btn" data-filter="pending">Pending</button>
+          </div>
+        </div>
+
+        <div class="table-container card">
+          <table class="leads-table">
+            <thead>
+              <tr>
+                <th>Site & Contact</th>
+                <th>Outreach Email</th>
+                <th>DA Score</th>
+                <th>Category / Niche</th>
+                <th>Status</th>
+                <th>Opens</th>
+                <th>Clicks</th>
+                <th>Timestamp</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody">
+              <tr><td colspan="9" class="text-center">Loading master leads database...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= 11. TAB: NICHE RANKINGS ================= -->
+      <section id="tab-niche-hub" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Niche Intelligence & Category Hub</h1>
+            <p class="subtitle">Comparative analytics by category to determine which niches produce the highest backlink returns</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="table-container">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Niche / Industry</th>
+                  <th>Total Prospects</th>
+                  <th>Sent</th>
+                  <th>Open Rate</th>
+                  <th>Click Rate</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="nicheHubTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 12. TAB: VIP TARGETS ================= -->
+      <section id="tab-vip-leads" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>VIP & High-DA Backlink Targets</h1>
+            <p class="subtitle">High-priority publications, top SEO agencies, and verified link exchange partners</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="table-container">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Domain</th>
+                  <th>Editor Contact</th>
+                  <th>DA / Authority</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>WebHopers Infotech</strong></td>
+                  <td><code>info@webhopers.com</code></td>
+                  <td><span class="badge badge-success">High Authority (DA 45+)</span></td>
+                  <td><span class="status-tag sent">Contacted</span></td>
+                </tr>
+                <tr>
+                  <td><strong>ThinkNEXT Technologies</strong></td>
+                  <td><code>info@thinknext.co.in</code></td>
+                  <td><span class="badge badge-success">High Authority (DA 50+)</span></td>
+                  <td><span class="status-tag sent">Contacted</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Guest Posting Outreach</strong></td>
+                  <td><code>theguestpostingoutreach@gmail.com</code></td>
+                  <td><span class="badge badge-success">Active Link Network</span></td>
+                  <td><span class="status-tag opened">Opened (3x)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 13. TAB: 100K LEAD GENERATOR ================= -->
+      <section id="tab-generator" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>100k+ Lead Pipeline Generator</h1>
+            <p class="subtitle">Advanced prospect mining: Filter by DA tier, TLD, contact role, and niche</p>
+          </div>
+        </div>
+        <div class="card">
+          <form id="generatorForm">
+            <div class="form-row">
+              <div class="form-group col">
+                <label>Target Niche</label>
+                <select id="genNiche" class="form-control">
+                  <option value="Artificial Intelligence & Machine Learning">Artificial Intelligence & Machine Learning</option>
+                  <option value="Digital Marketing & SEO Link Building">Digital Marketing & SEO Link Building</option>
+                  <option value="Technology & Software Development">Technology & Software Development</option>
+                  <option value="SaaS, Cloud Computing & DevOps">SaaS, Cloud Computing & DevOps</option>
+                  <option value="Business, Startups & Entrepreneurship">Business, Startups & Entrepreneurship</option>
+                  <option value="Finance, Fintech & Web3">Finance, Fintech & Web3</option>
+                  <option value="Health, Fitness & Wellness">Health, Fitness & Wellness</option>
+                  <option value="E-Commerce, Web Design & UI/UX">E-Commerce, Web Design & UI/UX</option>
+                </select>
+              </div>
+              <div class="form-group col">
+                <label>Domain Authority (DA) Tier</label>
+                <select id="genDaTier" class="form-control">
+                  <option value="high">High Authority (DA 50 - 75+)</option>
+                  <option value="medium" selected>Medium Authority (DA 35 - 50)</option>
+                  <option value="low">Standard Authority (DA 20 - 35)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col">
+                <label>Domain Extension (TLD)</label>
+                <select id="genTld" class="form-control">
+                  <option value=".com">.com (Global)</option>
+                  <option value=".in">.in (India)</option>
+                  <option value=".org">.org (Organization/Authority)</option>
+                  <option value=".io">.io (Tech & SaaS)</option>
+                </select>
+              </div>
+              <div class="form-group col">
+                <label>Contact Role</label>
+                <select id="genRole" class="form-control">
+                  <option value="Off-Page SEO Executive">Off-Page SEO Executive</option>
+                  <option value="Link Outreach Specialist">Link Outreach Specialist</option>
+                  <option value="Managing Editor">Managing Editor</option>
+                  <option value="Content Marketing Director">Content Marketing Director</option>
+                </select>
+              </div>
+              <div class="form-group col">
+                <label>Batch Size</label>
+                <select id="genCount" class="form-control">
+                  <option value="25">25 Prospects (Quick Batch)</option>
+                  <option value="50">50 Prospects</option>
+                  <option value="100">100 Prospects</option>
+                  <option value="250">250 Prospects</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">⚡ Mine & Inject Verified Prospects</button>
+            <div id="genResultBox" class="test-result-box hidden"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ================= 14. TAB: SUPPRESSION & BLACKLIST ================= -->
+      <section id="tab-blacklist" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Suppression & Blacklist Hub</h1>
+            <p class="subtitle">Addresses that should never be emailed under any circumstances</p>
+          </div>
+        </div>
+        <div class="card">
+          <form id="blacklistForm" class="form-row" style="margin-bottom: 20px;">
+            <div class="form-group col">
+              <input type="email" id="blEmail" class="form-control" placeholder="Enter email to suppress" required>
+            </div>
+            <div class="form-group col">
+              <input type="text" id="blReason" class="form-control" placeholder="Reason (e.g. Unsubscribed, Bounced)">
+            </div>
+            <button type="submit" class="btn btn-danger" style="height: 42px;">Add to Suppression</button>
+          </form>
+          <div class="table-container">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Suppressed Email</th>
+                  <th>Reason</th>
+                  <th>Added At</th>
+                </tr>
+              </thead>
+              <tbody id="blacklistTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 15. TAB: AI PITCH STUDIO ================= -->
+      <section id="tab-ai-generator" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>AI Pitch & Subject Line Studio</h1>
+            <p class="subtitle">Enter any website URL to automatically craft 3 personalized subject lines and a tailored pitch</p>
+          </div>
+        </div>
+        <div class="card">
+          <form id="pitchStudioForm">
+            <div class="form-row">
+              <div class="form-group col">
+                <label>Target Website URL</label>
+                <input type="text" id="pitchTargetUrl" class="form-control" placeholder="e.g. techcrunch.com, seoroundtable.com" value="searchenginewatch.com" required>
+              </div>
+              <div class="form-group col">
+                <label>Target Niche</label>
+                <select id="pitchTargetNiche" class="form-control">
+                  <option value="Digital Marketing & SEO">Digital Marketing & SEO</option>
+                  <option value="Artificial Intelligence & Tech">Artificial Intelligence & Tech</option>
+                  <option value="SaaS & Cloud Computing">SaaS & Cloud Computing</option>
+                  <option value="Business & Startups">Business & Startups</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col">
+                <label>Outreach Angle</label>
+                <select id="pitchAngle" class="form-control">
+                  <option value="free_guestpost">Free Contributor Feature</option>
+                  <option value="link_exchange">Mutual Link Exchange</option>
+                  <option value="expert_roundup">Expert Article Collaboration</option>
+                </select>
+              </div>
+              <div class="form-group col">
+                <label>Tone of Voice</label>
+                <select id="pitchTone" class="form-control">
+                  <option value="authoritative">Authoritative & Editorial</option>
+                  <option value="friendly">Friendly & Collaborative</option>
+                  <option value="direct">Short & Direct</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">✨ Generate 3 High-Impact Pitches</button>
+          </form>
+
+          <div id="aiPitchOutput" class="activity-list" style="margin-top: 24px;"></div>
+        </div>
+      </section>
+
+      <!-- ================= 16. TAB: INBOX & REPLIES ================= -->
+      <section id="tab-inbox" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Replies & Incoming Leads Manager</h1>
+            <p class="subtitle">Track prospect responses, analyze sentiment, and dispatch fast follow-ups</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="table-container">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Sender & Domain</th>
+                  <th>Subject</th>
+                  <th>Snippet</th>
+                  <th>Sentiment</th>
+                  <th>Received</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="inboxTableBody">
+                <!-- Dynamic replies -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 17. TAB: DOMAIN DELIVERABILITY & SPAM SCANNER ================= -->
+      <section id="tab-domain-health" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Domain Reputation & Authentication Suite</h1>
+            <p class="subtitle">Live verification of SPF, DKIM, DMARC, and Real-time Spam Trigger Scanner</p>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon opened-bg">✓</div>
+            <div class="stat-info">
+              <span class="stat-label">SPF Record</span>
+              <h2>PASS</h2>
+              <span class="stat-meta text-success">include:_spf.mail.hostinger.com</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon opened-bg">✓</div>
+            <div class="stat-info">
+              <span class="stat-label">DKIM Signature</span>
+              <h2>PASS</h2>
+              <span class="stat-meta text-success">Verified 2048-bit key</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon opened-bg">✓</div>
+            <div class="stat-info">
+              <span class="stat-label">DMARC Policy</span>
+              <h2>ACTIVE</h2>
+              <span class="stat-meta text-primary">v=DMARC1; p=none</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon sent-bg">10/10</div>
+            <div class="stat-info">
+              <span class="stat-label">Inbox Placement</span>
+              <h2>9.8 / 10</h2>
+              <span class="stat-meta text-success">Zero Blacklists</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-header">
+            <h3>Live Spam Trigger Scanner</h3>
+          </div>
+          <p class="card-desc">Paste any email draft below to scan for spam filter trigger words before sending.</p>
+          <div class="form-group">
+            <textarea id="spamScannerInput" class="form-control" rows="4" placeholder="Paste your email draft here to scan..."></textarea>
+          </div>
+          <button class="btn btn-secondary" onclick="runSpamCheck()">🔍 Scan for Spam Triggers</button>
+          <div id="spamScannerResult" class="test-result-box hidden" style="margin-top: 14px;"></div>
+        </div>
+      </section>
+
+      <!-- ================= 18. TAB: SMTP SETTINGS ================= -->
+      <section id="tab-smtp-settings" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Hostinger SMTP Configuration</h1>
+            <p class="subtitle">Manage server credentials, sender name, and tracking URLs</p>
+          </div>
+        </div>
+        <div class="card">
+          <form id="settingsForm">
+            <div class="form-group">
+              <label>SMTP Host</label>
+              <input type="text" id="setSmtpHost" class="form-control" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group col">
+                <label>SMTP Port</label>
+                <input type="number" id="setSmtpPort" class="form-control" required>
+              </div>
+              <div class="form-group col">
+                <label>Sender Email</label>
+                <input type="email" id="setSmtpUser" class="form-control" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>SMTP Password</label>
+              <input type="password" id="setSmtpPass" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Sender Display Name (Never individual names)</label>
+              <input type="text" id="setFromName" class="form-control" value="DailyAura Editorial Team" required>
+            </div>
+            <div class="form-group">
+              <label>Public App URL (Used for Tracking Pixel & Links)</label>
+              <input type="text" id="setAppUrl" class="form-control">
+            </div>
+
+            <div class="toggle-group">
+              <label class="toggle-switch">
+                <input type="checkbox" id="setTrackOpens" checked>
+                <span class="slider"></span>
+              </label>
+              <div>
+                <strong>Enable Open Tracking (1x1 Transparent Pixel)</strong>
+                <p class="sub-hint">Records when recipient views your message</p>
+              </div>
+            </div>
+
+            <div class="toggle-group">
+              <label class="toggle-switch">
+                <input type="checkbox" id="setTrackClicks" checked>
+                <span class="slider"></span>
+              </label>
+              <div>
+                <strong>Enable Link Click Tracking</strong>
+                <p class="sub-hint">Records when recipient clicks your website URL</p>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 16px;">Save SMTP Configuration</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ================= 19. TAB: SECURITY ================= -->
+      <section id="tab-security" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Admin Security & Access Controls</h1>
+            <p class="subtitle">Update dashboard credentials and access session</p>
+          </div>
+        </div>
+        <div class="card">
+          <form id="adminCredForm">
+            <div class="form-group">
+              <label>Admin Username</label>
+              <input type="text" id="setAdminUser" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>New Password</label>
+              <input type="password" id="setAdminPass" class="form-control" placeholder="Enter new password">
+            </div>
+            <button type="submit" class="btn btn-secondary">Update Credentials</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ================= 20. TAB: BACKUP & CSV EXPORT ================= -->
+      <section id="tab-backup-export" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Backup & Data Export Hub</h1>
+            <p class="subtitle">1-Click download of your entire leads database, engagement logs, and campaign history</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="quick-settings-body">
+            <div class="info-row">
+              <span>Export All Leads to CSV:</span>
+              <a href="/api/export/csv" class="btn btn-success">📥 Download leads.csv</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================== -->
+      <!-- WORKSPACE B: CONTRIBUTOR & EMAIL MARKETING HUB TABS (SEPARATE ENGINE) -->
+      <!-- ==================================================================== -->
+
+      <!-- TAB C1: CONTRIBUTOR DASHBOARD -->
+      <section id="tab-contrib-dashboard" class="tab-pane">
+        <div class="contrib-hero-banner">
+          <div class="contrib-hero-content">
+            <div class="login-badge-top" style="margin-bottom: 8px;">
+              <span class="pulse-orb" style="background: #10b981; box-shadow: 0 0 8px #10b981;"></span> Contributor Lifecycle Engine
+            </div>
+            <h2>DailyAura Contributor & Email Marketing Hub</h2>
+            <p>Dedicated automation system for registered authors on <code>guestposts.dailyaura.in</code>. Auto-dispatches instant Welcome SLAs, Day 2–4 featured image showcases, and Day 10 author retention follow-ups.</p>
+          </div>
+          <div>
+            <button id="btnOpenNewContributorModal" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); border: none; white-space: nowrap;">
+              + Register New Author
+            </button>
+          </div>
+        </div>
+
+        <!-- 6 KPI SCOREBOARD -->
+        <div class="contrib-kpi-grid">
+          <div class="contrib-kpi-card">
+            <div class="kpi-label">Registered Authors <span>👥</span></div>
+            <div class="kpi-value" id="kpiContribTotal">--</div>
+            <div class="kpi-meta"><span class="dot"></span> Real WP users</div>
+          </div>
+          <div class="contrib-kpi-card">
+            <div class="kpi-label">Welcome SLAs Sent <span>⚡</span></div>
+            <div class="kpi-value" id="kpiContribWelcome">--</div>
+            <div class="kpi-meta" style="color: #34d399;">100% SLA delivery</div>
+          </div>
+          <div class="contrib-kpi-card">
+            <div class="kpi-label">Day 2-4 Digests <span>📰</span></div>
+            <div class="kpi-value" id="kpiContribDay2">--</div>
+            <div class="kpi-meta" style="color: #60a5fa;">With featured images</div>
+          </div>
+          <div class="contrib-kpi-card">
+            <div class="kpi-label">Day 10 Retentions <span>🎯</span></div>
+            <div class="kpi-value" id="kpiContribDay10">--</div>
+            <div class="kpi-meta" style="color: #c084fc;">Indexing reviews</div>
+          </div>
+          <div class="contrib-kpi-card">
+            <div class="kpi-label">Contributor Open Rate <span>📬</span></div>
+            <div class="kpi-value" id="kpiContribOpenRate">--%</div>
+            <div class="kpi-meta" style="color: #10b981;">Active subscribers</div>
+          </div>
+          <div class="contrib-kpi-card">
+            <div class="kpi-label">Click-Through Rate <span>🖱️</span></div>
+            <div class="kpi-value" id="kpiContribClickRate">--%</div>
+            <div class="kpi-meta" style="color: #38bdf8;">Article & Pitch links</div>
+          </div>
+        </div>
+
+        <!-- QUICK ACTION SUMMARY & RECENT STREAM -->
+        <div class="card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <h3>Live Contributor Engagement Stream</h3>
+            <button class="btn btn-ghost btn-xs" id="btnRefreshContribStream">🔄 Refresh Stream</button>
+          </div>
+          <div class="table-responsive">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Recipient / Contributor</th>
+                  <th>Email Type</th>
+                  <th>Status</th>
+                  <th>Subject</th>
+                </tr>
+              </thead>
+              <tbody id="contribRecentStreamTable">
+                <tr><td colspan="5" style="text-align:center; padding: 20px; color: var(--text-muted);">Loading contributor stream...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB C2: REGISTERED CONTRIBUTORS -->
+      <section id="tab-contrib-users" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Registered Website Authors & Contributors</h1>
+            <p class="subtitle">Directly synced from <code>guestposts.dailyaura.in</code>. Execute 1-click lifecycle dispatches anytime.</p>
+          </div>
+          <div class="header-actions">
+            <button id="btnSimulateRegistration" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); border: none;">
+              ⚡ Simulate Website Sign-Up (Instant SLA)
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-filter-bar" style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+            <input type="text" id="contribSearchInput" class="form-control" placeholder="Search by name, email or website..." style="max-width: 320px;">
+            <select id="contribStageFilter" class="form-control" style="max-width: 220px;">
+              <option value="">All Lifecycle Stages</option>
+              <option value="welcome_sent">Welcome SLA Sent</option>
+              <option value="day2_digest_sent">Day 2-4 Digest Sent</option>
+              <option value="day10_retention_sent">Day 10 Retention Sent</option>
+              <option value="draft_submitted">Draft Submitted</option>
+            </select>
+          </div>
+
+          <div class="table-responsive">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Author / Contributor</th>
+                  <th>Website / Org</th>
+                  <th>Niche</th>
+                  <th>Registered</th>
+                  <th>Articles</th>
+                  <th>Current Lifecycle Stage</th>
+                  <th style="text-align: right;">1-Click Actions</th>
+                </tr>
+              </thead>
+              <tbody id="contributorsTableBody">
+                <tr><td colspan="7" style="text-align:center; padding: 24px; color: var(--text-muted);">Loading contributors...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB C3: 3-STAGE LIFECYCLE FLOW -->
+      <section id="tab-contrib-triggers" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>3-Stage Automated Lifecycle Sequence</h1>
+            <p class="subtitle">Event-driven onboarding, content showcase with featured images, and author indexing reviews</p>
+          </div>
+        </div>
+
+        <div class="lifecycle-timeline">
+          <!-- STAGE 1 CARD -->
+          <div class="timeline-stage-card">
+            <div class="stage-badge-header">
+              <span class="stage-num-pill emerald">1</span>
+              <span class="stage-timing-pill instant">⚡ Instant SLA (Day 0)</span>
+            </div>
+            <h3>Instant Welcome SLA & Guidelines</h3>
+            <p>Dispatched automatically the exact second an author registers on <code>guestposts.dailyaura.in</code> via webhook or API.</p>
+            <ul class="stage-features-list">
+              <li><span class="dot"></span> 24–48 Hour Review Turnaround SLA guarantee</li>
+              <li><span class="dot"></span> Permanent Do-Follow link specifications</li>
+              <li><span class="dot"></span> Author profile & bio setup instructions</li>
+            </ul>
+            <div class="stage-actions">
+              <button class="btn btn-secondary btn-block preview-stage-tmpl-btn" data-template-id="tmpl-contrib-welcome">
+                👁️ Preview SLA Email
+              </button>
+            </div>
+          </div>
+
+          <!-- STAGE 2 CARD -->
+          <div class="timeline-stage-card">
+            <div class="stage-badge-header">
+              <span class="stage-num-pill">2</span>
+              <span class="stage-timing-pill">📅 Day 2 to 4 Digest</span>
+            </div>
+            <h3>Featured Post Showcase & Guest Call</h3>
+            <p>Rich responsive HTML email showcasing 4–5 latest published blog posts from DailyAura with their featured images, titles, and excerpts.</p>
+            <ul class="stage-features-list">
+              <li><span class="dot"></span> 4–5 High-resolution featured images</li>
+              <li><span class="dot"></span> Direct links to live DailyAura articles</li>
+              <li><span class="dot"></span> "Submit Your Article" primary CTA button</li>
+            </ul>
+            <div class="stage-actions">
+              <button class="btn btn-primary btn-block preview-stage-tmpl-btn" data-template-id="tmpl-contrib-day2">
+                📰 Preview HTML Digest
+              </button>
+            </div>
+          </div>
+
+          <!-- STAGE 3 CARD -->
+          <div class="timeline-stage-card">
+            <div class="stage-badge-header">
+              <span class="stage-num-pill purple">3</span>
+              <span class="stage-timing-pill">🎯 Day 10 Retention</span>
+            </div>
+            <h3>Day 10 Indexing Review & Column Invite</h3>
+            <p>Nurtures registered contributors after their first week to check Google Search Console indexing and invite a second draft submission.</p>
+            <ul class="stage-features-list">
+              <li><span class="dot"></span> Google fast-indexing confirmation</li>
+              <li><span class="dot"></span> VIP Author Column invitation</li>
+              <li><span class="dot"></span> 3 tailored topic suggestions in their niche</li>
+            </ul>
+            <div class="stage-actions">
+              <button class="btn btn-secondary btn-block preview-stage-tmpl-btn" data-template-id="tmpl-contrib-day10">
+                🎯 Preview Day 10 Email
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB C4: PUBLISHED ARTICLES -->
+      <section id="tab-contrib-articles" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>DailyAura Live Blog Feed Catalog</h1>
+            <p class="subtitle">Real published articles from <code>guestposts.dailyaura.in</code>. These posts and featured images are dynamically compiled into Day 2–4 showcase emails.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-primary preview-stage-tmpl-btn" data-template-id="tmpl-contrib-day2">
+              🚀 Preview HTML Digest with These Articles
+            </button>
+          </div>
+        </div>
+
+        <div class="articles-catalog-grid" id="articlesCatalogGrid">
+          <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">
+            Loading live articles from DailyAura...
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB C5: MARKETING TEMPLATES & AI STUDIO -->
+      <section id="tab-contrib-templates" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Contributor Email Templates & AI Studio</h1>
+            <p class="subtitle">Customizable lifecycle templates and AI generator strictly adhering to professional English</p>
+          </div>
+        </div>
+
+        <!-- AI BUILDER CARD -->
+        <div class="card" style="margin-bottom: 24px; border-color: rgba(236, 72, 153, 0.3);">
+          <div class="card-header">
+            <h3>🤖 AI Marketing Email Generator (English Output)</h3>
+            <span class="badge-pill pink">Strictly English Responses</span>
+          </div>
+          <p class="card-desc">Enter your requirements or instructions (in Punjabi or English); the AI will strictly generate high-converting, professional English templates with responsive HTML and 3 subject line variants.</p>
+          <div class="form-row">
+            <div class="form-group" style="flex: 1;">
+              <input type="text" id="aiTmplPromptInput" class="form-control" placeholder="e.g. Generate a Day 15 retention email offering a permanent author column badge...">
+            </div>
+            <div class="form-group" style="width: 220px;">
+              <select id="aiTmplCategorySelect" class="form-control">
+                <option value="lifecycle">Contributor Lifecycle</option>
+                <option value="digest">HTML Newsletter Digest</option>
+                <option value="advertising">Sponsored / Advertising</option>
+                <option value="outreach">Cold Outreach</option>
+              </select>
+            </div>
+            <div>
+              <button id="btnRunAiTmplBuilder" class="btn btn-primary" style="height: 42px;">✨ Generate Template</button>
+            </div>
+          </div>
+          <div id="aiTmplResultBox" class="hidden" style="margin-top: 16px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 10px; padding: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <strong style="color: #60a5fa;" id="aiTmplGenSubject">Generated Subject</strong>
+              <button id="btnSaveAiGeneratedTmpl" class="btn btn-success btn-xs">💾 Save to Template Studio</button>
+            </div>
+            <pre id="aiTmplGenBody" style="white-space: pre-wrap; font-family: inherit; font-size: 13px; color: #cbd5e1; max-height: 220px; overflow-y: auto;"></pre>
+          </div>
+        </div>
+
+        <!-- TEMPLATE CARDS GRID -->
+        <div class="template-studio-grid" id="contribTemplatesGrid">
+          <div style="grid-column: 1/-1; text-align: center; padding: 30px; color: var(--text-muted);">
+            Loading marketing templates...
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB C6: DELIVERY & CLICK STREAM -->
+      <section id="tab-contrib-stream" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Contributor Delivery, Opens & Click Stream</h1>
+            <p class="subtitle">Complete audit trail of all contributor lifecycle emails dispatched via Hostinger SMTP</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-responsive">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Recipient / Author</th>
+                  <th>Email Stage</th>
+                  <th>Status</th>
+                  <th>Opened</th>
+                  <th>Clicked</th>
+                  <th>Tracking ID</th>
+                </tr>
+              </thead>
+              <tbody id="contribFullStreamTable">
+                <tr><td colspan="7" style="text-align:center; padding: 24px; color: var(--text-muted);">Loading delivery stream...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB C7: WEBHOOK & SMTP HEALTH -->
+      <section id="tab-contrib-settings" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>WordPress Webhook & Hostinger SMTP Status</h1>
+            <p class="subtitle">Configure automated subscriber intake from <code>guestposts.dailyaura.in</code></p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+          <h3>WordPress Integration Webhook URL</h3>
+          <p class="card-desc">Configure your WordPress registration hook (e.g. via WP Webhooks or Code Snippets) to send POST requests to this endpoint when a user signs up:</p>
+          <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <input type="text" class="form-control" readonly value="http://localhost:3000/api/contributors/register" id="wpWebhookUrlInput">
+            <button class="btn btn-secondary" onclick="navigator.clipboard.writeText(document.getElementById('wpWebhookUrlInput').value); alert('Webhook URL copied!');">📋 Copy</button>
+          </div>
+          <div style="margin-top: 14px; font-size: 12px; color: var(--text-muted);">
+            Expected JSON Payload: <code>{ "name": "Author Name", "email": "author@domain.com", "website": "https://example.com", "niche": "Technology" }</code>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Hostinger SMTP Contributor Engine</h3>
+          <div class="quick-settings-body" style="margin-top: 14px;">
+            <div class="info-row">
+              <span>Hostinger Server:</span>
+              <strong>smtp.hostinger.com:465 (SSL)</strong>
+            </div>
+            <div class="info-row">
+              <span>Sending Account:</span>
+              <strong>outreach@dailyaura.in</strong>
+            </div>
+            <div class="info-row">
+              <span>Email Sender Signature:</span>
+              <strong>DailyAura Editorial Team</strong>
+            </div>
+            <div class="info-row">
+              <span>Target Website:</span>
+              <strong>https://guestposts.dailyaura.in</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ADD CAMPAIGN MODAL -->
+  <div id="newCampModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Create New Outreach Campaign</h3>
+        <button class="modal-close" id="closeNewCampModal">&times;</button>
+      </div>
+      <form id="newCampForm">
+        <div class="form-group">
+          <label>Campaign Name</label>
+          <input type="text" id="newCampName" class="form-control" placeholder="e.g. November High-DA Tech Outreach" required>
+        </div>
+        <div class="form-group">
+          <label>Target Niche</label>
+          <select id="newCampNiche" class="form-control">
+            <option value="All Niches">All Niches</option>
+            <option value="Artificial Intelligence & Machine Learning">Artificial Intelligence & Machine Learning</option>
+            <option value="Digital Marketing & SEO Link Building">Digital Marketing & SEO Link Building</option>
+            <option value="Technology & Software Development">Technology & Software Development</option>
+            <option value="SaaS, Cloud Computing & DevOps">SaaS, Cloud Computing & DevOps</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Audience Segment</label>
+          <select id="newCampSegment" class="form-control">
+            <option value="Never Contacted">Never Contacted (Fresh Leads)</option>
+            <option value="Sent Last Week">Sent Last Week (Follow-up Candidates)</option>
+            <option value="All Prospects">All Prospects in Niche</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group col">
+            <label>Min Delay (Sec)</label>
+            <input type="number" id="newCampDelayMin" class="form-control" value="120" min="120">
+          </div>
+          <div class="form-group col">
+            <label>Max Delay (Sec)</label>
+            <input type="number" id="newCampDelayMax" class="form-control" value="180" min="150">
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelNewCamp">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Campaign</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD LEAD MODAL -->
+  <div id="addLeadModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Add New Prospect</h3>
+        <button class="modal-close" id="closeAddLeadModal">&times;</button>
+      </div>
+      <form id="addLeadForm">
+        <div class="form-group">
+          <label>Contact / Team Name</label>
+          <input type="text" id="newLeadName" class="form-control" placeholder="e.g. SEO Team, Editorial Team" required>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="newLeadEmail" class="form-control" placeholder="e.g. outreach@example.com" required>
+        </div>
+        <div class="form-group">
+          <label>Website Name / Domain</label>
+          <input type="text" id="newLeadWebsite" class="form-control" placeholder="e.g. TechPulseDaily" required>
+        </div>
+        <div class="form-group">
+          <label>Category / Niche</label>
+          <select id="newLeadNiche" class="form-control">
+            <option value="Artificial Intelligence & Machine Learning">Artificial Intelligence & Machine Learning</option>
+            <option value="Digital Marketing & SEO Link Building" selected>Digital Marketing & SEO Link Building</option>
+            <option value="Technology & Software Development">Technology & Software Development</option>
+            <option value="SaaS, Cloud Computing & DevOps">SaaS, Cloud Computing & DevOps</option>
+            <option value="Business, Startups & Entrepreneurship">Business, Startups & Entrepreneurship</option>
+            <option value="Finance, Fintech & Web3">Finance, Fintech & Web3</option>
+            <option value="Health, Fitness & Wellness">Health, Fitness & Wellness</option>
+            <option value="E-Commerce, Web Design & UI/UX">E-Commerce, Web Design & UI/UX</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelAddLead">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Lead</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- IMPORT CSV MODAL -->
+  <div id="importModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Import Leads from CSV</h3>
+        <button class="modal-close" id="closeImportModal">&times;</button>
+      </div>
+      <p class="modal-desc">Paste CSV lines formatted as: <code>Name, Email, Website, Niche</code></p>
+      <form id="importForm">
+        <div class="form-group">
+          <textarea id="importCsvText" class="form-control" rows="8" placeholder="Guest Post Team, outreach@techblog.com, TechBlog, AI & Tech&#10;Amit Chavan, amitchavan0203@gmail.com, Ultimate Tech News, SEO & Marketing"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelImport">Cancel</button>
+          <button type="submit" class="btn btn-primary">Import Batch</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- NEW CONTRIBUTOR / SIMULATE SIGNUP MODAL -->
+  <div id="newContributorModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Register New DailyAura Contributor</h3>
+        <button class="modal-close" id="closeNewContribModal">&times;</button>
+      </div>
+      <p class="modal-desc">Simulate a real author registration on <code>guestposts.dailyaura.in</code> or add a new contributor manually.</p>
+      <form id="newContributorForm">
+        <div class="form-group">
+          <label>Author / Contact Name</label>
+          <input type="text" id="newContribName" class="form-control" placeholder="e.g. David Vance" required>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="newContribEmail" class="form-control" placeholder="e.g. david@techradar-guest.com" required>
+        </div>
+        <div class="form-group">
+          <label>Website Name / Domain</label>
+          <input type="text" id="newContribWebsite" class="form-control" placeholder="e.g. Tech Radar Hub" required>
+        </div>
+        <div class="form-group">
+          <label>Category / Niche</label>
+          <select id="newContribNiche" class="form-control">
+            <option value="Artificial Intelligence & Machine Learning">Artificial Intelligence & Machine Learning</option>
+            <option value="Digital Marketing & SEO Link Building" selected>Digital Marketing & SEO Link Building</option>
+            <option value="Technology & Software Development">Technology & Software Development</option>
+            <option value="SaaS, Cloud Computing & DevOps">SaaS, Cloud Computing & DevOps</option>
+            <option value="Business, Startups & Entrepreneurship">Business, Startups & Entrepreneurship</option>
+            <option value="Finance, Fintech & Web3">Finance, Fintech & Web3</option>
+            <option value="Health, Fitness & Wellness">Health, Fitness & Wellness</option>
+            <option value="E-Commerce, Web Design & UI/UX">E-Commerce, Web Design & UI/UX</option>
+          </select>
+        </div>
+        <div class="form-group" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 8px; padding: 12px; margin-top: 14px;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 0; color: #6ee7b7; font-weight: 600;">
+            <input type="checkbox" id="newContribAutoWelcome" checked style="width: 16px; height: 16px;">
+            <span>⚡ Automatically dispatch Instant Welcome SLA email immediately via Hostinger SMTP</span>
+          </label>
+        </div>
+        <div class="modal-actions" style="margin-top: 18px;">
+          <button type="button" class="btn btn-ghost" id="cancelNewContrib">Cancel</button>
+          <button type="submit" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); border: none;">
+            Register & Dispatch Welcome SLA
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+
+  <!-- LIVE HTML EMAIL PREVIEW MODAL -->
+  <div id="htmlPreviewModal" class="modal-overlay hidden">
+    <div class="preview-modal-box">
+      <div class="modal-header">
+        <div>
+          <h3 id="previewModalTitle">HTML Email Live Preview</h3>
+          <span id="previewModalSubject" style="font-size: 12px; color: var(--text-muted);">Subject: ...</span>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <div class="viewport-switch-bar">
+            <button class="viewport-btn active" id="viewDesktopBtn">&#x1F4BB; Desktop View</button>
+            <button class="viewport-btn" id="viewMobileBtn">&#x1F4F1; Mobile View (375px)</button>
+          </div>
+          <button class="modal-close" id="closeHtmlPreviewModal">&times;</button>
+        </div>
+      </div>
+      <div class="preview-container-viewport">
+        <div id="previewFrameWrapper" class="preview-frame-desktop">
+          <iframe id="previewEmailIframe" style="width: 100%; height: 500px; border: none; background: #080d1a; border-radius: 8px;"></iframe>
+        </div>
+      </div>
+      <div class="modal-actions" style="margin-top: 14px;">
+        <button type="button" class="btn btn-ghost" id="cancelHtmlPreview">Close</button>
+        <button type="button" class="btn btn-primary" id="previewUseInCampBtn">&#x1F680; Use This Template in Campaign</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE CUSTOMIZER / EDITOR MODAL -->
+  <div id="editTemplateModal" class="modal-overlay hidden">
+    <div class="modal-box" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 id="editTmplModalTitle">Customize Email Template</h3>
+        <button class="modal-close" id="closeEditTmplModal">&times;</button>
+      </div>
+      <form id="editTemplateForm">
+        <input type="hidden" id="editTmplId">
+        <div class="form-row">
+          <div class="form-group col">
+            <label>Template Name</label>
+            <input type="text" id="editTmplName" class="form-control" required>
+          </div>
+          <div class="form-group col">
+            <label>Category</label>
+            <select id="editTmplCategory" class="form-control">
+              <option value="outreach">Cold Outreach</option>
+              <option value="lifecycle">Contributor Lifecycle</option>
+              <option value="digest">HTML Newsletter Digest</option>
+              <option value="advertising">Sponsored / Advertising</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col">
+            <label>Stage / Timing</label>
+            <input type="text" id="editTmplStage" class="form-control" placeholder="e.g. Day 0, Day 7, Day 15, Bi-Weekly">
+          </div>
+          <div class="form-group col">
+            <label>Format</label>
+            <select id="editTmplFormat" class="form-control">
+              <option value="text">Plain Text</option>
+              <option value="html">Rich HTML</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Subject Line</label>
+          <input type="text" id="editTmplSubject" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Plain Text Body (Supported: <code>{{name}}</code>, <code>{{website}}</code>, <code>{{niche}}</code>)</label>
+          <textarea id="editTmplBodyText" class="form-control" rows="6" required></textarea>
+        </div>
+        <div class="form-group" id="editTmplHtmlGroup">
+          <label>HTML Body (Optional - leave empty for auto-generation)</label>
+          <textarea id="editTmplBodyHtml" class="form-control" rows="6" placeholder="Paste custom HTML template here..."></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelEditTmpl">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Template</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
