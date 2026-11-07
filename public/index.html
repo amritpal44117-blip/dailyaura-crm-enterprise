@@ -25,11 +25,11 @@
       <form id="loginForm">
         <div class="form-group">
           <label>Admin Username</label>
-          <input type="text" id="loginUsername" value="admin" required placeholder="Enter username">
+          <input type="text" id="loginUsername" required placeholder="Enter admin username" autocomplete="username">
         </div>
         <div class="form-group">
           <label>Password</label>
-          <input type="password" id="loginPassword" value="dailyaura@123" required placeholder="Enter password">
+          <input type="password" id="loginPassword" required placeholder="Enter password" autocomplete="current-password">
         </div>
 
         <!-- DESTINATION WORKSPACE SELECTOR -->
@@ -60,7 +60,6 @@
 
         <div id="loginError" class="login-error hidden"></div>
         <button type="submit" id="loginSubmitBtn" class="btn btn-primary btn-block">🚀 Sign In to Cold Outreach Suite</button>
-        <p class="login-hint">Credentials: <code>admin</code> / <code>dailyaura@123</code></p>
       </form>
     </div>
   </div>
@@ -237,9 +236,9 @@
       </nav>
 
       <div class="sidebar-footer">
-        <button id="sidebarWorkspaceSwitchBtn" class="sidebar-workspace-switcher to-contributor" title="Switch Workspace">
+        <button id="sidebarWorkspaceSwitchBtn" class="sidebar-workspace-switcher" title="Switch Profile">
           <span class="switch-icon">⇄</span>
-          <span id="sidebarSwitchBtnLabel">Switch to Contributor Hub</span>
+          <span id="sidebarSwitchBtnLabel">Switch Profile</span>
         </button>
         <div class="user-info">
           <div class="avatar" id="sidebarUserAvatar">DA</div>
@@ -258,30 +257,14 @@
     <!-- MAIN CONTENT VIEW -->
     <main class="main-content">
 
-      <!-- ================= TOP ULTRA-PREMIUM STATUS BAR ================= -->
+      <!-- ================= TOP ULTRA-CLEAN HEADER BAR ================= -->
       <div class="enterprise-header-bar">
         <div class="header-breadcrumb">
-          <span class="badge-tag">ENTERPRISE CRM</span>
+          <span class="badge-tag" id="headerWorkspaceTag">COLD OUTREACH</span>
           <span class="slash">/</span>
           <strong id="activeBreadcrumbTitle">Executive Dashboard</strong>
         </div>
-        <div class="workspace-mode-switcher">
-          <button class="mode-btn active" id="modeColdOutreachBtn" data-mode="cold_outreach" title="Cold Outreach & Link Building Mode">
-            <span>&#x1F680; Cold Outreach</span>
-          </button>
-          <button class="mode-btn" id="modeContributorLifecycleBtn" data-mode="contributor_lifecycle" title="Contributor Lifecycle, Onboarding & HTML Newsletters">
-            <span>&#x1F465; Contributor & Newsletter</span>
-          </button>
-        </div>
-        <div class="header-right-meta">
-          <div class="system-status-pill">
-            <span class="pulse-dot"></span> Hostinger SMTP: <strong>Active</strong>
-          </div>
-          <div class="safety-indicator">
-            <span class="shield-icon">🛡️</span> 2-Min Pacing: <strong>120-180s</strong>
-          </div>
-          <div class="live-clock" id="systemLiveClock">--:--:--</div>
-        </div>
+        <div class="live-clock" id="systemLiveClock">--:--:--</div>
       </div>
 
       <!-- ================= 1. TAB: DASHBOARD ================= -->
@@ -294,6 +277,19 @@
           <div class="header-actions">
             <button id="quickStartBtn" class="btn btn-success">▶ Start Outreach</button>
             <button id="quickPauseBtn" class="btn btn-warning hidden">⏸ Pause Outreach</button>
+          </div>
+        </div>
+
+        <!-- DASHBOARD SYSTEM STATUS BAR (SHOWN EXCLUSIVELY ON DASHBOARD) -->
+        <div class="dashboard-system-bar">
+          <div class="system-status-pill">
+            <span class="pulse-dot"></span> Hostinger SMTP: <strong>Active (smtp.hostinger.com:465)</strong>
+          </div>
+          <div class="safety-indicator">
+            <span class="shield-icon">🛡️</span> 2-Min Pacing: <strong>120-180s Safe Gap</strong>
+          </div>
+          <div class="system-status-pill" style="background: rgba(59, 130, 246, 0.12); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.25);">
+            <span>🌐 Target Domain:</span> <strong>guestposts.dailyaura.in</strong>
           </div>
         </div>
 
@@ -390,6 +386,11 @@
           <div>
             <h1>DailyAura AI Outreach Assistant</h1>
             <p class="subtitle">Interactive AI intelligence — responds strictly in professional English to control campaigns, write pitches, and optimize deliverability</p>
+          </div>
+          <div class="header-actions">
+            <button id="btnOpenVoiceCall" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); border: none; display: flex; align-items: center; gap: 8px; font-weight: 700; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);">
+              <span>📞</span> <span>Start AI Voice Call</span>
+            </button>
           </div>
         </div>
 
@@ -1298,6 +1299,19 @@
           </div>
         </div>
 
+        <!-- CONTRIBUTOR SYSTEM STATUS BAR -->
+        <div class="dashboard-system-bar">
+          <div class="system-status-pill">
+            <span class="pulse-dot"></span> Hostinger SMTP: <strong>Active (smtp.hostinger.com:465)</strong>
+          </div>
+          <div class="safety-indicator">
+            <span class="shield-icon">⚡</span> Event Engine: <strong>Instant SLA Auto-Dispatch</strong>
+          </div>
+          <div class="system-status-pill" style="background: rgba(16, 185, 129, 0.12); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25);">
+            <span>🌐 WordPress Sync:</span> <strong>guestposts.dailyaura.in</strong>
+          </div>
+        </div>
+
         <!-- 6 KPI SCOREBOARD -->
         <div class="contrib-kpi-grid">
           <div class="contrib-kpi-card">
@@ -1783,8 +1797,6 @@
     </div>
   </div>
 
-  <script src="js/app.js"></script>
-
   <!-- LIVE HTML EMAIL PREVIEW MODAL -->
   <div id="htmlPreviewModal" class="modal-overlay hidden">
     <div class="preview-modal-box">
@@ -1870,5 +1882,53 @@
     </div>
   </div>
 
+  <!-- AI VOICE CALL INTERACTIVE MODAL -->
+  <div id="aiVoiceCallModal" class="modal-overlay hidden">
+    <div class="voice-call-card">
+      <div class="call-top-bar">
+        <div class="call-timer-badge">
+          <span class="live-call-dot"></span> <span id="callDuration">00:00</span>
+        </div>
+        <button class="modal-close" id="closeVoiceCallModal">&times;</button>
+      </div>
+
+      <div class="call-avatar-wrap">
+        <div class="call-pulsing-rings" id="callAuraRings">
+          <div class="ring r1"></div>
+          <div class="ring r2"></div>
+          <div class="ring r3"></div>
+        </div>
+        <div class="call-avatar-circle">
+          <span class="avatar-icon">🤖</span>
+        </div>
+      </div>
+
+      <h3 class="call-agent-name">DailyAura AI Intelligence Copilot</h3>
+      <p class="call-agent-sub" id="callStatusText">Ready to speak. Tap "Start Call" to begin.</p>
+
+      <!-- LIVE TRANSCRIPT -->
+      <div class="call-transcript-box" id="callTranscriptBox">
+        <div class="transcript-msg agent-msg">
+          <strong>DailyAura AI:</strong> Hello! I am your AI Outreach & Marketing Assistant. Speak to me in Punjabi or English, and I will answer you in real-time.
+        </div>
+      </div>
+
+      <!-- VOICE CONTROLS -->
+      <div class="call-controls-bar">
+        <button id="btnToggleMic" class="call-action-btn mic-btn" title="Toggle Microphone">
+          <span id="micIcon">🎙️</span>
+        </button>
+        <button id="btnStartCall" class="call-action-btn connect-btn" title="Start Call">
+          <span>📞 Start Call</span>
+        </button>
+        <button id="btnEndCall" class="call-action-btn end-btn hidden" title="End Call">
+          <span>🔴 End Call</span>
+        </button>
+      </div>
+      <p class="call-note">Speak in Punjabi or English. AI automatically speaks back in natural professional English.</p>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
 </body>
 </html>

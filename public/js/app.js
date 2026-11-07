@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupSpamScanner();
   setupInboxManager();
   setupAiChat();
+  setupVoiceCall();
   setupSettings();
   setupBackupExport();
 
@@ -188,28 +189,17 @@ function loadAllData() {
 let applyWorkspaceMode = null;
 
 function setupModeSwitcher() {
-  const coldBtn = document.getElementById('modeColdOutreachBtn');
-  const contribBtn = document.getElementById('modeContributorLifecycleBtn');
   const sidebarSwitchBtn = document.getElementById('sidebarWorkspaceSwitchBtn');
   const sidebarSwitchBtnLabel = document.getElementById('sidebarSwitchBtnLabel');
   const navCold = document.getElementById('navColdOutreach');
   const navContrib = document.getElementById('navContributorHub');
   const sidebarBrandIcon = document.getElementById('sidebarBrandIcon');
   const sidebarSubtitle = document.getElementById('sidebarWorkspaceSubtitle');
+  const headerWorkspaceTag = document.getElementById('headerWorkspaceTag');
 
   applyWorkspaceMode = function(mode) {
     workspaceState.mode = mode;
     localStorage.setItem('dailyaura_mode', mode);
-
-    // Header buttons
-    if (coldBtn) {
-      coldBtn.classList.toggle('active', mode === 'cold_outreach');
-      coldBtn.classList.remove('contributor-mode');
-    }
-    if (contribBtn) {
-      contribBtn.classList.toggle('active', mode === 'contributor_lifecycle');
-      if (mode === 'contributor_lifecycle') contribBtn.classList.add('contributor-mode');
-    }
 
     // Sidebar navigation & branding
     if (mode === 'contributor_lifecycle') {
@@ -217,10 +207,8 @@ function setupModeSwitcher() {
       if (navContrib) navContrib.classList.remove('hidden');
       if (sidebarBrandIcon) sidebarBrandIcon.textContent = '👥';
       if (sidebarSubtitle) sidebarSubtitle.textContent = 'Contributor & Email Hub';
-      if (sidebarSwitchBtn) {
-        sidebarSwitchBtn.className = 'sidebar-workspace-switcher to-outreach';
-        if (sidebarSwitchBtnLabel) sidebarSwitchBtnLabel.textContent = 'Switch to Cold Outreach Suite';
-      }
+      if (headerWorkspaceTag) headerWorkspaceTag.textContent = 'CONTRIBUTOR HUB';
+      if (sidebarSwitchBtnLabel) sidebarSwitchBtnLabel.textContent = 'Switch Profile';
 
       // Automatically activate default tab for contributor hub if cold tab was active
       const activeTabPane = document.querySelector('.tab-pane.active');
@@ -233,10 +221,8 @@ function setupModeSwitcher() {
       if (navCold) navCold.classList.remove('hidden');
       if (sidebarBrandIcon) sidebarBrandIcon.textContent = '⚡';
       if (sidebarSubtitle) sidebarSubtitle.textContent = 'Cold Outreach Suite';
-      if (sidebarSwitchBtn) {
-        sidebarSwitchBtn.className = 'sidebar-workspace-switcher to-contributor';
-        if (sidebarSwitchBtnLabel) sidebarSwitchBtnLabel.textContent = 'Switch to Contributor Hub';
-      }
+      if (headerWorkspaceTag) headerWorkspaceTag.textContent = 'COLD OUTREACH';
+      if (sidebarSwitchBtnLabel) sidebarSwitchBtnLabel.textContent = 'Switch Profile';
 
       // Automatically activate default tab for outreach if contrib tab was active
       const activeTabPane = document.querySelector('.tab-pane.active');
@@ -246,13 +232,6 @@ function setupModeSwitcher() {
       loadAllData();
     }
   };
-
-  if (coldBtn) {
-    coldBtn.addEventListener('click', () => applyWorkspaceMode('cold_outreach'));
-  }
-  if (contribBtn) {
-    contribBtn.addEventListener('click', () => applyWorkspaceMode('contributor_lifecycle'));
-  }
 
   if (sidebarSwitchBtn) {
     sidebarSwitchBtn.addEventListener('click', () => {
@@ -2476,4 +2455,211 @@ function setupContributorHub() {
       }
     });
   });
+}
+
+// ==========================================
+// AI VOICE CALL COPILOT (WEB SPEECH RECOGNITION & SYNTHESIS)
+// ==========================================
+
+function setupVoiceCall() {
+  const btnOpenCall = document.getElementById('btnOpenVoiceCall');
+  const modal = document.getElementById('aiVoiceCallModal');
+  const btnClose = document.getElementById('closeVoiceCallModal');
+  const btnStart = document.getElementById('btnStartCall');
+  const btnEnd = document.getElementById('btnEndCall');
+  const btnToggleMic = document.getElementById('btnToggleMic');
+  const micIcon = document.getElementById('micIcon');
+  const statusText = document.getElementById('callStatusText');
+  const transcriptBox = document.getElementById('callTranscriptBox');
+  const timerEl = document.getElementById('callDuration');
+  const auraRings = document.getElementById('callAuraRings');
+
+  let callActive = false;
+  let micMuted = false;
+  let recognition = null;
+  let callTimerInterval = null;
+  let callSeconds = 0;
+  let currentUtterance = null;
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  function openCallModal() {
+    if (modal) modal.classList.remove('hidden');
+  }
+
+  function closeCallModal() {
+    endCall();
+    if (modal) modal.classList.add('hidden');
+  }
+
+  if (btnOpenCall) btnOpenCall.addEventListener('click', openCallModal);
+  if (btnClose) btnClose.addEventListener('click', closeCallModal);
+
+  function startCallTimer() {
+    callSeconds = 0;
+    if (timerEl) timerEl.textContent = '00:00';
+    clearInterval(callTimerInterval);
+    callTimerInterval = setInterval(() => {
+      callSeconds++;
+      const mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+      const secs = String(callSeconds % 60).padStart(2, '0');
+      if (timerEl) timerEl.textContent = `${mins}:${secs}`;
+    }, 1000);
+  }
+
+  function stopCallTimer() {
+    clearInterval(callTimerInterval);
+  }
+
+  function appendTranscript(sender, text, isUser = false) {
+    if (!transcriptBox) return;
+    const msgEl = document.createElement('div');
+    msgEl.className = `transcript-msg ${isUser ? 'user-msg' : 'agent-msg'}`;
+    msgEl.innerHTML = `<strong>${isUser ? 'You' : 'DailyAura AI'}:</strong> ${escapeHtml(text)}`;
+    transcriptBox.appendChild(msgEl);
+    transcriptBox.scrollTop = transcriptBox.scrollHeight;
+  }
+
+  function speakText(text) {
+    if (!window.speechSynthesis) return;
+
+    window.speechSynthesis.cancel();
+
+    const cleanSpeech = text
+      .replace(/\*\*(.*?)\*\*/g, '$1')
+      .replace(/\*(.*?)\*/g, '$1')
+      .replace(/https?:\/\/\S+/gi, 'link')
+      .replace(/[#_~`]/g, '')
+      .replace(/\n+/g, '. ');
+
+    currentUtterance = new SpeechSynthesisUtterance(cleanSpeech);
+    currentUtterance.lang = 'en-US';
+    currentUtterance.rate = 1.0;
+    currentUtterance.pitch = 1.0;
+
+    const voices = window.speechSynthesis.getVoices();
+    const naturalVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha')));
+    if (naturalVoice) currentUtterance.voice = naturalVoice;
+
+    if (statusText) statusText.textContent = '🔊 AI Speaking...';
+    if (auraRings) auraRings.classList.add('voice-calling');
+
+    currentUtterance.onend = () => {
+      if (auraRings) auraRings.classList.remove('voice-calling');
+      if (callActive && !micMuted) {
+        if (statusText) statusText.textContent = '🟢 Listening... (Speak in Punjabi or English)';
+        startListening();
+      }
+    };
+
+    currentUtterance.onerror = (e) => {
+      console.warn('Speech synthesis error:', e);
+      if (auraRings) auraRings.classList.remove('voice-calling');
+      if (callActive && !micMuted) startListening();
+    };
+
+    window.speechSynthesis.speak(currentUtterance);
+  }
+
+  async function processVoiceQuery(transcript) {
+    if (!transcript || transcript.trim().length === 0) return;
+
+    appendTranscript('You', transcript, true);
+    if (statusText) statusText.textContent = '⏳ Thinking...';
+
+    try {
+      const res = await API.post('/api/chat', { message: transcript });
+      const aiReply = res.reply?.text || "I am connected to your DailyAura outreach campaigns. What would you like to review?";
+      appendTranscript('DailyAura AI', aiReply, false);
+      speakText(aiReply);
+    } catch (err) {
+      const fallback = "I encountered an issue processing that. Please try asking again.";
+      appendTranscript('DailyAura AI', fallback, false);
+      speakText(fallback);
+    }
+  }
+
+  function startListening() {
+    if (!callActive || micMuted || !SpeechRecognition) return;
+
+    try {
+      if (recognition) {
+        recognition.abort();
+      }
+
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'pa-IN';
+
+      recognition.onstart = () => {
+        if (statusText) statusText.textContent = '🟢 Listening... (Speak in Punjabi or English)';
+      };
+
+      recognition.onresult = (event) => {
+        const spokenText = event.results[0][0].transcript;
+        if (spokenText) {
+          processVoiceQuery(spokenText);
+        }
+      };
+
+      recognition.onerror = (e) => {
+        console.warn('Speech recognition error:', e.error);
+        if (callActive && !micMuted && e.error !== 'aborted') {
+          setTimeout(() => {
+            if (callActive && !micMuted) startListening();
+          }, 1000);
+        }
+      };
+
+      recognition.start();
+    } catch (err) {
+      console.warn('Recognition start error:', err);
+    }
+  }
+
+  function startCall() {
+    callActive = true;
+    micMuted = false;
+    startCallTimer();
+
+    if (btnStart) btnStart.classList.add('hidden');
+    if (btnEnd) btnEnd.classList.remove('hidden');
+
+    const greeting = "Hello! I am connected to your DailyAura CRM. You can give me instructions in Punjabi or English.";
+    appendTranscript('DailyAura AI', greeting, false);
+    speakText(greeting);
+  }
+
+  function endCall() {
+    callActive = false;
+    stopCallTimer();
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    if (recognition) {
+      try { recognition.abort(); } catch (e) {}
+    }
+
+    if (btnStart) btnStart.classList.remove('hidden');
+    if (btnEnd) btnEnd.classList.add('hidden');
+    if (auraRings) auraRings.classList.remove('voice-calling');
+    if (statusText) statusText.textContent = 'Call ended. Tap "Start Call" to begin again.';
+  }
+
+  if (btnStart) btnStart.addEventListener('click', startCall);
+  if (btnEnd) btnEnd.addEventListener('click', endCall);
+
+  if (btnToggleMic) {
+    btnToggleMic.addEventListener('click', () => {
+      micMuted = !micMuted;
+      btnToggleMic.classList.toggle('muted', micMuted);
+      if (micIcon) micIcon.textContent = micMuted ? '🔇' : '🎙️';
+      if (micMuted) {
+        if (recognition) { try { recognition.abort(); } catch(e){} }
+        if (statusText) statusText.textContent = 'Microphone muted';
+      } else {
+        if (statusText) statusText.textContent = 'Microphone active';
+        if (callActive) startListening();
+      }
+    });
+  }
 }
