@@ -354,6 +354,16 @@ body {
   top: 0;
   z-index: 50;
   transition: transform 0.25s ease;
+  overflow: hidden;
+}
+
+.sidebar-scrollable-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  -webkit-overflow-scrolling: touch;
 }
 
 .sidebar-header {
@@ -475,39 +485,55 @@ body {
 .badge-pill.pink { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
 
 .sidebar-footer {
-  padding: 14px 16px;
-  border-top: 1px solid var(--border-color);
+  padding: 16px 14px 28px 14px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.user-info {
+.user-info-card {
   display: flex;
   align-items: center;
   gap: 10px;
-  overflow: hidden;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.avatar {
+.user-info-card .avatar {
   width: 34px;
   height: 34px;
-  background: var(--gsc-blue);
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 13px;
+  color: #fff;
   flex-shrink: 0;
 }
 
-.user-name {
-  font-size: 13px;
-  font-weight: 700;
+.user-info-card .user-meta {
+  flex: 1;
+  min-width: 0;
 }
 
-.user-email {
+.user-info-card .user-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.user-info-card .user-email {
   font-size: 11px;
   color: var(--text-muted);
   white-space: nowrap;
@@ -515,17 +541,29 @@ body {
   text-overflow: ellipsis;
 }
 
-.logout-btn {
-  background: transparent;
-  border: none;
-  font-size: 18px;
+.sidebar-logout-btn {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 10px;
+  color: #fca5a5;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
   cursor: pointer;
-  padding: 6px;
-  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
 }
 
-.logout-btn:hover {
-  background: var(--border-color);
+.sidebar-logout-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
 }
 
 .sidebar-backdrop {
@@ -1623,14 +1661,14 @@ body {
 /* ================= SIDEBAR WORKSPACE SWITCHER ================= */
 .sidebar-workspace-switcher {
   width: 100%;
-  margin-bottom: 14px;
-  padding: 10px 14px;
+  margin: 0;
+  padding: 11px 14px;
   background: rgba(30, 41, 59, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 12px;
   color: #e2e8f0;
   font-family: inherit;
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 700;
   cursor: pointer;
   display: flex;
@@ -1641,23 +1679,11 @@ body {
 }
 
 .sidebar-workspace-switcher:hover {
-  background: rgba(59, 130, 246, 0.2);
+  background: rgba(59, 130, 246, 0.25);
   border-color: #3b82f6;
   color: #ffffff;
   box-shadow: 0 4px 18px rgba(59, 130, 246, 0.35);
   transform: translateY(-1px);
-}
-
-.sidebar-workspace-switcher.to-outreach:hover {
-  background: rgba(37, 99, 235, 0.25);
-  border-color: #60a5fa;
-  box-shadow: 0 4px 18px rgba(59, 130, 246, 0.4);
-}
-
-.sidebar-workspace-switcher.to-contributor:hover {
-  background: rgba(16, 185, 129, 0.22);
-  border-color: #10b981;
-  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
 }
 
 /* ================= CONTRIBUTOR & EMAIL MARKETING HUB ================= */

@@ -91,7 +91,8 @@
         <button id="closeSidebarBtn" class="close-sidebar-btn">&times;</button>
       </div>
 
-      <!-- WORKSPACE A: COLD OUTREACH NAVIGATION (20 TABS) -->
+      <div class="sidebar-scrollable-body">
+        <!-- WORKSPACE A: COLD OUTREACH NAVIGATION (20 TABS) -->
       <nav id="navColdOutreach" class="sidebar-nav">
         <!-- GROUP 1: OVERVIEW & INTELLIGENCE -->
         <div class="nav-section-title">CORE INTELLIGENCE</div>
@@ -235,19 +236,28 @@
         </button>
       </nav>
 
-      <div class="sidebar-footer">
-        <button id="sidebarWorkspaceSwitchBtn" class="sidebar-workspace-switcher" title="Switch Profile">
-          <span class="switch-icon">⇄</span>
-          <span id="sidebarSwitchBtnLabel">Switch Profile</span>
-        </button>
-        <div class="user-info">
-          <div class="avatar" id="sidebarUserAvatar">DA</div>
-          <div>
-            <div class="user-name">DailyAura Team</div>
-            <div class="user-email" id="sidebarUserEmail">outreach@dailyaura.in</div>
+        <!-- FOOTER: AT THE VERY END OF THE SCROLL, NOT FIXED/CONSTANT -->
+        <div class="sidebar-footer">
+          <!-- 1. SWITCH PROFILE BUTTON (TOP) -->
+          <button id="sidebarWorkspaceSwitchBtn" class="sidebar-workspace-switcher" title="Switch Profile">
+            <span class="switch-icon">⇄</span>
+            <span id="sidebarSwitchBtnLabel">Switch Profile</span>
+          </button>
+
+          <!-- 2. DAILYAURA USER PROFILE (MIDDLE) -->
+          <div class="user-info-card">
+            <div class="avatar" id="sidebarUserAvatar">DA</div>
+            <div class="user-meta">
+              <div class="user-name">DailyAura Team</div>
+              <div class="user-email" id="sidebarUserEmail">outreach@dailyaura.in</div>
+            </div>
           </div>
+
+          <!-- 3. LOGOUT BUTTON (BOTTOM) -->
+          <button id="logoutBtn" class="sidebar-logout-btn" title="Sign Out">
+            <span>🚪</span> <span>Sign Out / Lock Workspace</span>
+          </button>
         </div>
-        <button id="logoutBtn" class="logout-btn" title="Logout">🚪</button>
       </div>
     </aside>
 
