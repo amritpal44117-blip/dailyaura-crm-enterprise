@@ -2846,7 +2846,11 @@ async function pollAutomationStatus() {
       if (cycleNum) cycleNum.textContent = eStatus.batch_cycle || 1;
       if (sentNum) sentNum.textContent = eStatus.current_batch_sent || 0;
 
-      const pct = Math.min(100, Math.round(((eStatus.current_batch_sent || 0) / (eStatus.batch_target || 60)) * 100));
+      const target = eStatus.batch_target || 5;
+      const targetSpan = document.getElementById('engineBatchTargetText');
+      if (targetSpan) targetSpan.textContent = target;
+
+      const pct = Math.min(100, Math.round(((eStatus.current_batch_sent || 0) / target) * 100));
       if (progFill) progFill.style.width = `${pct}%`;
 
       if (testPill) testPill.textContent = eStatus.test_mode ? 'ACTIVE' : 'OFF';
@@ -2855,11 +2859,14 @@ async function pollAutomationStatus() {
         if (eStatus.status === 'running') {
           if (eStatus.phase === 'cooling') {
             phaseBadge.className = 'badge-tag yellow';
-            phaseBadge.textContent = '☕ 1-Hour Cooling Break';
+            phaseBadge.textContent = '☕ Hourly Cooling Break';
           } else {
             phaseBadge.className = 'badge-tag green';
-            phaseBadge.textContent = '🟢 Dispatching Active (1 every 2 min)';
+            phaseBadge.textContent = '🟢 Dispatching Active (5/hr @ 1 every 12m)';
           }
+        } else if (eStatus.phase === 'smtp_blocked') {
+          phaseBadge.className = 'badge-tag red';
+          phaseBadge.textContent = '⚠️ SMTP Timeout (Render Port 465)';
         } else {
           phaseBadge.className = 'badge-tag yellow';
           phaseBadge.textContent = '⏸️ Outreach Paused';

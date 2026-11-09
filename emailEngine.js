@@ -5,8 +5,8 @@ class EmailEngine {
   constructor() {
     this.timer = null;
     this.isProcessing = false;
-    this.defaultIntervalSec = 120; // 2 minutes per email
-    this.defaultBatchTarget = 60;  // 60 emails per 2-hour window
+    this.defaultIntervalSec = 720; // 12 minutes per email (Strict 5 emails/hour)
+    this.defaultBatchTarget = 5;   // 5 emails per 1-hour window
     this.defaultCoolingSec = 3600; // 1 hour cooling pause
 
     // Initialize campaign schedule defaults in database
@@ -19,14 +19,16 @@ class EmailEngine {
       state.campaign = {};
     }
     const c = state.campaign;
-    if (c.batch_target === undefined) c.batch_target = this.defaultBatchTarget;
-    if (c.interval_seconds === undefined) c.interval_seconds = this.defaultIntervalSec;
-    if (c.cooling_seconds === undefined) c.cooling_seconds = this.defaultCoolingSec;
+    c.batch_target = 5;
+    c.interval_seconds = 720; // 12 mins per send = 5/hour
+    c.cooling_seconds = 3600;
     if (c.current_batch_sent === undefined) c.current_batch_sent = 0;
     if (c.phase === undefined) c.phase = 'sending';
-    if (c.test_mode === undefined) c.test_mode = true; // Enabled for today's live test
+    if (c.test_mode === undefined) c.test_mode = true;
     if (c.batch_cycle === undefined) c.batch_cycle = 1;
     if (c.total_sent_today === undefined) c.total_sent_today = 0;
+    if (c.consecutive_smtp_errors === undefined) c.consecutive_smtp_errors = 0;
+    c.cadence_desc = 'Ultra-Safe Elite Cadence: 5 emails/hour (1 every 12 mins)';
     db.save();
   }
 
@@ -212,22 +214,39 @@ class EmailEngine {
     this.isProcessing = true;
 
     try {
-      // Find next pending lead (optionally filtered by selected niche)
-      let pendingLead = null;
+      // Find candidate leads: "send only to them who looks good"
+      // Filter for valid email, reputable domain, and rank by highest DA authority first
+      let candidates = (state.leads || []).filter(l => 
+        l.status === 'pending' &&
+        l.email &&
+        l.email.includes('@') &&
+        !l.email.endsWith('.test') &&
+        (l.da_score || 0) >= 40
+      );
+
       if (camp.selected_niche && camp.selected_niche !== 'All Niches') {
-        pendingLead = state.leads.find(l => l.status === 'pending' && l.niche === camp.selected_niche);
+        const nicheFiltered = candidates.filter(l => l.niche === camp.selected_niche);
+        if (nicheFiltered.length > 0) candidates = nicheFiltered;
       }
+
+      // Sort by highest DA authority first so premier agencies receive outreach first
+      candidates.sort((a, b) => (b.da_score || 0) - (a.da_score || 0));
+
+      let pendingLead = candidates[0] || null;
+
+      // Fallback to any pending lead if no DA >= 40 is available
       if (!pendingLead) {
-        pendingLead = state.leads.find(l => l.status === 'pending');
+        pendingLead = state.leads.find(l => l.status === 'pending' && l.email && l.email.includes('@'));
       }
 
       // If no pending lead found, try to auto-mine immediately
       if (!pendingLead) {
         try {
           const leadFinder = require('./leadFinderEngine');
-          console.log('[CRM Engine] Pending leads queue low. Requesting LeadFinderEngine to mine 15 new verified prospects...');
-          leadFinder.mineBatch(15);
-          pendingLead = db.get().leads.find(l => l.status === 'pending');
+          console.log('[CRM Engine] Pending high-DA leads queue low. Requesting LeadFinderEngine to mine 10 verified prospects...');
+          leadFinder.mineBatch(10);
+          const freshState = db.get();
+          pendingLead = freshState.leads.find(l => l.status === 'pending');
         } catch (e) {
           console.warn('[CRM Engine] Auto-mine error:', e.message);
         }
@@ -247,18 +266,58 @@ class EmailEngine {
       try {
         await this.sendOne(pendingLead);
         sendSuccess = true;
+        // Reset consecutive error count on successful send
+        const campRef = db.get().campaign;
+        campRef.consecutive_smtp_errors = 0;
+        campRef.smtp_diagnostic = null;
       } catch (sendErr) {
         console.error(`[CRM Engine] Send error for ${pendingLead.email}:`, sendErr.message);
-        db.updateLead(pendingLead.id, {
-          status: 'failed',
-          last_error: sendErr.message
-        });
-        db.addEvent({
-          type: 'error',
-          lead_id: pendingLead.id,
-          email: pendingLead.email,
-          message: sendErr.message
-        });
+
+        const isTimeoutOrBlock = 
+          sendErr.message.includes('timeout') ||
+          sendErr.message.includes('ETIMEDOUT') ||
+          sendErr.message.includes('ECONNREFUSED') ||
+          sendErr.message.includes('ECONNRESET') ||
+          sendErr.message.includes('Greeting never received');
+
+        const campRef = db.get().campaign;
+
+        if (isTimeoutOrBlock) {
+          // Do NOT mark good leads as failed! Preserve them in pending pool.
+          campRef.consecutive_smtp_errors = (campRef.consecutive_smtp_errors || 0) + 1;
+          console.warn(`[CRM Circuit Breaker] Outbound connection timeout (${campRef.consecutive_smtp_errors}/2). Preserving lead ${pendingLead.email} in pending state.`);
+
+          if (campRef.consecutive_smtp_errors >= 2) {
+            // Auto-pause campaign to prevent infinite hanging or false failures
+            campRef.status = 'paused';
+            campRef.phase = 'smtp_blocked';
+            campRef.smtp_diagnostic = 'SMTP connection timed out. If running on Render Free tier, outbound SMTP port 465 is blocked by Render firewall. Upgrading Render service to Starter ($7/mo) unlocks SMTP, or run CRM locally.';
+            db.save();
+
+            db.addEvent({
+              type: 'error',
+              lead_id: pendingLead.id,
+              email: pendingLead.email,
+              message: 'SMTP Port 465 blocked by host firewall. Auto-pausing campaign to protect lead pool.'
+            });
+
+            this.isProcessing = false;
+            console.warn('[CRM Circuit Breaker] Outreach auto-paused due to host SMTP port blocking.');
+            return;
+          }
+        } else {
+          // Address-specific mailbox failure (e.g., 550 User Not Found)
+          db.updateLead(pendingLead.id, {
+            status: 'failed',
+            last_error: sendErr.message
+          });
+          db.addEvent({
+            type: 'error',
+            lead_id: pendingLead.id,
+            email: pendingLead.email,
+            message: sendErr.message
+          });
+        }
       }
 
       // Update counters
@@ -278,19 +337,19 @@ class EmailEngine {
         db.save();
         this.isProcessing = false;
 
-        console.log(`[CRM Engine] Batch of ${batchTarget} emails completed! 1-Hour Cooling break initiated.`);
+        console.log(`[CRM Engine] Hourly batch of ${batchTarget} emails completed! 1-Hour Cooling break initiated.`);
         if (this.timer) clearTimeout(this.timer);
         this.timer = setTimeout(() => this.processQueue(), coolingMs);
         return;
       }
 
-      // Enforce the 2-Minute (120 seconds) Pacing
-      const intervalSec = updatedCamp.interval_seconds || 120;
+      // Enforce the 12-Minute (720 seconds) Pacing (Strict 5 emails/hour)
+      const intervalSec = updatedCamp.interval_seconds || 720;
       const nextDelayMs = intervalSec * 1000;
       updatedCamp.next_send_at = new Date(Date.now() + nextDelayMs).toISOString();
       db.save();
 
-      console.log(`[CRM Engine] Batch Progress: ${updatedCamp.current_batch_sent}/${batchTarget} emails sent. Next dispatch scheduled in ${intervalSec}s (2 minutes)...`);
+      console.log(`[CRM Engine] Batch Progress: ${updatedCamp.current_batch_sent}/${batchTarget} emails sent. Next dispatch scheduled in ${intervalSec}s (${Math.round(intervalSec / 60)} minutes)...`);
 
       if (this.timer) clearTimeout(this.timer);
       this.timer = setTimeout(() => {
@@ -315,7 +374,7 @@ class EmailEngine {
     state.campaign.test_mode = true; // Ensure today's live test run is enabled
     db.save();
 
-    console.log('[CRM Engine] Outreach campaign STARTED. 2-Hour (60 Emails @ 1 every 2 min) + 1-Hour Break cadence active.');
+    console.log('[CRM Engine] Outreach campaign STARTED. Elite Cadence: 5 Emails/hour (1 every 12 mins) + 1-Hour Break active.');
     this.isProcessing = false;
     this.processQueue();
   }
@@ -354,6 +413,7 @@ class EmailEngine {
     const leads = state.leads || [];
     const pendingCount = leads.filter(l => l.status === 'pending').length;
     const sentCount = leads.filter(l => l.status === 'sent').length;
+    const failedCount = leads.filter(l => l.status === 'failed').length;
 
     let nextSendSecRemaining = 0;
     if (camp.next_send_at && camp.status === 'running') {
@@ -368,10 +428,10 @@ class EmailEngine {
     return {
       status: camp.status || 'idle',
       phase: camp.phase || 'sending',
-      batch_target: camp.batch_target || 60,
+      batch_target: camp.batch_target || 5,
       current_batch_sent: camp.current_batch_sent || 0,
       batch_cycle: camp.batch_cycle || 1,
-      interval_seconds: camp.interval_seconds || 120,
+      interval_seconds: camp.interval_seconds || 720,
       cooling_seconds: camp.cooling_seconds || 3600,
       total_sent_today: camp.total_sent_today || 0,
       test_mode: camp.test_mode !== undefined ? camp.test_mode : true,
@@ -379,6 +439,16 @@ class EmailEngine {
       cooling_ends_at: camp.cooling_ends_at,
       next_send_seconds: nextSendSecRemaining,
       cooling_seconds_remaining: coolingSecRemaining,
+      last_sent_at: camp.last_sent_at,
+      smtp_diagnostic: camp.smtp_diagnostic || null,
+      consecutive_smtp_errors: camp.consecutive_smtp_errors || 0,
+      cadence_desc: camp.cadence_desc || '5 emails/hour (1 every 12 mins)',
+      pendingCount,
+      sentCount,
+      failedCount,
+      totalLeads: leads.length
+    };
+  }
       last_sent_at: camp.last_sent_at,
       pendingCount,
       sentCount,

@@ -18,24 +18,27 @@
     "welcome_email_body": "Hi {{name}},\n\nThank you for signing up and submitting to DailyAura (https://guestposts.dailyaura.in)!\n\nOur editorial team has received your contributor profile. Here is what to expect next:\n1. Editorial Review: Our team reviews all articles within 24–48 business hours.\n2. Do-Follow Backlinks: High-quality, non-promotional contextual links are preserved.\n3. Live Notification: As soon as your post is published and indexed, you will receive a direct link.\n\nSubmission Guidelines:\nhttps://guestposts.dailyaura.in/submit-guest-post/\n\nIf you have any drafts or link exchange proposals, simply reply directly to this email.\n\nBest regards,\n\nEditorial & SEO Outreach Team\nDailyAura Publishing\noutreach@dailyaura.in | https://guestposts.dailyaura.in"
   },
   "campaign": {
-    "status": "running",
+    "status": "paused",
     "name": "Q4 2026 High-DA Off-Page Outreach",
-    "delay_min": 120,
-    "delay_max": 180,
+    "delay_min": 720,
+    "delay_max": 720,
     "daily_limit": 25,
     "selected_niche": "All Niches",
     "subject": "Free Guest Post & Do-Follow Backlink Collaboration ({{website}})",
     "template": "Hi {{name}},\n\nI noticed you manage off-page SEO, guest posting, and link outreach for {{website}}.\n\nI manage the publishing platform over at DailyAura (https://guestposts.dailyaura.in). We are currently offering free guest post placements with permanent do-follow backlinks in Tech, AI, Digital Marketing, and Business.\n\nWhat we offer for link builders and SEO specialists:\n- 100% Free Guest Post submission (no fees)\n- Permanent do-follow contextual backlinks\n- Fast editorial approval & indexing within 24-48 hours\n- Open to mutual link exchanges (https://guestposts.dailyaura.in/link-exchange/)\n\nYou can review guidelines and submit articles directly here:\nhttps://guestposts.dailyaura.in/submit-guest-post/\n\nOr feel free to reply directly to this email with your article draft, topics, or target URLs, and I will get them reviewed for you immediately.\n\nBest regards,\n\nEditorial & SEO Outreach Team\nDailyAura Publishing\noutreach@dailyaura.in | https://guestposts.dailyaura.in",
     "active_track": "cold_outreach",
     "phase": "sending",
-    "batch_target": 60,
+    "batch_target": 5,
     "current_batch_sent": 0,
-    "interval_seconds": 120,
+    "interval_seconds": 720,
     "cooling_seconds": 3600,
     "test_mode": true,
     "next_send_at": "2026-11-08T04:09:44.057Z",
     "batch_cycle": 1,
-    "total_sent_today": 0
+    "total_sent_today": 0,
+    "cadence_desc": "Ultra-Safe Elite Cadence: 5 emails/hour (1 every 12 mins)",
+    "consecutive_smtp_errors": 0,
+    "smtp_diagnostic": null
   },
   "campaigns": [
     {
@@ -450,690 +453,6 @@
   ],
   "leads": [
     {
-      "name": "Catalyst Media Editorial",
-      "email": "outreach@catalystmedia.com",
-      "website": "catalystmedia.com",
-      "niche": "Technology & Software Development",
-      "da_score": 62,
-      "role": "SEO & Link Building Lead",
-      "url": "https://catalystmedia.com",
-      "source": "TechCrunch Contributor Network",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197563764_5789",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Hyper Seo Editorial",
-      "email": "outreach@hyperseo.com",
-      "website": "hyperseo.com",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 59,
-      "role": "SEO & Link Building Lead",
-      "url": "https://hyperseo.com",
-      "source": "Google Dork: 'write for us' seo 2026",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197533752_3534",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Vanguard Marketing Editorial",
-      "email": "outreach@vanguardmarketing.io",
-      "website": "vanguardmarketing.io",
-      "niche": "Business, Startups & Entrepreneurship",
-      "da_score": 53,
-      "role": "SEO & Link Building Lead",
-      "url": "https://vanguardmarketing.io",
-      "source": "HubSpot Certified Partner Directory",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197503745_8279",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Catalyst Rankings Editorial",
-      "email": "outreach@catalystrankings.io",
-      "website": "catalystrankings.io",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 67,
-      "role": "SEO & Link Building Lead",
-      "url": "https://catalystrankings.io",
-      "source": "Ahrefs Top Guest Blogging Sites",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197473732_6454",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Catalyst Seo Editorial",
-      "email": "outreach@catalystseo.io",
-      "website": "catalystseo.io",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 64,
-      "role": "SEO & Link Building Lead",
-      "url": "https://catalystseo.io",
-      "source": "Search Engine Journal Contributors",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197443721_9118",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Apex Rankings Editorial",
-      "email": "outreach@apexrankings.digital",
-      "website": "apexrankings.digital",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 67,
-      "role": "SEO & Link Building Lead",
-      "url": "https://apexrankings.digital",
-      "source": "UpCity Digital Agencies Index",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197413713_3277",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Summit Seo Editorial",
-      "email": "outreach@summitseo.io",
-      "website": "summitseo.io",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 64,
-      "role": "SEO & Link Building Lead",
-      "url": "https://summitseo.io",
-      "source": "DesignRush Top Link Builders",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197383709_9944",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Hyper Links Editorial",
-      "email": "outreach@hyperlinks.com",
-      "website": "hyperlinks.com",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 56,
-      "role": "SEO & Link Building Lead",
-      "url": "https://hyperlinks.com",
-      "source": "Clutch.co SEO Directory",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197353708_2279",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Catalyst Rankings Editorial",
-      "email": "outreach@catalystrankings.digital",
-      "website": "catalystrankings.digital",
-      "niche": "Finance, Fintech & Web3",
-      "da_score": 59,
-      "role": "SEO & Link Building Lead",
-      "url": "https://catalystrankings.digital",
-      "source": "Fintech Weekly Publications",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197323695_6990",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Hyper Media Editorial",
-      "email": "outreach@hypermedia.com",
-      "website": "hypermedia.com",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 45,
-      "role": "SEO & Link Building Lead",
-      "url": "https://hypermedia.com",
-      "source": "GoodFirms Web & SEO Directory",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197293683_8274",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Growth Media Editorial",
-      "email": "outreach@growthmedia.io",
-      "website": "growthmedia.io",
-      "niche": "Technology & Software Development",
-      "da_score": 63,
-      "role": "SEO & Link Building Lead",
-      "url": "https://growthmedia.io",
-      "source": "HackerNoon Tech Writers Hub",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197263679_6118",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Catalyst Seo Editorial",
-      "email": "outreach@catalystseo.digital",
-      "website": "catalystseo.digital",
-      "niche": "Technology & Software Development",
-      "da_score": 60,
-      "role": "SEO & Link Building Lead",
-      "url": "https://catalystseo.digital",
-      "source": "TechCrunch Contributor Network",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197233675_7897",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Apex Seo Editorial",
-      "email": "outreach@apexseo.com",
-      "website": "apexseo.com",
-      "niche": "Business, Startups & Entrepreneurship",
-      "da_score": 60,
-      "role": "SEO & Link Building Lead",
-      "url": "https://apexseo.com",
-      "source": "HubSpot Certified Partner Directory",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197173663_8689",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Catalyst Marketing Editorial",
-      "email": "outreach@catalystmarketing.io",
-      "website": "catalystmarketing.io",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 51,
-      "role": "SEO & Link Building Lead",
-      "url": "https://catalystmarketing.io",
-      "source": "Ahrefs Top Guest Blogging Sites",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197143658_8390",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Growth Media Editorial",
-      "email": "outreach@growthmedia.digital",
-      "website": "growthmedia.digital",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 45,
-      "role": "SEO & Link Building Lead",
-      "url": "https://growthmedia.digital",
-      "source": "Search Engine Journal Contributors",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197113645_8388",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Summit Outreach Editorial",
-      "email": "outreach@summitoutreach.digital",
-      "website": "summitoutreach.digital",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 63,
-      "role": "SEO & Link Building Lead",
-      "url": "https://summitoutreach.digital",
-      "source": "UpCity Digital Agencies Index",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197083645_3676",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Elevation Partners Editorial",
-      "email": "outreach@elevationpartners.agency",
-      "website": "elevationpartners.agency",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 56,
-      "role": "SEO & Link Building Lead",
-      "url": "https://elevationpartners.agency",
-      "source": "DesignRush Top Link Builders",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197053636_177",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Stride Digital Editorial",
-      "email": "outreach@stridedigital.io",
-      "website": "stridedigital.io",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 52,
-      "role": "SEO & Link Building Lead",
-      "url": "https://stridedigital.io",
-      "source": "Clutch.co SEO Directory",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794197023629_1825",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Optima Rankings Editorial",
-      "email": "outreach@optimarankings.io",
-      "website": "optimarankings.io",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 53,
-      "role": "SEO & Link Building Lead",
-      "url": "https://optimarankings.io",
-      "source": "GoodFirms Web & SEO Directory",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196963607_5460",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Summit Links Editorial",
-      "email": "outreach@summitlinks.com",
-      "website": "summitlinks.com",
-      "niche": "Technology & Software Development",
-      "da_score": 55,
-      "role": "SEO & Link Building Lead",
-      "url": "https://summitlinks.com",
-      "source": "HackerNoon Tech Writers Hub",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196933599_1430",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Beacon Outreach Editorial",
-      "email": "outreach@beaconoutreach.com",
-      "website": "beaconoutreach.com",
-      "niche": "Technology & Software Development",
-      "da_score": 58,
-      "role": "SEO & Link Building Lead",
-      "url": "https://beaconoutreach.com",
-      "source": "TechCrunch Contributor Network",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196903591_7231",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Summit Marketing Editorial",
-      "email": "outreach@summitmarketing.digital",
-      "website": "summitmarketing.digital",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 65,
-      "role": "SEO & Link Building Lead",
-      "url": "https://summitmarketing.digital",
-      "source": "Google Dork: 'write for us' seo 2026",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196873588_2946",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Growth Seo Editorial",
-      "email": "outreach@growthseo.digital",
-      "website": "growthseo.digital",
-      "niche": "Business, Startups & Entrepreneurship",
-      "da_score": 64,
-      "role": "SEO & Link Building Lead",
-      "url": "https://growthseo.digital",
-      "source": "HubSpot Certified Partner Directory",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196843584_5669",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Growth Outreach Editorial",
-      "email": "outreach@growthoutreach.io",
-      "website": "growthoutreach.io",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 60,
-      "role": "SEO & Link Building Lead",
-      "url": "https://growthoutreach.io",
-      "source": "Ahrefs Top Guest Blogging Sites",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196813570_5166",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Vanguard Links Editorial",
-      "email": "outreach@vanguardlinks.io",
-      "website": "vanguardlinks.io",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 67,
-      "role": "SEO & Link Building Lead",
-      "url": "https://vanguardlinks.io",
-      "source": "Search Engine Journal Contributors",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196783559_970",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Hyper Seo Editorial",
-      "email": "outreach@hyperseo.io",
-      "website": "hyperseo.io",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 57,
-      "role": "SEO & Link Building Lead",
-      "url": "https://hyperseo.io",
-      "source": "UpCity Digital Agencies Index",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196753558_384",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Beacon Links Editorial",
-      "email": "outreach@beaconlinks.digital",
-      "website": "beaconlinks.digital",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 64,
-      "role": "SEO & Link Building Lead",
-      "url": "https://beaconlinks.digital",
-      "source": "DesignRush Top Link Builders",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196723554_5190",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Optima Seo Editorial",
-      "email": "outreach@optimaseo.digital",
-      "website": "optimaseo.digital",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 66,
-      "role": "SEO & Link Building Lead",
-      "url": "https://optimaseo.digital",
-      "source": "Clutch.co SEO Directory",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196693550_4502",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Growth Rankings Editorial",
-      "email": "outreach@growthrankings.agency",
-      "website": "growthrankings.agency",
-      "niche": "Finance, Fintech & Web3",
-      "da_score": 54,
-      "role": "SEO & Link Building Lead",
-      "url": "https://growthrankings.agency",
-      "source": "Fintech Weekly Publications",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196663538_9240",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Vanguard Outreach Editorial",
-      "email": "outreach@vanguardoutreach.io",
-      "website": "vanguardoutreach.io",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 69,
-      "role": "SEO & Link Building Lead",
-      "url": "https://vanguardoutreach.io",
-      "source": "GoodFirms Web & SEO Directory",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196633529_5149",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Beacon Marketing Editorial",
-      "email": "outreach@beaconmarketing.agency",
-      "website": "beaconmarketing.agency",
-      "niche": "Technology & Software Development",
-      "da_score": 67,
-      "role": "SEO & Link Building Lead",
-      "url": "https://beaconmarketing.agency",
-      "source": "HackerNoon Tech Writers Hub",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196603514_8277",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Beacon Media Editorial",
-      "email": "outreach@beaconmedia.digital",
-      "website": "beaconmedia.digital",
-      "niche": "Technology & Software Development",
-      "da_score": 65,
-      "role": "SEO & Link Building Lead",
-      "url": "https://beaconmedia.digital",
-      "source": "TechCrunch Contributor Network",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196573511_3674",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Optima Outreach Editorial",
-      "email": "outreach@optimaoutreach.com",
-      "website": "optimaoutreach.com",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 46,
-      "role": "SEO & Link Building Lead",
-      "url": "https://optimaoutreach.com",
-      "source": "Google Dork: 'write for us' seo 2026",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196543500_792",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Stride Digital Editorial",
-      "email": "outreach@stridedigital.digital",
-      "website": "stridedigital.digital",
-      "niche": "Business, Startups & Entrepreneurship",
-      "da_score": 58,
-      "role": "SEO & Link Building Lead",
-      "url": "https://stridedigital.digital",
-      "source": "HubSpot Certified Partner Directory",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196513499_1063",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Stride Media Editorial",
-      "email": "outreach@stridemedia.digital",
-      "website": "stridemedia.digital",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 66,
-      "role": "SEO & Link Building Lead",
-      "url": "https://stridemedia.digital",
-      "source": "Ahrefs Top Guest Blogging Sites",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196483493_3009",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Beacon Partners Editorial",
-      "email": "outreach@beaconpartners.agency",
-      "website": "beaconpartners.agency",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 66,
-      "role": "SEO & Link Building Lead",
-      "url": "https://beaconpartners.agency",
-      "source": "Search Engine Journal Contributors",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196453482_8557",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Optima Rankings Editorial",
-      "email": "outreach@optimarankings.com",
-      "website": "optimarankings.com",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 53,
-      "role": "SEO & Link Building Lead",
-      "url": "https://optimarankings.com",
-      "source": "UpCity Digital Agencies Index",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196423472_8473",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
-      "name": "Stride Links Editorial",
-      "email": "outreach@stridelinks.com",
-      "website": "stridelinks.com",
-      "niche": "Digital Marketing & SEO Link Building",
-      "da_score": 52,
-      "role": "SEO & Link Building Lead",
-      "url": "https://stridelinks.com",
-      "source": "DesignRush Top Link Builders",
-      "discovery_method": "Autonomous Lead Finder Engine",
-      "status": "pending",
-      "id": "lead_1794196394970_1660",
-      "open_count": 0,
-      "opened_at": null,
-      "click_count": 0,
-      "clicked_at": null,
-      "sent_at": null
-    },
-    {
       "id": "lead_1",
       "name": "Guest Post Outreach Team",
       "email": "theguestpostingoutreach@gmail.com",
@@ -1274,7 +593,7 @@
       "last_error": null
     },
     {
-      "id": "lead_1794110974057_1364",
+      "id": "lead_1794227793074_12",
       "name": "WebFX Outreach Team",
       "email": "info@webfx.com",
       "website": "webfx.com",
@@ -1287,10 +606,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_9042",
+      "id": "lead_1794227793074_6912",
       "name": "Victorious SEO Editorial",
       "email": "info@victoriousseo.com",
       "website": "victoriousseo.com",
@@ -1303,10 +623,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_4769",
+      "id": "lead_1794227793074_8422",
       "name": "Straight North Partnerships",
       "email": "info@straightnorth.com",
       "website": "straightnorth.com",
@@ -1319,10 +640,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_5935",
+      "id": "lead_1794227793074_9591",
       "name": "The HOTH Editorial Desk",
       "email": "support@thehoth.com",
       "website": "thehoth.com",
@@ -1335,10 +657,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_6600",
+      "id": "lead_1794227793074_7267",
       "name": "FATJOE Link Outreach",
       "email": "support@fatjoe.com",
       "website": "fatjoe.com",
@@ -1351,10 +674,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_5600",
+      "id": "lead_1794227793074_7292",
       "name": "Siege Media Content Team",
       "email": "info@siegemedia.com",
       "website": "siegemedia.com",
@@ -1367,10 +691,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8318",
+      "id": "lead_1794227793074_3096",
       "name": "OuterBox Design & SEO",
       "email": "info@outerboxdesign.com",
       "website": "outerboxdesign.com",
@@ -1383,10 +708,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_9397",
+      "id": "lead_1794227793074_7864",
       "name": "Page One Power Link Team",
       "email": "info@pageonepower.com",
       "website": "pageonepower.com",
@@ -1399,10 +725,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_6588",
+      "id": "lead_1794227793074_8338",
       "name": "Ignite Visibility Outreach",
       "email": "info@ignitevisibility.com",
       "website": "ignitevisibility.com",
@@ -1415,10 +742,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_4844",
+      "id": "lead_1794227793074_9058",
       "name": "Directive Consulting Team",
       "email": "info@directiveconsulting.com",
       "website": "directiveconsulting.com",
@@ -1431,10 +759,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_1195",
+      "id": "lead_1794227793074_3136",
       "name": "Gotch SEO Academy",
       "email": "info@gotchseo.com",
       "website": "gotchseo.com",
@@ -1447,10 +776,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_1015",
+      "id": "lead_1794227793074_5373",
       "name": "Screaming Frog Team",
       "email": "info@screamingfrog.co.uk",
       "website": "screamingfrog.co.uk",
@@ -1463,10 +793,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_548",
+      "id": "lead_1794227793074_8013",
       "name": "Impression Digital UK",
       "email": "info@impressiondigital.com",
       "website": "impressiondigital.com",
@@ -1479,10 +810,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_6753",
+      "id": "lead_1794227793074_2507",
       "name": "Hallam Internet Partnerships",
       "email": "info@hallaminternet.com",
       "website": "hallaminternet.com",
@@ -1495,10 +827,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_9972",
+      "id": "lead_1794227793074_2425",
       "name": "Reboot Online Link Research",
       "email": "info@rebootonline.com",
       "website": "rebootonline.com",
@@ -1511,10 +844,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_2082",
+      "id": "lead_1794227793074_4716",
       "name": "SmartBug Media Growth",
       "email": "info@smartbugmedia.com",
       "website": "smartbugmedia.com",
@@ -1527,10 +861,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_6390",
+      "id": "lead_1794227793074_3046",
       "name": "Single Grain Content",
       "email": "contact@singlegrain.com",
       "website": "singlegrain.com",
@@ -1543,10 +878,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8136",
+      "id": "lead_1794227793074_4877",
       "name": "Brafton Content Marketing",
       "email": "info@brafton.com",
       "website": "brafton.com",
@@ -1559,10 +895,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8053",
+      "id": "lead_1794227793074_7546",
       "name": "Koozai Digital Marketing",
       "email": "info@koozai.com",
       "website": "koozai.com",
@@ -1575,10 +912,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_1309",
+      "id": "lead_1794227793074_4738",
       "name": "SEO Discovery Partnerships",
       "email": "sales@seodiscovery.com",
       "website": "seodiscovery.com",
@@ -1591,10 +929,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_7797",
+      "id": "lead_1794227793074_1973",
       "name": "EZ Rankings Outreach",
       "email": "contactus@ezrankings.com",
       "website": "ezrankings.com",
@@ -1607,10 +946,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8915",
+      "id": "lead_1794227793074_1333",
       "name": "Coalition Technologies",
       "email": "sales@coalitiontechnologies.com",
       "website": "coalitiontechnologies.com",
@@ -1623,10 +963,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8363",
+      "id": "lead_1794227793074_6551",
       "name": "Disruptive Advertising",
       "email": "info@disruptiveadvertising.com",
       "website": "disruptiveadvertising.com",
@@ -1639,10 +980,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_2791",
+      "id": "lead_1794227793074_1482",
       "name": "Silverback Strategies",
       "email": "info@silverbackstrategies.com",
       "website": "silverbackstrategies.com",
@@ -1655,10 +997,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_786",
+      "id": "lead_1794227793074_6963",
       "name": "Thrive Agency Marketing",
       "email": "info@thriveagency.com",
       "website": "thriveagency.com",
@@ -1671,10 +1014,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_6725",
+      "id": "lead_1794227793074_6766",
       "name": "SocialSEO Agency",
       "email": "info@socialseo.com",
       "website": "socialseo.com",
@@ -1687,10 +1031,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8674",
+      "id": "lead_1794227793074_2373",
       "name": "Tinuiti Performance Media",
       "email": "info@tinuiti.com",
       "website": "tinuiti.com",
@@ -1703,10 +1048,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_516",
+      "id": "lead_1794227793074_193",
       "name": "Wpromote Growth Marketing",
       "email": "info@wpromote.com",
       "website": "wpromote.com",
@@ -1719,10 +1065,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_6812",
+      "id": "lead_1794227793074_1030",
       "name": "Power Digital Marketing",
       "email": "info@powerdigitalmarketing.com",
       "website": "powerdigitalmarketing.com",
@@ -1735,10 +1082,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_4850",
+      "id": "lead_1794227793074_9660",
       "name": "Seer Interactive",
       "email": "info@seerinteractive.com",
       "website": "seerinteractive.com",
@@ -1751,10 +1099,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8944",
+      "id": "lead_1794227793074_3461",
       "name": "HigherVisibility Team",
       "email": "info@highervisibility.com",
       "website": "highervisibility.com",
@@ -1767,10 +1116,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_757",
+      "id": "lead_1794227793074_7221",
       "name": "Boostability Small Business SEO",
       "email": "support@boostability.com",
       "website": "boostability.com",
@@ -1783,10 +1133,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_1070",
+      "id": "lead_1794227793074_7513",
       "name": "Stellar SEO Link Building",
       "email": "info@stellarseo.com",
       "website": "stellarseo.com",
@@ -1799,10 +1150,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_9654",
+      "id": "lead_1794227793074_3030",
       "name": "Sure Oak Growth",
       "email": "info@sureoak.com",
       "website": "sureoak.com",
@@ -1815,10 +1167,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_9241",
+      "id": "lead_1794227793074_2795",
       "name": "Inflow eCommerce Marketing",
       "email": "info@goinflow.com",
       "website": "goinflow.com",
@@ -1831,10 +1184,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_6711",
+      "id": "lead_1794227793074_8463",
       "name": "Surfer SEO Editorial",
       "email": "support@surferseo.com",
       "website": "surferseo.com",
@@ -1847,10 +1201,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_439",
+      "id": "lead_1794227793074_5624",
       "name": "Frase IO Content Desk",
       "email": "team@frase.io",
       "website": "frase.io",
@@ -1863,10 +1218,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_6925",
+      "id": "lead_1794227793074_2288",
       "name": "Jasper AI Media Desk",
       "email": "hey@jasper.ai",
       "website": "jasper.ai",
@@ -1879,10 +1235,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_3068",
+      "id": "lead_1794227793074_7528",
       "name": "Writesonic Outreach",
       "email": "support@writesonic.com",
       "website": "writesonic.com",
@@ -1895,10 +1252,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8608",
+      "id": "lead_1794227793074_1370",
       "name": "Copy AI Editorial",
       "email": "help@copy.ai",
       "website": "copy.ai",
@@ -1911,10 +1269,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_5413",
+      "id": "lead_1794227793074_2288",
       "name": "AiThority Editorial Team",
       "email": "editor@aithority.com",
       "website": "aithority.com",
@@ -1927,10 +1286,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_4817",
+      "id": "lead_1794227793074_6787",
       "name": "Anyword Content Partnerships",
       "email": "contact@anyword.com",
       "website": "anyword.com",
@@ -1943,10 +1303,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_2518",
+      "id": "lead_1794227793074_8368",
       "name": "Hypotenuse AI Growth",
       "email": "hello@hypotenuse.ai",
       "website": "hypotenuse.ai",
@@ -1959,10 +1320,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_1635",
+      "id": "lead_1794227793074_8513",
       "name": "Rytr AI Editorial",
       "email": "support@rytr.me",
       "website": "rytr.me",
@@ -1975,10 +1337,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8181",
+      "id": "lead_1794227793074_2597",
       "name": "InVideo AI Video Team",
       "email": "support@invideo.io",
       "website": "invideo.io",
@@ -1991,10 +1354,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_9001",
+      "id": "lead_1794227793074_2826",
       "name": "HackerNoon Editorial",
       "email": "editorial@hackernoon.com",
       "website": "hackernoon.com",
@@ -2007,10 +1371,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_4664",
+      "id": "lead_1794227793074_3558",
       "name": "DZone Developer Network",
       "email": "support@dzone.com",
       "website": "dzone.com",
@@ -2023,10 +1388,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8810",
+      "id": "lead_1794227793074_6315",
       "name": "DevOps.com Editorial Desk",
       "email": "editor@devops.com",
       "website": "Technology & Software Development",
@@ -2038,10 +1404,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_1133",
+      "id": "lead_1794227793074_3456",
       "name": "TechGig Editorial Team",
       "email": "contactus@techgig.com",
       "website": "techgig.com",
@@ -2054,10 +1421,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_1394",
+      "id": "lead_1794227793074_5027",
       "name": "ReadWrite Tech News",
       "email": "editor@readwrite.com",
       "website": "readwrite.com",
@@ -2070,10 +1438,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_9800",
+      "id": "lead_1794227793074_3057",
       "name": "Container Journal",
       "email": "editor@containerjournal.com",
       "website": "containerjournal.com",
@@ -2086,10 +1455,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_4254",
+      "id": "lead_1794227793074_8129",
       "name": "Security Boulevard",
       "email": "editor@securityboulevard.com",
       "website": "securityboulevard.com",
@@ -2102,10 +1472,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8603",
+      "id": "lead_1794227793074_8347",
       "name": "DigitalOcean Community",
       "email": "contact@digitalocean.com",
       "website": "digitalocean.com",
@@ -2118,10 +1489,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_1466",
+      "id": "lead_1794227793074_5312",
       "name": "Linode Tech Insights",
       "email": "info@linode.com",
       "website": "linode.com",
@@ -2134,10 +1506,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_6397",
+      "id": "lead_1794227793074_7551",
       "name": "Vultr Cloud Infrastructure",
       "email": "support@vultr.com",
       "website": "vultr.com",
@@ -2150,10 +1523,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_3010",
+      "id": "lead_1794227793074_3440",
       "name": "Cloudways Hosting",
       "email": "info@cloudways.com",
       "website": "cloudways.com",
@@ -2166,10 +1540,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_2886",
+      "id": "lead_1794227793074_8428",
       "name": "Kinsta Managed WordPress",
       "email": "info@kinsta.com",
       "website": "kinsta.com",
@@ -2182,10 +1557,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_3790",
+      "id": "lead_1794227793074_6994",
       "name": "WPEngine Growth",
       "email": "info@wpengine.com",
       "website": "wpengine.com",
@@ -2198,10 +1574,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8491",
+      "id": "lead_1794227793074_3334",
       "name": "Namecheap Insights",
       "email": "support@namecheap.com",
       "website": "namecheap.com",
@@ -2214,10 +1591,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_540",
+      "id": "lead_1794227793074_2022",
       "name": "A2 Hosting Partnerships",
       "email": "support@a2hosting.com",
       "website": "a2hosting.com",
@@ -2230,10 +1608,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_6572",
+      "id": "lead_1794227793074_3995",
       "name": "GrowthHackers Community",
       "email": "hello@growthhackers.com",
       "website": "growthhackers.com",
@@ -2246,10 +1625,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_3076",
+      "id": "lead_1794227793074_9470",
       "name": "Convince & Convert Desk",
       "email": "info@convinceandconvert.com",
       "website": "convinceandconvert.com",
@@ -2262,10 +1642,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8602",
+      "id": "lead_1794227793074_9590",
       "name": "MarketingProfs Editorial",
       "email": "editor@marketingprofs.com",
       "website": "marketingprofs.com",
@@ -2278,10 +1659,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_2610",
+      "id": "lead_1794227793074_9581",
       "name": "Content Marketing Institute",
       "email": "info@contentmarketinginstitute.com",
       "website": "contentmarketinginstitute.com",
@@ -2294,10 +1676,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_3975",
+      "id": "lead_1794227793074_3284",
       "name": "Copyblogger Media",
       "email": "editorial@copyblogger.com",
       "website": "copyblogger.com",
@@ -2310,10 +1693,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_7909",
+      "id": "lead_1794227793074_4729",
       "name": "MarTech Series Editorial",
       "email": "editor@martechseries.com",
       "website": "martechseries.com",
@@ -2326,10 +1710,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8084",
+      "id": "lead_1794227793074_1432",
       "name": "SalesTech Star Desk",
       "email": "editor@salestechstar.com",
       "website": "salestechstar.com",
@@ -2342,10 +1727,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_5148",
+      "id": "lead_1794227793074_5925",
       "name": "HRTech Series News",
       "email": "editor@hrtechseries.com",
       "website": "hrtechseries.com",
@@ -2358,10 +1744,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_4904",
+      "id": "lead_1794227793074_432",
       "name": "CMSWire Editorial",
       "email": "editorial@cmswire.com",
       "website": "cmswire.com",
@@ -2374,10 +1761,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_477",
+      "id": "lead_1794227793074_3351",
       "name": "Global FinTech Series",
       "email": "editor@globalfintechseries.com",
       "website": "globalfintechseries.com",
@@ -2390,10 +1778,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_531",
+      "id": "lead_1794227793074_1958",
       "name": "FinTech Weekly News",
       "email": "editor@fintechweekly.com",
       "website": "fintechweekly.com",
@@ -2406,10 +1795,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_8654",
+      "id": "lead_1794227793074_7177",
       "name": "The Paypers Financial Insights",
       "email": "editor@thepaypers.com",
       "website": "thepaypers.com",
@@ -2422,10 +1812,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_7440",
+      "id": "lead_1794227793074_5345",
       "name": "Banking Dive Editorial",
       "email": "editor@bankingdive.com",
       "website": "bankingdive.com",
@@ -2438,10 +1829,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_4821",
+      "id": "lead_1794227793074_7168",
       "name": "Financial Brand Strategy",
       "email": "info@thefinancialbrand.com",
       "website": "thefinancialbrand.com",
@@ -2454,10 +1846,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_272",
+      "id": "lead_1794227793074_1029",
       "name": "Retail Dive Editorial",
       "email": "editor@retaildive.com",
       "website": "retaildive.com",
@@ -2470,10 +1863,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_1335",
+      "id": "lead_1794227793075_3226",
       "name": "BigCommerce Blog Desk",
       "email": "press@bigcommerce.com",
       "website": "bigcommerce.com",
@@ -2486,10 +1880,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_1930",
+      "id": "lead_1794227793075_4806",
       "name": "WooCommerce Community",
       "email": "info@woocommerce.com",
       "website": "woocommerce.com",
@@ -2502,10 +1897,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_2550",
+      "id": "lead_1794227793075_3846",
       "name": "Webflow Showcase & Blog",
       "email": "hello@webflow.com",
       "website": "webflow.com",
@@ -2518,10 +1914,11 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     },
     {
-      "id": "lead_1794110974057_3116",
+      "id": "lead_1794227793075_4791",
       "name": "Canva Design & Outreach",
       "email": "support@canva.com",
       "website": "canva.com",
@@ -2534,7 +1931,8 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null
+      "sent_at": null,
+      "last_error": null
     }
   ],
   "events": [

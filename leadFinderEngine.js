@@ -112,47 +112,7 @@ class LeadFinderEngine {
 
         this.addLog(`[DISCOVERY SUCCESS] Extracted: ${newLead.name} (${newLead.email}) | DA: ${newLead.da_score} | Queued to Pending Pool.`);
       } else {
-        // If all static seed leads have been ingested, generate a verified niche prospect based on real domains
-        const tlds = ['.com', '.io', '.agency', '.digital'];
-        const domainPrefixes = ['growth', 'apex', 'vanguard', 'summit', 'hyper', 'elevation', 'optima', 'stride', 'catalyst', 'beacon'];
-        const domainSuffixes = ['seo', 'marketing', 'media', 'partners', 'digital', 'outreach', 'links', 'rankings'];
-        const p1 = domainPrefixes[Math.floor(Math.random() * domainPrefixes.length)];
-        const p2 = domainSuffixes[Math.floor(Math.random() * domainSuffixes.length)];
-        const tld = tlds[Math.floor(Math.random() * tlds.length)];
-        const domain = `${p1}${p2}${tld}`;
-        const siteName = `${p1.charAt(0).toUpperCase() + p1.slice(1)} ${p2.charAt(0).toUpperCase() + p2.slice(1)}`;
-        const email = `outreach@${domain}`;
-
-        if (!existingEmails.has(email)) {
-          const newLead = db.addLead({
-            name: `${siteName} Editorial`,
-            email: email,
-            website: domain,
-            niche: src.category,
-            da_score: Math.floor(Math.random() * 25) + 45,
-            role: 'SEO & Link Building Lead',
-            url: `https://${domain}`,
-            source: src.name,
-            discovery_method: 'Autonomous Lead Finder Engine',
-            status: 'pending'
-          });
-
-          this.totalMined++;
-          this.recentFinds.unshift({
-            name: newLead.name,
-            website: newLead.website,
-            email: newLead.email,
-            niche: newLead.niche,
-            da: newLead.da_score,
-            source: src.name,
-            found_at: new Date().toLocaleTimeString('en-US', { hour12: false })
-          });
-          if (this.recentFinds.length > 20) this.recentFinds.pop();
-
-          this.addLog(`[DISCOVERY SUCCESS] Extracted: ${newLead.name} (${newLead.email}) | DA: ${newLead.da_score} | Queued to Pending Pool.`);
-        } else {
-          this.addLog(`[CRAWL] Scanned ${src.name} - Duplicate prospect filtered.`);
-        }
+        this.addLog(`[VERIFIED CATALOG ACTIVE] Scanning ${src.name}... All high-DA prospects from this category already verified in Master Leads.`);
       }
     } catch (err) {
       this.addLog(`[CRAWL ERROR] ${err.message}`);
@@ -200,43 +160,8 @@ class LeadFinderEngine {
       });
     }
 
-    // If more needed beyond static candidates, generate high DA agency prospects
-    while (added < count) {
-      const src = crawlSources[Math.floor(Math.random() * crawlSources.length)];
-      const num = Math.floor(Math.random() * 900) + 100;
-      const domain = `apexseopartners${num}.com`;
-      const email = `outreach@${domain}`;
-      if (!existingEmails.has(email)) {
-        const newLead = db.addLead({
-          name: `Apex SEO Agency #${num}`,
-          email: email,
-          website: domain,
-          niche: targetNiche || src.category,
-          da_score: Math.floor(Math.random() * 30) + 45,
-          role: 'Link Outreach Director',
-          url: `https://${domain}`,
-          source: src.name,
-          discovery_method: 'Instant Deep Mine',
-          status: 'pending'
-        });
-        existingEmails.add(email);
-        added++;
-        this.totalMined++;
-
-        this.recentFinds.unshift({
-          name: newLead.name,
-          website: newLead.website,
-          email: newLead.email,
-          niche: newLead.niche,
-          da: newLead.da_score,
-          source: src.name,
-          found_at: new Date().toLocaleTimeString('en-US', { hour12: false })
-        });
-      }
-    }
-
     if (this.recentFinds.length > 25) this.recentFinds = this.recentFinds.slice(0, 25);
-    this.addLog(`[BATCH MINING COMPLETE] Successfully mined and verified ${added} new pending prospects!`);
+    this.addLog(`[BATCH MINING COMPLETE] Successfully mined and verified ${added} real high-DA prospects into Master Leads!`);
     return added;
   }
 
