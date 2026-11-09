@@ -220,10 +220,19 @@ function setupModeSwitcher() {
   const sidebarBrandIcon = document.getElementById('sidebarBrandIcon');
   const sidebarSubtitle = document.getElementById('sidebarWorkspaceSubtitle');
   const headerWorkspaceTag = document.getElementById('headerWorkspaceTag');
+  const wsBtnCold = document.getElementById('wsBtnColdOutreach');
+  const wsBtnContrib = document.getElementById('wsBtnContributor');
+  const mobileWsBtn = document.getElementById('mobileWsSwitchBtn');
+  const mobileWsLabel = document.getElementById('mobileWsLabel');
 
   applyWorkspaceMode = function(mode) {
     workspaceState.mode = mode;
     localStorage.setItem('dailyaura_mode', mode);
+
+    // Update Top Pill Switchers
+    if (wsBtnCold) wsBtnCold.classList.toggle('active', mode === 'cold_outreach');
+    if (wsBtnContrib) wsBtnContrib.classList.toggle('active', mode === 'contributor_lifecycle');
+    if (mobileWsLabel) mobileWsLabel.textContent = mode === 'cold_outreach' ? '🚀 Outreach' : '👥 Contributor';
 
     // Sidebar navigation & branding
     if (mode === 'contributor_lifecycle') {
@@ -232,7 +241,7 @@ function setupModeSwitcher() {
       if (sidebarBrandIcon) sidebarBrandIcon.textContent = '👥';
       if (sidebarSubtitle) sidebarSubtitle.textContent = 'Contributor & Email Hub';
       if (headerWorkspaceTag) headerWorkspaceTag.textContent = 'CONTRIBUTOR HUB';
-      if (sidebarSwitchBtnLabel) sidebarSwitchBtnLabel.textContent = 'Switch Profile';
+      if (sidebarSwitchBtnLabel) sidebarSwitchBtnLabel.textContent = 'Switch to Outreach';
 
       // Automatically activate default tab for contributor hub if cold tab was active
       const activeTabPane = document.querySelector('.tab-pane.active');
@@ -246,7 +255,7 @@ function setupModeSwitcher() {
       if (sidebarBrandIcon) sidebarBrandIcon.textContent = '⚡';
       if (sidebarSubtitle) sidebarSubtitle.textContent = 'Cold Outreach Suite';
       if (headerWorkspaceTag) headerWorkspaceTag.textContent = 'COLD OUTREACH';
-      if (sidebarSwitchBtnLabel) sidebarSwitchBtnLabel.textContent = 'Switch Profile';
+      if (sidebarSwitchBtnLabel) sidebarSwitchBtnLabel.textContent = 'Switch to Contributor';
 
       // Automatically activate default tab for outreach if contrib tab was active
       const activeTabPane = document.querySelector('.tab-pane.active');
@@ -256,6 +265,14 @@ function setupModeSwitcher() {
       loadAllData();
     }
   };
+
+  // Bind top pills
+  if (wsBtnCold) wsBtnCold.addEventListener('click', () => applyWorkspaceMode('cold_outreach'));
+  if (wsBtnContrib) wsBtnContrib.addEventListener('click', () => applyWorkspaceMode('contributor_lifecycle'));
+  if (mobileWsBtn) mobileWsBtn.addEventListener('click', () => {
+    const nextMode = workspaceState.mode === 'cold_outreach' ? 'contributor_lifecycle' : 'cold_outreach';
+    applyWorkspaceMode(nextMode);
+  });
 
   if (sidebarSwitchBtn) {
     sidebarSwitchBtn.addEventListener('click', () => {
@@ -268,7 +285,6 @@ function setupModeSwitcher() {
   applyWorkspaceMode(workspaceState.mode);
 }
 
-// Helper to switch active tab cleanly across both workspaces
 function activateTab(targetTab) {
   const navItems = document.querySelectorAll('.nav-item');
   const tabPanes = document.querySelectorAll('.tab-pane');
@@ -415,21 +431,36 @@ function setupAuth() {
     }
   });
 
-  // Lock Workspace Button
-  const lockBtn = document.getElementById('lockWorkspaceBtn');
-  if (lockBtn) {
-    lockBtn.addEventListener('click', () => {
-      enteredPin = '';
-      updateDots();
-      localStorage.removeItem('dailyaura_token');
-      API.token = '';
-      const loginScreen = document.getElementById('loginScreen');
-      const appContainer = document.getElementById('appContainer');
-      if (loginScreen) loginScreen.classList.remove('hidden');
-      if (appContainer) appContainer.classList.add('hidden');
-      showToast('🔒 Workspace Locked', 'info');
-    });
-  }
+  // Lock Workspace Buttons (Both Workspaces)
+  ['lockWorkspaceBtn', 'lockWorkspaceBtnContrib'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.addEventListener('click', () => {
+        enteredPin = '';
+        updateDots();
+        localStorage.removeItem('dailyaura_token');
+        API.token = '';
+        const loginScreen = document.getElementById('loginScreen');
+        const appContainer = document.getElementById('appContainer');
+        if (loginScreen) loginScreen.classList.remove('hidden');
+        if (appContainer) appContainer.classList.add('hidden');
+        showToast('🔒 Workspace Locked', 'info');
+      });
+    }
+  });
+
+  ['logoutBtn', 'logoutBtnContrib'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.addEventListener('click', () => {
+        enteredPin = '';
+        updateDots();
+        localStorage.removeItem('dailyaura_token');
+        API.token = '';
+        location.reload();
+      });
+    }
+  });
 
   // Sign Out Button
   const logoutBtn = document.getElementById('logoutBtn');
@@ -1092,50 +1123,111 @@ function renderGscChart() {
   if (!svg || timeline.length === 0) return;
 
   const width = 1000;
-  const height = 260;
-  const padding = 20;
+  const height = 240;
+  const paddingX = 30;
+  const paddingTop = 25;
+  const paddingBottom = 30;
+  const chartH = height - paddingTop - paddingBottom;
+  const chartW = width - paddingX * 2;
 
-  let maxSent = Math.max(...timeline.map(d => d.sent), 5);
-  let maxOpened = Math.max(...timeline.map(d => d.opened), 5);
-  let maxClicked = Math.max(...timeline.map(d => d.clicked), 5);
+  let maxSent = Math.max(...timeline.map(d => d.sent), 1);
+  let maxOpened = Math.max(...timeline.map(d => d.opened), 1);
+  let maxClicked = Math.max(...timeline.map(d => d.clicked), 1);
 
-  const stepX = (width - padding * 2) / Math.max(timeline.length - 1, 1);
+  // Overall scale max for clean grid
+  const globalMax = Math.max(maxSent, maxOpened, maxClicked, 4);
 
-  const buildPath = (key, maxVal) => {
+  const stepX = chartW / Math.max(timeline.length - 1, 1);
+
+  const getCoord = (idx, val) => {
+    const x = paddingX + idx * stepX;
+    const y = paddingTop + chartH - (val / globalMax) * chartH;
+    return { x: Number(x.toFixed(1)), y: Number(y.toFixed(1)) };
+  };
+
+  const buildPath = (key) => {
     return timeline.map((d, i) => {
-      const x = padding + i * stepX;
-      const val = d[key] || 0;
-      const y = height - padding - (val / maxVal) * (height - padding * 2);
-      return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`;
+      const { x, y } = getCoord(i, d[key] || 0);
+      return `${i === 0 ? 'M' : 'L'} ${x} ${y}`;
     }).join(' ');
   };
 
-  let pathsHtml = `
-    <line x1="20" y1="20" x2="980" y2="20" stroke="#1e293b" stroke-dasharray="4"/>
-    <line x1="20" y1="90" x2="980" y2="90" stroke="#1e293b" stroke-dasharray="4"/>
-    <line x1="20" y1="160" x2="980" y2="160" stroke="#1e293b" stroke-dasharray="4"/>
-    <line x1="20" y1="230" x2="980" y2="230" stroke="#1e293b"/>
+  const buildArea = (key) => {
+    const coords = timeline.map((d, i) => getCoord(i, d[key] || 0));
+    if (coords.length === 0) return '';
+    const linePath = coords.map((c, i) => `${i === 0 ? 'M' : 'L'} ${c.x} ${c.y}`).join(' ');
+    const firstX = coords[0].x;
+    const lastX = coords[coords.length - 1].x;
+    const bottomY = paddingTop + chartH;
+    return `${linePath} L ${lastX} ${bottomY} L ${firstX} ${bottomY} Z`;
+  };
+
+  let svgContent = `
+    <defs>
+      <linearGradient id="gradSent" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0d9488" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#0d9488" stop-opacity="0.0"/>
+      </linearGradient>
+      <linearGradient id="gradOpened" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#10b981" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#10b981" stop-opacity="0.0"/>
+      </linearGradient>
+      <linearGradient id="gradClicked" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0284c7" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#0284c7" stop-opacity="0.0"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Horizontal Grid Lines -->
+    <line x1="${paddingX}" y1="${paddingTop}" x2="${width - paddingX}" y2="${paddingTop}" stroke="#e2e8f0" stroke-dasharray="4"/>
+    <line x1="${paddingX}" y1="${paddingTop + chartH * 0.33}" x2="${width - paddingX}" y2="${paddingTop + chartH * 0.33}" stroke="#e2e8f0" stroke-dasharray="4"/>
+    <line x1="${paddingX}" y1="${paddingTop + chartH * 0.66}" x2="${width - paddingX}" y2="${paddingTop + chartH * 0.66}" stroke="#e2e8f0" stroke-dasharray="4"/>
+    <line x1="${paddingX}" y1="${paddingTop + chartH}" x2="${width - paddingX}" y2="${paddingTop + chartH}" stroke="#cbd5e1" stroke-width="1.5"/>
   `;
 
+  // Draw Areas first (background fills)
   if (workspaceState.gsc.sent) {
-    const p = buildPath('sent', maxSent);
-    pathsHtml += `<path d="${p}" fill="none" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"/>`;
+    svgContent += `<path d="${buildArea('sent')}" fill="url(#gradSent)"/>`;
   }
-
   if (workspaceState.gsc.opened) {
-    const p = buildPath('opened', maxOpened);
-    pathsHtml += `<path d="${p}" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>`;
+    svgContent += `<path d="${buildArea('opened')}" fill="url(#gradOpened)"/>`;
   }
-
   if (workspaceState.gsc.clicked) {
-    const p = buildPath('clicked', maxClicked);
-    pathsHtml += `<path d="${p}" fill="none" stroke="#06b6d4" stroke-width="3" stroke-linecap="round"/>`;
+    svgContent += `<path d="${buildArea('clicked')}" fill="url(#gradClicked)"/>`;
   }
 
-  svg.innerHTML = pathsHtml;
+  // Draw Stroke Lines
+  if (workspaceState.gsc.sent) {
+    svgContent += `<path d="${buildPath('sent')}" fill="none" stroke="#0d9488" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+  if (workspaceState.gsc.opened) {
+    svgContent += `<path d="${buildPath('opened')}" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+  if (workspaceState.gsc.clicked) {
+    svgContent += `<path d="${buildPath('clicked')}" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+
+  // Draw Circular Interactive Dots
+  timeline.forEach((d, i) => {
+    if (workspaceState.gsc.sent) {
+      const c = getCoord(i, d.sent || 0);
+      svgContent += `<circle cx="${c.x}" cy="${c.y}" r="4.5" fill="#ffffff" stroke="#0d9488" stroke-width="2.5"><title>${d.label}: ${d.sent} Sent</title></circle>`;
+    }
+    if (workspaceState.gsc.opened && (d.opened || 0) > 0) {
+      const c = getCoord(i, d.opened);
+      svgContent += `<circle cx="${c.x}" cy="${c.y}" r="4.5" fill="#ffffff" stroke="#10b981" stroke-width="2.5"><title>${d.label}: ${d.opened} Opened</title></circle>`;
+    }
+    if (workspaceState.gsc.clicked && (d.clicked || 0) > 0) {
+      const c = getCoord(i, d.clicked);
+      svgContent += `<circle cx="${c.x}" cy="${c.y}" r="4.5" fill="#ffffff" stroke="#0284c7" stroke-width="2.5"><title>${d.label}: ${d.clicked} Clicks</title></circle>`;
+    }
+  });
+
+  svg.innerHTML = svgContent;
 
   if (axis) {
-    const interval = Math.ceil(timeline.length / 7);
+    const stepCount = Math.min(timeline.length, 8);
+    const interval = Math.max(1, Math.floor(timeline.length / stepCount));
     axis.innerHTML = timeline
       .filter((_, idx) => idx % interval === 0 || idx === timeline.length - 1)
       .map(d => `<span>${d.label}</span>`)

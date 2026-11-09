@@ -8,24 +8,29 @@
   --bg-card: #ffffff;
   --bg-card-hover: #f1f5f9;
   --border-color: #e2e8f0;
-  --border-light: #f8fafc;
+  --border-light: #f1f5f9;
   --text-main: #0f172a;
-  --text-muted: #64748b;
+  --text-muted: #475569;
   --text-dim: #94a3b8;
   
-  /* Palette */
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --primary-light: #eff6ff;
-  --gsc-blue: #2563eb;
+  /* DailyAura Brand Palette */
+  --brand-teal: #0d9488;
+  --brand-teal-dark: #0f766e;
+  --brand-teal-light: #f0fdfa;
+  --primary: #0d9488;
+  --primary-hover: #0f766e;
+  --primary-light: #f0fdfa;
+  --primary-glow: rgba(13, 148, 136, 0.15);
+
+  --gsc-blue: #0d9488;
   --gsc-green: #10b981;
   --gsc-cyan: #0284c7;
-  --gsc-purple: #7c3aed;
+  --gsc-purple: #6366f1;
   --gsc-yellow: #d97706;
-  --gsc-red: #dc2626;
+  --gsc-red: #e11d48;
 
-  --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
-  --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --card-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px 0 rgba(15, 23, 42, 0.03);
+  --card-shadow-hover: 0 10px 20px -5px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
   --radius: 12px;
   --radius-sm: 8px;
   --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
@@ -3328,4 +3333,344 @@ body {
     transform: rotate(90deg);
     padding: 4px 0;
   }
+}
+
+
+/* ================= DAILYAURA BRANDING & LOGOS ================= */
+.sidebar-logo-img {
+  max-height: 38px;
+  max-width: 175px;
+  object-fit: contain;
+  display: block;
+}
+
+.mobile-logo-img {
+  max-height: 30px;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+}
+
+.pin-brand-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.pin-logo-img {
+  max-height: 44px;
+  max-width: 190px;
+  object-fit: contain;
+  display: block;
+}
+
+/* ================= WORKSPACE SWITCHER PILLS ================= */
+.workspace-switcher-pills {
+  display: flex;
+  background: #f1f5f9;
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 3px;
+  gap: 4px;
+  align-items: center;
+}
+
+.ws-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.ws-pill:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.ws-pill.active {
+  background: #ffffff;
+  color: #0d9488;
+  font-weight: 700;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+}
+
+.mobile-ws-btn {
+  background: #f0fdfa;
+  border: 1px solid #99f6e4;
+  color: #0d9488;
+  border-radius: 16px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mobile-ws-btn:hover {
+  background: #ccfbf1;
+}
+
+/* ================= RESPONSIVE IPHONE PIN LOCK SCREEN ================= */
+.pin-lock-overlay {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: #f8fafc;
+  background-image: radial-gradient(circle at 50% 20%, #ffffff 0%, #f1f5f9 100%);
+  position: relative;
+  z-index: 9999;
+}
+
+.pin-lock-card {
+  width: 100%;
+  max-width: min(340px, 94vw);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: clamp(20px, 5vw, 32px) clamp(16px, 4vw, 24px) 20px;
+  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: pinCardFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pin-prompt-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #0d9488;
+  background: #f0fdfa;
+  border: 1px solid #ccfbf1;
+  padding: 4px 14px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-top: 6px;
+}
+
+.pin-dots-container {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 14px 0 16px;
+}
+
+.pin-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  background: transparent;
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pin-dot.filled {
+  background: #0d9488;
+  border-color: #0d9488;
+  transform: scale(1.18);
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.35);
+}
+
+.pin-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, clamp(56px, 18vw, 68px));
+  gap: clamp(8px, 2.8vw, 14px);
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.pin-key {
+  width: clamp(56px, 18vw, 68px);
+  height: clamp(56px, 18vw, 68px);
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.12s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.pin-key:hover {
+  background: #f0fdfa;
+  border-color: #99f6e4;
+  transform: translateY(-1px);
+}
+
+.pin-key:active {
+  background: #ccfbf1;
+  transform: scale(0.93);
+}
+
+.pin-key .digit {
+  font-size: clamp(20px, 6vw, 24px);
+  font-weight: 700;
+  line-height: 1;
+  color: #0f172a;
+}
+
+.pin-key .subtext {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: #94a3b8;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.pin-footer-secure {
+  font-size: 11px;
+  color: #94a3b8;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* ================= CONVERSION FUNNEL REDESIGN ================= */
+.funnel-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.funnel-stage {
+  display: grid;
+  grid-template-columns: 240px 1fr 140px;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 0;
+}
+
+.funnel-label {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.funnel-bar-bg {
+  height: 22px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 11px;
+  overflow: hidden;
+  position: relative;
+}
+
+.funnel-bar-fill {
+  height: 100%;
+  border-radius: 11px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fill-sent { background: linear-gradient(90deg, #0d9488, #14b8a6); }
+.fill-delivered { background: linear-gradient(90deg, #0284c7, #38bdf8); }
+.fill-opened { background: linear-gradient(90deg, #10b981, #34d399); }
+.fill-clicked { background: linear-gradient(90deg, #6366f1, #818cf8); }
+
+.funnel-count {
+  font-weight: 700;
+  color: #0f172a;
+  text-align: right;
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .funnel-stage {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .funnel-count {
+    text-align: left;
+    font-size: 12px;
+    color: #0d9488;
+  }
+}
+
+.funnel-insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.funnel-insight-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.insight-title {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.insight-title.teal { color: #0d9488; }
+.insight-title.green { color: #059669; }
+.insight-title.amber { color: #d97706; }
+
+/* ================= SVG ANALYTICS TIMELINE ================= */
+.gsc-chart-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.gsc-chart-viewport {
+  width: 100%;
+  height: 240px;
+  position: relative;
+  overflow: visible;
+  margin-top: 10px;
+}
+
+#gscSvgChart {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chart-dates-axis {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  font-size: 11px;
+  color: #64748b;
+  border-top: 1px solid var(--border-color);
+  margin-top: 8px;
+  font-weight: 500;
 }

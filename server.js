@@ -219,31 +219,86 @@ app.get('/api/analytics', authCheck, (req, res) => {
   const sentPast2h = leads.filter(l => l.status === 'sent' && l.sent_at && new Date(l.sent_at) >= twoHoursAgo).length;
   const sentPast5h = leads.filter(l => l.status === 'sent' && l.sent_at && new Date(l.sent_at) >= fiveHoursAgo).length;
 
-  // Daily Timeline Points for Chart
+  // Dynamic Timeline Points for SVG Chart
   const timeline = [];
-  const oneDayMs = 24 * 60 * 60 * 1000;
-  let iterDate = new Date(currentStart.getTime());
-  
-  while (iterDate <= currentEnd) {
-    const dStr = iterDate.toISOString().split('T')[0];
-    const dayEvents = curEvents.filter(e => e.timestamp && e.timestamp.startsWith(dStr));
-    const dayLeads = leads.filter(l => l.status === 'sent' && l.sent_at && l.sent_at.startsWith(dStr));
-    const s = Math.max(dayEvents.filter(e => e.type === 'sent').length, dayLeads.length);
-    const o = dayEvents.filter(e => e.type === 'open').length;
-    const c = dayEvents.filter(e => e.type === 'click').length;
-    const or = s > 0 ? Math.round((o / s) * 100) : (o > 0 ? 100 : 0);
-    const cr = s > 0 ? Math.round((c / s) * 100) : (c > 0 ? 100 : 0);
+  const isHourlyRange = ['today', 'yesterday', '1h', '2h', '5h'].includes(range);
 
-    timeline.push({
-      date: dStr,
-      label: iterDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-      sent: s,
-      opened: o,
-      clicked: c,
-      openRate: or,
-      clickRate: cr
-    });
-    iterDate = new Date(iterDate.getTime() + oneDayMs);
+  if (isHourlyRange) {
+    let hourlyStepMs = 60 * 60 * 1000;
+    let startPoint = new Date(currentStart.getTime());
+    let endPoint = new Date(currentEnd.getTime());
+
+    if (range === 'today' || range === 'yesterday') {
+      startPoint = new Date(currentStart.getFullYear(), currentStart.getMonth(), currentStart.getDate(), 0, 0, 0);
+      endPoint = new Date(currentStart.getFullYear(), currentStart.getMonth(), currentStart.getDate(), 23, 59, 59);
+      hourlyStepMs = 2 * 60 * 60 * 1000; // every 2 hours: 00:00, 02:00, ... 22:00
+    } else if (range === '1h') {
+      hourlyStepMs = 5 * 60 * 1000; // every 5 minutes in 1 hour
+    } else if (range === '2h') {
+      hourlyStepMs = 10 * 60 * 1000; // every 10 minutes in 2 hours
+    } else if (range === '5h') {
+      hourlyStepMs = 30 * 60 * 1000; // every 30 minutes in 5 hours
+    }
+
+    let iter = new Date(startPoint.getTime());
+    while (iter <= endPoint) {
+      const nextIter = new Date(iter.getTime() + hourlyStepMs);
+      const slotEvents = curEvents.filter(e => {
+        const t = new Date(e.timestamp);
+        return t >= iter && t < nextIter;
+      });
+      const slotLeads = leads.filter(l => {
+        if (l.status !== 'sent' || !l.sent_at) return false;
+        const t = new Date(l.sent_at);
+        return t >= iter && t < nextIter;
+      });
+
+      const s = Math.max(slotEvents.filter(e => e.type === 'sent').length, slotLeads.length);
+      const o = slotEvents.filter(e => e.type === 'open').length || slotLeads.filter(l => (l.open_count || 0) > 0).length;
+      const c = slotEvents.filter(e => e.type === 'click').length || slotLeads.filter(l => (l.click_count || 0) > 0).length;
+      const or = s > 0 ? Math.round((o / s) * 100) : (o > 0 ? 100 : 0);
+      const cr = s > 0 ? Math.round((c / s) * 100) : (c > 0 ? 100 : 0);
+
+      const hours = String(iter.getHours()).padStart(2, '0');
+      const mins = String(iter.getMinutes()).padStart(2, '0');
+
+      timeline.push({
+        date: iter.toISOString(),
+        label: `${hours}:${mins}`,
+        sent: s,
+        opened: o,
+        clicked: c,
+        openRate: or,
+        clickRate: cr
+      });
+
+      iter = nextIter;
+    }
+  } else {
+    const oneDayMs = 24 * 60 * 60 * 1000;
+    let iterDate = new Date(currentStart.getTime());
+    
+    while (iterDate <= currentEnd) {
+      const dStr = iterDate.toISOString().split('T')[0];
+      const dayEvents = curEvents.filter(e => e.timestamp && e.timestamp.startsWith(dStr));
+      const dayLeads = leads.filter(l => l.status === 'sent' && l.sent_at && l.sent_at.startsWith(dStr));
+      const s = Math.max(dayEvents.filter(e => e.type === 'sent').length, dayLeads.length);
+      const o = dayEvents.filter(e => e.type === 'open').length;
+      const c = dayEvents.filter(e => e.type === 'click').length;
+      const or = s > 0 ? Math.round((o / s) * 100) : (o > 0 ? 100 : 0);
+      const cr = s > 0 ? Math.round((c / s) * 100) : (c > 0 ? 100 : 0);
+
+      timeline.push({
+        date: dStr,
+        label: iterDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        sent: s,
+        opened: o,
+        clicked: c,
+        openRate: or,
+        clickRate: cr
+      });
+      iterDate = new Date(iterDate.getTime() + oneDayMs);
+    }
   }
 
   // Niche Leaderboard & Rankings

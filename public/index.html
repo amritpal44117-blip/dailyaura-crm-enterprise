@@ -15,11 +15,11 @@
   <div id="loginScreen" class="pin-lock-overlay">
     <div class="pin-lock-card">
       <div class="pin-header">
-        <div class="pin-logo-badge">
-          <span class="pin-icon">⚡</span>
+        <div class="pin-brand-logo">
+          <img src="https://guestposts.dailyaura.in/wp-content/uploads/2026/10/guestpost-dailyaura-banner-logo.png" alt="DailyAura" class="pin-logo-img">
         </div>
         <h2 class="pin-title">DailyAura Growth OS</h2>
-        <p class="pin-subtitle">B2B Outreach & Link Infrastructure</p>
+        <p class="pin-subtitle">B2B Link Outreach & Contributor Infrastructure</p>
         <div class="pin-prompt-text">ENTER 4-DIGIT PIN</div>
       </div>
 
@@ -49,8 +49,8 @@
         <button type="button" class="pin-key key-utility" data-key="backspace"><span class="digit">⌫</span><span class="subtext">Delete</span></button>
       </div>
 
-      <div class="pin-footer-hint">
-        <span>Passcode: <strong>0852</strong></span> &bull; <span>Hostinger Active</span>
+      <div class="pin-footer-secure">
+        <span class="lock-shield-icon">🛡️</span> <span>Enterprise 256-Bit SSL Encrypted</span>
       </div>
     </div>
   </div>
@@ -63,21 +63,19 @@
       <button id="menuToggleBtn" class="icon-btn" aria-label="Toggle Menu">
         <span></span><span></span><span></span>
       </button>
-      <div class="mobile-title">
-        <span class="logo-dot"></span> DailyAura CRM
+      <div class="mobile-brand">
+        <img src="https://guestposts.dailyaura.in/wp-content/uploads/2026/10/guestpost-dailyaura-banner-logo.png" alt="DailyAura" class="mobile-logo-img">
       </div>
-      <div id="topStatusPill" class="status-pill idle">IDLE</div>
+      <button id="mobileWsSwitchBtn" class="mobile-ws-btn" title="Switch Workspace">
+        <span id="mobileWsLabel">🚀 Outreach</span>
+      </button>
     </header>
 
     <!-- LEFT SIDEBAR WITH DUAL-WORKSPACE NAVIGATION -->
     <aside id="sidebar" class="sidebar">
       <div class="sidebar-header">
-        <div class="brand">
-          <span class="brand-icon" id="sidebarBrandIcon">⚡</span>
-          <div>
-            <h3>DailyAura</h3>
-            <span class="sub" id="sidebarWorkspaceSubtitle">Cold Outreach Suite</span>
-          </div>
+        <div class="brand brand-logo-wrap">
+          <img src="https://guestposts.dailyaura.in/wp-content/uploads/2026/10/guestpost-dailyaura-banner-logo.png" alt="DailyAura" class="sidebar-logo-img">
         </div>
         <button id="closeSidebarBtn" class="close-sidebar-btn">&times;</button>
       </div>
@@ -119,11 +117,6 @@
             <span class="nav-label">Niche Rankings</span>
             <span class="badge-pill blue">8 Niches</span>
           </button>
-          <button class="nav-item" data-tab="vip-leads">
-            <span class="nav-icon">🏆</span>
-            <span class="nav-label">VIP High-DA Targets</span>
-            <span class="badge-pill yellow">DA 50+</span>
-          </button>
           <button class="nav-item" data-tab="templates">
             <span class="nav-icon">📝</span>
             <span class="nav-label">Template Studio</span>
@@ -158,6 +151,59 @@
             </button>
           </div>
         </nav>
+
+<nav id="navContributorHub" class="sidebar-nav hidden">
+        <div class="nav-section-title">COMMUNITY INTELLIGENCE</div>
+        <button class="nav-item active" data-tab="contrib-dashboard">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Contributor Overview</span>
+        </button>
+        <button class="nav-item nav-highlight" data-tab="contrib-users">
+          <span class="nav-icon">👥</span>
+          <span class="nav-label">Registered Authors</span>
+          <span class="badge-pill green" id="navBadgeSubscribers">5 Registered</span>
+        </button>
+        <button class="nav-item" data-tab="contrib-triggers">
+          <span class="nav-icon">⏱️</span>
+          <span class="nav-label">3-Stage Lifecycle Flow</span>
+          <span class="badge-pill yellow">Auto SLA</span>
+        </button>
+
+        <div class="nav-section-title">CONTENT & SHOWCASE</div>
+        <button class="nav-item" data-tab="contrib-articles">
+          <span class="nav-icon">📰</span>
+          <span class="nav-label">DailyAura Blog Feed</span>
+          <span class="badge-pill blue">Live Posts</span>
+        </button>
+        <button class="nav-item" data-tab="contrib-templates">
+          <span class="nav-icon">📝</span>
+          <span class="nav-label">Marketing & AI Templates</span>
+          <span class="badge-pill pink">English Only</span>
+        </button>
+
+        <div class="nav-section-title">ENGAGEMENT & HOOKS</div>
+        <button class="nav-item" data-tab="contrib-stream">
+          <span class="nav-icon">⚡</span>
+          <span class="nav-label">Delivery & Click Stream</span>
+        </button>
+        <button class="nav-item" data-tab="contrib-settings">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Webhook & SMTP Health</span>
+        </button>
+
+        <!-- SUBTLE END ACTIONS (AT VERY BOTTOM OF SCROLL, NOT FIXED/STICKY) -->
+        <div class="sidebar-end-actions">
+          <div class="sidebar-nav-divider"></div>
+          <button id="lockWorkspaceBtnContrib" class="nav-item sidebar-compact-action" title="Lock Workspace">
+            <span class="nav-icon">🔒</span>
+            <span class="nav-label">Lock Workspace</span>
+          </button>
+          <button id="logoutBtnContrib" class="nav-item sidebar-compact-action logout-action" title="Sign Out">
+            <span class="nav-icon">🚪</span>
+            <span class="nav-label">Sign Out</span>
+          </button>
+        </div>
+      </nav>
       </div>
     </aside>
 
@@ -174,6 +220,19 @@
           <span class="slash">/</span>
           <strong id="activeBreadcrumbTitle">Executive Dashboard</strong>
         </div>
+
+        <!-- DUAL WORKSPACE SWITCHER PILLS -->
+        <div class="workspace-switcher-pills" id="workspaceSwitcherPills">
+          <button type="button" class="ws-pill active" id="wsBtnColdOutreach">
+            <span class="ws-pill-icon">🚀</span>
+            <span class="ws-pill-text">B2B Cold Outreach CRM</span>
+          </button>
+          <button type="button" class="ws-pill" id="wsBtnContributor">
+            <span class="ws-pill-icon">👥</span>
+            <span class="ws-pill-text">Contributor Hub CRM</span>
+          </button>
+        </div>
+
         <div class="live-clock" id="systemLiveClock">--:--:--</div>
       </div>
 
@@ -697,18 +756,18 @@
           <div class="card-header">
             <h4>💡 Conversion Optimization Insights</h4>
           </div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; font-size: 13px; color: var(--text-muted);">
-            <div style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
-              <strong style="color: #60a5fa; display: block; margin-bottom: 4px;">Top Performing Niche:</strong>
-              Digital Marketing & SEO Link Building generates <strong>2.4x higher click-through</strong> rates due to direct need for do-follow links.
+          <div class="funnel-insights-grid">
+            <div class="funnel-insight-card">
+              <strong class="insight-title teal">Top Performing Niche:</strong>
+              <p>Digital Marketing & SEO Link Building generates <strong>2.4x higher click-through</strong> rates due to direct need for do-follow links.</p>
             </div>
-            <div style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
-              <strong style="color: #34d399; display: block; margin-bottom: 4px;">Deliverability Safeguard:</strong>
-              12-minute dispatch delay completely avoids spam folder triggers on Gmail and Outlook corporate mail servers.
+            <div class="funnel-insight-card">
+              <strong class="insight-title green">Deliverability Safeguard:</strong>
+              <p>12-minute dispatch delay completely avoids spam folder triggers on Gmail and Outlook corporate mail servers.</p>
             </div>
-            <div style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
-              <strong style="color: #fbbf24; display: block; margin-bottom: 4px;">Subject Line Efficiency:</strong>
-              Subject lines highlighting <em>"Free Guest Post ({{website}})"</em> maintain a <strong>38%+ open rate</strong> across high-DA publishers.
+            <div class="funnel-insight-card">
+              <strong class="insight-title amber">Subject Line Efficiency:</strong>
+              <p>Subject lines highlighting <em>"Free Guest Post ({{website}})"</em> maintain a <strong>38%+ open rate</strong> across high-DA publishers.</p>
             </div>
           </div>
         </div>
@@ -987,50 +1046,7 @@
       </section>
 
       <!-- ================= 12. TAB: VIP TARGETS ================= -->
-      <section id="tab-vip-leads" class="tab-pane">
-        <div class="section-header">
-          <div>
-            <h1>VIP & High-DA Backlink Targets</h1>
-            <p class="subtitle">High-priority publications, top SEO agencies, and verified link exchange partners</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="table-container">
-            <table class="leads-table">
-              <thead>
-                <tr>
-                  <th>Domain</th>
-                  <th>Editor Contact</th>
-                  <th>DA / Authority</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>WebHopers Infotech</strong></td>
-                  <td><code>info@webhopers.com</code></td>
-                  <td><span class="badge badge-success">High Authority (DA 45+)</span></td>
-                  <td><span class="status-tag sent">Contacted</span></td>
-                </tr>
-                <tr>
-                  <td><strong>ThinkNEXT Technologies</strong></td>
-                  <td><code>info@thinknext.co.in</code></td>
-                  <td><span class="badge badge-success">High Authority (DA 50+)</span></td>
-                  <td><span class="status-tag sent">Contacted</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Guest Posting Outreach</strong></td>
-                  <td><code>theguestpostingoutreach@gmail.com</code></td>
-                  <td><span class="badge badge-success">Active Link Network</span></td>
-                  <td><span class="status-tag opened">Opened (3x)</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-<!-- ================= 14. TAB: SUPPRESSION & BLACKLIST ================= -->
+      <!-- ================= 14. TAB: SUPPRESSION & BLACKLIST ================= -->
       <section id="tab-blacklist" class="tab-pane">
         <div class="section-header">
           <div>
@@ -1160,7 +1176,360 @@
       <!-- WORKSPACE B: CONTRIBUTOR & EMAIL MARKETING HUB TABS (SEPARATE ENGINE) -->
       <!-- ==================================================================== -->
 
-</main>
+<section id="tab-contrib-dashboard" class="tab-pane">
+        <div class="contrib-hero-banner">
+          <div class="contrib-hero-content">
+            <div class="login-badge-top" style="margin-bottom: 8px;">
+              <span class="pulse-orb" style="background: #10b981; box-shadow: 0 0 8px #10b981;"></span> Contributor Lifecycle Engine
+            </div>
+            <h2>DailyAura Contributor & Email Marketing Hub</h2>
+            <p>Dedicated automation system for registered authors on <code>guestposts.dailyaura.in</code>. Auto-dispatches instant Welcome SLAs, Day 2–4 featured image showcases, and Day 10 author retention follow-ups.</p>
+          </div>
+          <div>
+            <button id="btnOpenNewContributorModal" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); border: none; white-space: nowrap;">
+              + Register New Author
+            </button>
+          </div>
+        </div>
+
+        <!-- CONTRIBUTOR SYSTEM STATUS BAR -->
+        <div class="dashboard-system-bar">
+          <div class="system-status-pill">
+            <span class="pulse-dot"></span> Hostinger SMTP: <strong>Active (smtp.hostinger.com:465)</strong>
+          </div>
+          <div class="safety-indicator">
+            <span class="shield-icon">⚡</span> Event Engine: <strong>Instant SLA Auto-Dispatch</strong>
+          </div>
+          <div class="system-status-pill" style="background: rgba(16, 185, 129, 0.12); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25);">
+            <span>🌐 WordPress Sync:</span> <strong>guestposts.dailyaura.in</strong>
+          </div>
+        </div>
+
+        <!-- 6 KPI SCOREBOARD -->
+        <div class="contrib-kpi-grid">
+          <div class="contrib-kpi-card">
+            <div class="kpi-label">Registered Authors <span>👥</span></div>
+            <div class="kpi-value" id="kpiContribTotal">--</div>
+            <div class="kpi-meta"><span class="dot"></span> Real WP users</div>
+          </div>
+          <div class="contrib-kpi-card">
+            <div class="kpi-label">Welcome SLAs Sent <span>⚡</span></div>
+            <div class="kpi-value" id="kpiContribWelcome">--</div>
+            <div class="kpi-meta" style="color: #34d399;">100% SLA delivery</div>
+          </div>
+          <div class="contrib-kpi-card">
+            <div class="kpi-label">Day 2-4 Digests <span>📰</span></div>
+            <div class="kpi-value" id="kpiContribDay2">--</div>
+            <div class="kpi-meta" style="color: #60a5fa;">With featured images</div>
+          </div>
+          <div class="contrib-kpi-card">
+            <div class="kpi-label">Day 10 Retentions <span>🎯</span></div>
+            <div class="kpi-value" id="kpiContribDay10">--</div>
+            <div class="kpi-meta" style="color: #c084fc;">Indexing reviews</div>
+          </div>
+          <div class="contrib-kpi-card">
+            <div class="kpi-label">Contributor Open Rate <span>📬</span></div>
+            <div class="kpi-value" id="kpiContribOpenRate">--%</div>
+            <div class="kpi-meta" style="color: #10b981;">Active subscribers</div>
+          </div>
+          <div class="contrib-kpi-card">
+            <div class="kpi-label">Click-Through Rate <span>🖱️</span></div>
+            <div class="kpi-value" id="kpiContribClickRate">--%</div>
+            <div class="kpi-meta" style="color: #38bdf8;">Article & Pitch links</div>
+          </div>
+        </div>
+
+        <!-- QUICK ACTION SUMMARY & RECENT STREAM -->
+        <div class="card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <h3>Live Contributor Engagement Stream</h3>
+            <button class="btn btn-ghost btn-xs" id="btnRefreshContribStream">🔄 Refresh Stream</button>
+          </div>
+          <div class="table-responsive">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Recipient / Contributor</th>
+                  <th>Email Type</th>
+                  <th>Status</th>
+                  <th>Subject</th>
+                </tr>
+              </thead>
+              <tbody id="contribRecentStreamTable">
+                <tr><td colspan="5" style="text-align:center; padding: 20px; color: var(--text-muted);">Loading contributor stream...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB C2: REGISTERED CONTRIBUTORS -->
+      <section id="tab-contrib-users" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Registered Website Authors & Contributors</h1>
+            <p class="subtitle">Directly synced from <code>guestposts.dailyaura.in</code>. Execute 1-click lifecycle dispatches anytime.</p>
+          </div>
+          <div class="header-actions">
+            <button id="btnSimulateRegistration" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); border: none;">
+              ⚡ Simulate Website Sign-Up (Instant SLA)
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-filter-bar" style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+            <input type="text" id="contribSearchInput" class="form-control" placeholder="Search by name, email or website..." style="max-width: 320px;">
+            <select id="contribStageFilter" class="form-control" style="max-width: 220px;">
+              <option value="">All Lifecycle Stages</option>
+              <option value="welcome_sent">Welcome SLA Sent</option>
+              <option value="day2_digest_sent">Day 2-4 Digest Sent</option>
+              <option value="day10_retention_sent">Day 10 Retention Sent</option>
+              <option value="draft_submitted">Draft Submitted</option>
+            </select>
+          </div>
+
+          <div class="table-responsive">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Author / Contributor</th>
+                  <th>Website / Org</th>
+                  <th>Niche</th>
+                  <th>Registered</th>
+                  <th>Articles</th>
+                  <th>Current Lifecycle Stage</th>
+                  <th style="text-align: right;">1-Click Actions</th>
+                </tr>
+              </thead>
+              <tbody id="contributorsTableBody">
+                <tr><td colspan="7" style="text-align:center; padding: 24px; color: var(--text-muted);">Loading contributors...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB C3: 3-STAGE LIFECYCLE FLOW -->
+      <section id="tab-contrib-triggers" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>3-Stage Automated Lifecycle Sequence</h1>
+            <p class="subtitle">Event-driven onboarding, content showcase with featured images, and author indexing reviews</p>
+          </div>
+        </div>
+
+        <div class="lifecycle-timeline">
+          <!-- STAGE 1 CARD -->
+          <div class="timeline-stage-card">
+            <div class="stage-badge-header">
+              <span class="stage-num-pill emerald">1</span>
+              <span class="stage-timing-pill instant">⚡ Instant SLA (Day 0)</span>
+            </div>
+            <h3>Instant Welcome SLA & Guidelines</h3>
+            <p>Dispatched automatically the exact second an author registers on <code>guestposts.dailyaura.in</code> via webhook or API.</p>
+            <ul class="stage-features-list">
+              <li><span class="dot"></span> 24–48 Hour Review Turnaround SLA guarantee</li>
+              <li><span class="dot"></span> Permanent Do-Follow link specifications</li>
+              <li><span class="dot"></span> Author profile & bio setup instructions</li>
+            </ul>
+            <div class="stage-actions">
+              <button class="btn btn-secondary btn-block preview-stage-tmpl-btn" data-template-id="tmpl-contrib-welcome">
+                👁️ Preview SLA Email
+              </button>
+            </div>
+          </div>
+
+          <!-- STAGE 2 CARD -->
+          <div class="timeline-stage-card">
+            <div class="stage-badge-header">
+              <span class="stage-num-pill">2</span>
+              <span class="stage-timing-pill">📅 Day 2 to 4 Digest</span>
+            </div>
+            <h3>Featured Post Showcase & Guest Call</h3>
+            <p>Rich responsive HTML email showcasing 4–5 latest published blog posts from DailyAura with their featured images, titles, and excerpts.</p>
+            <ul class="stage-features-list">
+              <li><span class="dot"></span> 4–5 High-resolution featured images</li>
+              <li><span class="dot"></span> Direct links to live DailyAura articles</li>
+              <li><span class="dot"></span> "Submit Your Article" primary CTA button</li>
+            </ul>
+            <div class="stage-actions">
+              <button class="btn btn-primary btn-block preview-stage-tmpl-btn" data-template-id="tmpl-contrib-day2">
+                📰 Preview HTML Digest
+              </button>
+            </div>
+          </div>
+
+          <!-- STAGE 3 CARD -->
+          <div class="timeline-stage-card">
+            <div class="stage-badge-header">
+              <span class="stage-num-pill purple">3</span>
+              <span class="stage-timing-pill">🎯 Day 10 Retention</span>
+            </div>
+            <h3>Day 10 Indexing Review & Column Invite</h3>
+            <p>Nurtures registered contributors after their first week to check Google Search Console indexing and invite a second draft submission.</p>
+            <ul class="stage-features-list">
+              <li><span class="dot"></span> Google fast-indexing confirmation</li>
+              <li><span class="dot"></span> VIP Author Column invitation</li>
+              <li><span class="dot"></span> 3 tailored topic suggestions in their niche</li>
+            </ul>
+            <div class="stage-actions">
+              <button class="btn btn-secondary btn-block preview-stage-tmpl-btn" data-template-id="tmpl-contrib-day10">
+                🎯 Preview Day 10 Email
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB C4: PUBLISHED ARTICLES -->
+      <section id="tab-contrib-articles" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>DailyAura Live Blog Feed Catalog</h1>
+            <p class="subtitle">Real published articles from <code>guestposts.dailyaura.in</code>. These posts and featured images are dynamically compiled into Day 2–4 showcase emails.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-primary preview-stage-tmpl-btn" data-template-id="tmpl-contrib-day2">
+              🚀 Preview HTML Digest with These Articles
+            </button>
+          </div>
+        </div>
+
+        <div class="articles-catalog-grid" id="articlesCatalogGrid">
+          <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">
+            Loading live articles from DailyAura...
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB C5: MARKETING TEMPLATES & AI STUDIO -->
+      <section id="tab-contrib-templates" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Contributor Email Templates & AI Studio</h1>
+            <p class="subtitle">Customizable lifecycle templates and AI generator strictly adhering to professional English</p>
+          </div>
+        </div>
+
+        <!-- AI BUILDER CARD -->
+        <div class="card" style="margin-bottom: 24px; border-color: rgba(236, 72, 153, 0.3);">
+          <div class="card-header">
+            <h3>🤖 AI Marketing Email Generator (English Output)</h3>
+            <span class="badge-pill pink">Strictly English Responses</span>
+          </div>
+          <p class="card-desc">Enter your requirements or instructions (in Punjabi or English); the AI will strictly generate high-converting, professional English templates with responsive HTML and 3 subject line variants.</p>
+          <div class="form-row">
+            <div class="form-group" style="flex: 1;">
+              <input type="text" id="aiTmplPromptInput" class="form-control" placeholder="e.g. Generate a Day 15 retention email offering a permanent author column badge...">
+            </div>
+            <div class="form-group" style="width: 220px;">
+              <select id="aiTmplCategorySelect" class="form-control">
+                <option value="lifecycle">Contributor Lifecycle</option>
+                <option value="digest">HTML Newsletter Digest</option>
+                <option value="advertising">Sponsored / Advertising</option>
+                <option value="outreach">Cold Outreach</option>
+              </select>
+            </div>
+            <div>
+              <button id="btnRunAiTmplBuilder" class="btn btn-primary" style="height: 42px;">✨ Generate Template</button>
+            </div>
+          </div>
+          <div id="aiTmplResultBox" class="hidden" style="margin-top: 16px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 10px; padding: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <strong style="color: #60a5fa;" id="aiTmplGenSubject">Generated Subject</strong>
+              <button id="btnSaveAiGeneratedTmpl" class="btn btn-success btn-xs">💾 Save to Template Studio</button>
+            </div>
+            <pre id="aiTmplGenBody" style="white-space: pre-wrap; font-family: inherit; font-size: 13px; color: #cbd5e1; max-height: 220px; overflow-y: auto;"></pre>
+          </div>
+        </div>
+
+        <!-- TEMPLATE CARDS GRID -->
+        <div class="template-studio-grid" id="contribTemplatesGrid">
+          <div style="grid-column: 1/-1; text-align: center; padding: 30px; color: var(--text-muted);">
+            Loading marketing templates...
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB C6: DELIVERY & CLICK STREAM -->
+      <section id="tab-contrib-stream" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>Contributor Delivery, Opens & Click Stream</h1>
+            <p class="subtitle">Complete audit trail of all contributor lifecycle emails dispatched via Hostinger SMTP</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-responsive">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Recipient / Author</th>
+                  <th>Email Stage</th>
+                  <th>Status</th>
+                  <th>Opened</th>
+                  <th>Clicked</th>
+                  <th>Tracking ID</th>
+                </tr>
+              </thead>
+              <tbody id="contribFullStreamTable">
+                <tr><td colspan="7" style="text-align:center; padding: 24px; color: var(--text-muted);">Loading delivery stream...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB C7: WEBHOOK & SMTP HEALTH -->
+      <section id="tab-contrib-settings" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h1>WordPress Webhook & Hostinger SMTP Status</h1>
+            <p class="subtitle">Configure automated subscriber intake from <code>guestposts.dailyaura.in</code></p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+          <h3>WordPress Integration Webhook URL</h3>
+          <p class="card-desc">Configure your WordPress registration hook (e.g. via WP Webhooks or Code Snippets) to send POST requests to this endpoint when a user signs up:</p>
+          <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <input type="text" class="form-control" readonly value="http://localhost:3000/api/contributors/register" id="wpWebhookUrlInput">
+            <button class="btn btn-secondary" onclick="navigator.clipboard.writeText(document.getElementById('wpWebhookUrlInput').value); alert('Webhook URL copied!');">📋 Copy</button>
+          </div>
+          <div style="margin-top: 14px; font-size: 12px; color: var(--text-muted);">
+            Expected JSON Payload: <code>{ "name": "Author Name", "email": "author@domain.com", "website": "https://example.com", "niche": "Technology" }</code>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Hostinger SMTP Contributor Engine</h3>
+          <div class="quick-settings-body" style="margin-top: 14px;">
+            <div class="info-row">
+              <span>Hostinger Server:</span>
+              <strong>smtp.hostinger.com:465 (SSL)</strong>
+            </div>
+            <div class="info-row">
+              <span>Sending Account:</span>
+              <strong>outreach@dailyaura.in</strong>
+            </div>
+            <div class="info-row">
+              <span>Email Sender Signature:</span>
+              <strong>DailyAura Editorial Team</strong>
+            </div>
+            <div class="info-row">
+              <span>Target Website:</span>
+              <strong>https://guestposts.dailyaura.in</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    
+    </main>
   </div>
 
   <!-- ADD CAMPAIGN MODAL -->
