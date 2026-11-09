@@ -1260,7 +1260,7 @@ app.post('/api/chat', authCheck, async (req, res) => {
   } else if (text.includes('start') || text.includes('ਸ਼ੁਰੂ') || text.includes('ਸਟਾਰਟ') || text.includes('run')) {
     emailEngine.start();
     const st = emailEngine.getStatus();
-    aiReply = `✅ **Automated Outreach Engine is Running!**\n\n• **Cadence Schedule:** 60 emails in 2 hours (1 email every 2 minutes) + 1 hour cooling pause.\n• **Batch Progress:** ${st.current_batch_sent} / 60 Emails Sent (Batch #${st.batch_cycle})\n• **Next Send Countdown:** ~${st.next_send_seconds}s\n• **Testing Mode:** Active (Sunday dispatches enabled).\n\nReal emails are actively dispatching to verified recipients via Hostinger SMTP.`;
+    aiReply = `✅ **Automated Outreach Engine is Running!**\n\n• **Cadence Schedule:** 5 emails per 1 hour (1 email every 12 minutes) + high-DA quality gatekeeper.\n• **Batch Progress:** ${st.current_batch_sent} / 5 Emails Sent (Cycle #${st.batch_cycle})\n• **Next Send Countdown:** ~${st.next_send_seconds}s\n• **Testing Mode:** Active.\n\nReal emails are actively dispatching to verified DA 50+ recipients via Hostinger SMTP.`;
   } else if (text.includes('stop') || text.includes('pause') || text.includes('ਰੋਕ') || text.includes('ਪਾਜ਼')) {
     emailEngine.pause();
     aiReply = '⏸️ The outreach engine has been paused. Pending leads remain queued in your database. You can resume at any moment.';
@@ -1273,15 +1273,15 @@ app.post('/api/chat', authCheck, async (req, res) => {
     const clicked = state.leads.filter(l => (l.click_count || 0) > 0).length;
     const openRate = sent > 0 ? Math.round((opened / sent) * 100) : 0;
     const clickRate = sent > 0 ? Math.round((clicked / sent) * 100) : 0;
-    aiReply = `📊 **Live System Status & Performance Report:**\n\n🚀 **Dispatch Engine (2h / 60 Mails + 1h Break):**\n• Status: ${cStatus.status.toUpperCase()} (${cStatus.phase})\n• Batch Progress: ${cStatus.current_batch_sent} / 60 Emails Sent\n• Next Dispatch In: ${cStatus.next_send_seconds}s\n• Sent Total: ${sent} | Opens: ${opened} (${openRate}%) | Clicks: ${clicked} (${clickRate}%)\n\n🌐 **Autonomous Web Scraper Bot:**\n• Status: ${sStatus.status.toUpperCase()}\n• Mining Duration: ${sStatus.durationFormatted}\n• Active Target: ${sStatus.currentSourceName}\n• Pending Queue Pool: ${sStatus.pendingCount} Leads Ready`;
+    aiReply = `📊 **Live System Status & Performance Report:**\n\n🚀 **Dispatch Engine (Strict 5 Emails/hour @ 1 every 12m):**\n• Status: ${cStatus.status.toUpperCase()} (${cStatus.phase})\n• Batch Progress: ${cStatus.current_batch_sent} / 5 Emails Sent\n• Next Dispatch In: ${cStatus.next_send_seconds}s\n• Sent Total: ${sent} | Opens: ${opened} (${openRate}%) | Clicks: ${clicked} (${clickRate}%)\n\n🌐 **Autonomous Web Scraper Bot:**\n• Status: ${sStatus.status.toUpperCase()}\n• Mining Duration: ${sStatus.durationFormatted}\n• Active Target: ${sStatus.currentSourceName}\n• Pending Queue Pool: ${sStatus.pendingCount} Leads Ready`;
   } else if (text.includes('lead') || text.includes('ਲੀਡ') || text.includes('add') || text.includes('100k') || text.includes('ਲੱਖ')) {
     aiReply = `👥 **Lead Pipeline Mining Hub:**\nYour database is actively monitored by the Autonomous Lead Scraper.\n\n• **Pending Leads in Queue:** ${db.get().leads.filter(l => l.status === 'pending').length} verified prospects ready for outreach.\n• **Auto-Scraper:** Scanning Clutch.co, DesignRush, and Google search queries.\n\nWould you like me to trigger an instant batch mine of 25 fresh SEO agency leads right now?`;
   } else if (text.includes('template') || text.includes('pitch') || text.includes('subject') || text.includes('ਵਿਸ਼ਾ')) {
     aiReply = `✍️ **Recommended High-Converting Pitch:**\n\n**Subject Line:** Free Guest Post & Do-Follow Backlink Collaboration ({{website}})\n\n**Key Formula for Primary Inbox Placement:**\n1. Always reference the recipient's exact domain in the subject line.\n2. Emphasize that the contributor spot is **100% Free** with permanent do-follow backlinks.\n3. Mention fast 24-48h editorial review & indexing.\n4. Sign off authoritatively as **DailyAura Editorial Team**.\n\nYou can explore pre-tested variations in the Template Studio tab.`;
-  } else if (text.includes('gap') || text.includes('delay') || text.includes('ਦੋ ਮਿੰਟ') || text.includes('2 min')) {
-    aiReply = `⏱️ **Deliverability Safeguards:**\nYour dispatch pacing is set to **1 email every 2 minutes (120s)**, sending **60 emails in 2 hours**, followed by a **1-hour cooling break**.\n\nThis completely eliminates bulk pattern detection on Hostinger SMTP and guarantees maximum deliverability.`;
+  } else if (text.includes('gap') || text.includes('delay') || text.includes('ਦੋ ਮਿੰਟ') || text.includes('2 min') || text.includes('12 min')) {
+    aiReply = `⏱️ **Deliverability Safeguards:**\nYour dispatch pacing is set to **1 email every 12 minutes (720s)**, sending **5 emails in 1 hour**, followed by an optional cooling cycle.\n\nThis completely eliminates bulk pattern detection on Hostinger SMTP and guarantees maximum deliverability.`;
   } else {
-    aiReply = `Hello! I have processed your request: "${message}".\n\nHere are the top actions I can assist you with right now:\n1. **Start / Pause Automated Outreach (60 emails / 2h + 1h break)**\n2. **Start / Monitor Autonomous Lead Web Scraper** (view targets, duration & mined counts)\n3. **Review Real-Time Analytics & Deliverability Stats**\n4. **Generate & Optimize Custom Email Templates**\n\nWhat would you like me to execute?`;
+    aiReply = `Hello! I have processed your request: "${message}".\n\nHere are the top actions I can assist you with right now:\n1. **Start / Pause Automated Outreach (5 emails / hour @ 1 every 12m)**\n2. **Start / Monitor Autonomous Lead Web Scraper** (view targets, duration & mined counts)\n3. **Review Real-Time Analytics & Deliverability Stats**\n4. **Generate & Optimize Custom Email Templates**\n\nWhat would you like me to execute?`;
   }
 
   const savedReply = db.addChatMessage('assistant', aiReply);
@@ -1298,7 +1298,7 @@ app.listen(PORT, () => {
   console.log(`🚀 DailyAura Outreach CRM v2.5 Enterprise is running!`);
   console.log(`📡 URL: http://localhost:${PORT}`);
   console.log(`🔐 Default Login: admin / dailyaura@123`);
-  console.log(`⏱️ Schedule: 60 emails in 2 hours (1 every 2 min) + 1 hr pause`);
+  console.log(`⏱️ Schedule: 5 emails per hour (1 every 12 min) | DA 50+ VIP`);
   console.log(`🌐 Autonomous Lead Scraper: ACTIVE & MINING`);
   console.log(`=======================================================`);
 

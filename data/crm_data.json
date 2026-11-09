@@ -18,7 +18,7 @@
     "welcome_email_body": "Hi {{name}},\n\nThank you for signing up and submitting to DailyAura (https://guestposts.dailyaura.in)!\n\nOur editorial team has received your contributor profile. Here is what to expect next:\n1. Editorial Review: Our team reviews all articles within 24–48 business hours.\n2. Do-Follow Backlinks: High-quality, non-promotional contextual links are preserved.\n3. Live Notification: As soon as your post is published and indexed, you will receive a direct link.\n\nSubmission Guidelines:\nhttps://guestposts.dailyaura.in/submit-guest-post/\n\nIf you have any drafts or link exchange proposals, simply reply directly to this email.\n\nBest regards,\n\nEditorial & SEO Outreach Team\nDailyAura Publishing\noutreach@dailyaura.in | https://guestposts.dailyaura.in"
   },
   "campaign": {
-    "status": "paused",
+    "status": "running",
     "name": "Q4 2026 High-DA Off-Page Outreach",
     "delay_min": 720,
     "delay_max": 720,
