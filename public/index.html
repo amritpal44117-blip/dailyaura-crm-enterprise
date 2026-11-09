@@ -303,6 +303,119 @@
           </div>
         </div>
 
+        <!-- ================= TWIN AUTOMATION CONTROL CENTER ================= -->
+        <div class="automation-hub-grid">
+          <!-- CARD 1: AUTONOMOUS DATA SCRAPER & PROSPECTOR BOT -->
+          <div class="card automation-panel-card scraper-panel">
+            <div class="automation-panel-head">
+              <div class="panel-title-group">
+                <span class="panel-icon pulse-blue">🌐</span>
+                <div>
+                  <div class="panel-title-row">
+                    <h3>Autonomous Lead Prospector & Scraper Bot</h3>
+                    <span class="badge-tag green" id="scraperStatusBadge">🟢 Mining Active</span>
+                  </div>
+                  <p class="panel-subtitle">Continuously scrapes directories & extracts verified B2B/SEO contacts</p>
+                </div>
+              </div>
+              <div class="panel-actions">
+                <button id="toggleScraperBtn" class="btn btn-sm btn-outline-warning">⏸ Pause Scraper</button>
+                <button id="mine10BatchBtn" class="btn btn-sm btn-primary">⚡ Mine 10 Now</button>
+              </div>
+            </div>
+
+            <!-- Active Crawl Target & Timing Bar -->
+            <div class="scraper-target-bar">
+              <div class="target-location">
+                <span class="radar-ping"></span>
+                <span class="target-label">Current Crawl Source:</span>
+                <strong id="crawlerActiveSource" class="target-val">Clutch.co SEO Directory</strong>
+                <span class="target-url" id="crawlerActiveUrl">https://clutch.co/seo-firms</span>
+              </div>
+            </div>
+
+            <!-- 4 Live Scraping Metric Badges -->
+            <div class="scraper-metrics-strip">
+              <div class="scraper-metric-pill">
+                <span class="sm-label">⏱️ Mining Duration:</span>
+                <strong class="sm-val" id="crawlerDurationText">00h 00m 00s</strong>
+              </div>
+              <div class="scraper-metric-pill">
+                <span class="sm-label">📥 Discovered Today:</span>
+                <strong class="sm-val text-success" id="crawlerDiscoveredText">0 Leads</strong>
+              </div>
+              <div class="scraper-metric-pill">
+                <span class="sm-label">⏳ Pending in Queue:</span>
+                <strong class="sm-val text-warning" id="crawlerPendingText">0 Pending</strong>
+              </div>
+              <div class="scraper-metric-pill">
+                <span class="sm-label">📁 Master Pool:</span>
+                <strong class="sm-val text-primary" id="crawlerTotalPoolText">0 Total</strong>
+              </div>
+            </div>
+
+            <!-- Live Scraping Terminal / Log Stream -->
+            <div class="scraper-terminal-container">
+              <div class="terminal-header">
+                <span>📟 Live Prospect Discovery Feed (Real-Time Terminal)</span>
+                <span class="terminal-blink">● LIVE SCANNING</span>
+              </div>
+              <div class="terminal-body" id="crawlerTerminalBody">
+                <div class="terminal-line">[SYSTEM] Autonomous Lead Discovery initialized. Connecting to web directories...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 2: AUTOMATED EMAIL OUTREACH DISPATCH ENGINE (2h: 60 Mails + 1h Break) -->
+          <div class="card automation-panel-card dispatch-panel">
+            <div class="automation-panel-head">
+              <div class="panel-title-group">
+                <span class="panel-icon pulse-purple">🚀</span>
+                <div>
+                  <div class="panel-title-row">
+                    <h3>Automated Email Outreach Engine</h3>
+                    <span class="badge-tag green" id="enginePhaseBadge">🟢 Dispatching Active</span>
+                  </div>
+                  <p class="panel-subtitle">2-Hour Batch (60 Emails @ 1 every 2 min) + 1-Hour Cooling Break</p>
+                </div>
+              </div>
+              <div class="panel-actions">
+                <button id="engineStartPauseBtn" class="btn btn-sm btn-success">▶ Start Engine</button>
+              </div>
+            </div>
+
+            <!-- Countdown & Batch Status -->
+            <div class="dispatch-status-banner" id="dispatchStatusBanner">
+              <div class="dispatch-timer-box">
+                <span class="timer-label" id="timerLabelText">⏳ NEXT DISPATCH IN:</span>
+                <span class="timer-countdown" id="engineCountdownText">01m 58s</span>
+              </div>
+              <div class="dispatch-rule-badge">
+                <span class="rule-icon">🛡️</span>
+                <div>
+                  <div class="rule-title">Safe Deliverability Cadence</div>
+                  <div class="rule-desc">1 email every 2 mins &bull; 60 emails in 2h &bull; 1h cooling break</div>
+                </div>
+              </div>
+              <div class="dispatch-test-pill">
+                <span class="pill-fire">🔥</span>
+                <span>Today's Test Mode: <strong id="engineTestModeText">ACTIVE</strong></span>
+              </div>
+            </div>
+
+            <!-- Batch Progress Bar -->
+            <div class="dispatch-progress-section">
+              <div class="dp-header">
+                <span>Batch #<strong id="engineBatchCycleNum">1</strong> Progress (2-Hour Window):</span>
+                <span><strong id="engineSentInBatch">0</strong> / 60 Emails Sent</span>
+              </div>
+              <div class="dp-bar-bg">
+                <div class="dp-bar-fill" id="engineProgressBarFill" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- STATS CARDS -->
         <div class="stats-grid">
           <div class="stat-card">

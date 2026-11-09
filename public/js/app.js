@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupPitchStudio();
   setupSpamScanner();
   setupInboxManager();
+  setupAutomationHub();
   setupAiChat();
   setupVoiceCall();
   setupSettings();
@@ -2661,5 +2662,178 @@ function setupVoiceCall() {
         if (callActive) startListening();
       }
     });
+  }
+}
+
+// ==========================================
+// TWIN AUTOMATION CONTROL CENTER (SCRAPER & ENGINE)
+// ==========================================
+
+function setupAutomationHub() {
+  const toggleScraperBtn = document.getElementById('toggleScraperBtn');
+  const mine10BatchBtn = document.getElementById('mine10BatchBtn');
+  const engineStartPauseBtn = document.getElementById('engineStartPauseBtn');
+
+  if (toggleScraperBtn) {
+    toggleScraperBtn.addEventListener('click', async () => {
+      try {
+        const isPaused = toggleScraperBtn.textContent.includes('Start');
+        const endpoint = isPaused ? '/api/crawler/start' : '/api/crawler/pause';
+        await API.post(endpoint, {});
+        pollAutomationStatus();
+      } catch (err) {
+        console.error('Error toggling scraper:', err);
+      }
+    });
+  }
+
+  if (mine10BatchBtn) {
+    mine10BatchBtn.addEventListener('click', async () => {
+      mine10BatchBtn.disabled = true;
+      mine10BatchBtn.textContent = '⏳ Mining 10...';
+      try {
+        await API.post('/api/crawler/mine-batch', { count: 10 });
+        pollAutomationStatus();
+        loadLeads();
+        loadStats();
+      } catch (err) {
+        console.error('Error mining batch:', err);
+      } finally {
+        mine10BatchBtn.disabled = false;
+        mine10BatchBtn.textContent = '⚡ Mine 10 Now';
+      }
+    });
+  }
+
+  if (engineStartPauseBtn) {
+    engineStartPauseBtn.addEventListener('click', async () => {
+      try {
+        const isRunning = engineStartPauseBtn.textContent.includes('Pause');
+        const endpoint = isRunning ? '/api/campaign/pause' : '/api/campaign/start';
+        await API.post(endpoint, {});
+        pollAutomationStatus();
+        loadStats();
+      } catch (err) {
+        console.error('Error toggling engine:', err);
+      }
+    });
+  }
+
+  // Initial poll and recurring 2.5s timer
+  pollAutomationStatus();
+  setInterval(pollAutomationStatus, 2500);
+}
+
+async function pollAutomationStatus() {
+  if (!API.token) return;
+
+  try {
+    // 1. Fetch Crawler Status
+    const cStatus = await API.get('/api/crawler/status');
+    if (cStatus && !cStatus.error) {
+      const badge = document.getElementById('scraperStatusBadge');
+      const toggleBtn = document.getElementById('toggleScraperBtn');
+      const durText = document.getElementById('crawlerDurationText');
+      const discText = document.getElementById('crawlerDiscoveredText');
+      const pendText = document.getElementById('crawlerPendingText');
+      const poolText = document.getElementById('crawlerTotalPoolText');
+      const srcText = document.getElementById('crawlerActiveSource');
+      const urlText = document.getElementById('crawlerActiveUrl');
+      const termBody = document.getElementById('crawlerTerminalBody');
+
+      if (badge) {
+        if (cStatus.status === 'active') {
+          badge.className = 'badge-tag green';
+          badge.textContent = '🟢 Mining Active';
+        } else {
+          badge.className = 'badge-tag yellow';
+          badge.textContent = '⏸️ Scraper Paused';
+        }
+      }
+
+      if (toggleBtn) {
+        if (cStatus.status === 'active') {
+          toggleBtn.className = 'btn btn-sm btn-outline-warning';
+          toggleBtn.textContent = '⏸ Pause Scraper';
+        } else {
+          toggleBtn.className = 'btn btn-sm btn-success';
+          toggleBtn.textContent = '▶ Start Scraper';
+        }
+      }
+
+      if (durText) durText.textContent = cStatus.durationFormatted || '00h 00m 00s';
+      if (discText) discText.textContent = `${cStatus.totalMined} Leads`;
+      if (pendText) pendText.textContent = `${cStatus.pendingCount} Pending`;
+      if (poolText) poolText.textContent = `${cStatus.totalLeads} Total`;
+      if (srcText) srcText.textContent = cStatus.currentSourceName || 'Clutch.co Directory';
+      if (urlText) urlText.textContent = cStatus.currentTarget || 'https://clutch.co/seo-firms';
+
+      if (termBody && Array.isArray(cStatus.logs) && cStatus.logs.length > 0) {
+        termBody.innerHTML = cStatus.logs.slice(0, 15).map(l => `<div class="terminal-line">${escapeHtml(l)}</div>`).join('');
+      }
+    }
+
+    // 2. Fetch Campaign Dispatch Engine Status
+    const eStatus = await API.get('/api/campaign/status');
+    if (eStatus && !eStatus.error) {
+      const phaseBadge = document.getElementById('enginePhaseBadge');
+      const startPauseBtn = document.getElementById('engineStartPauseBtn');
+      const timerLabel = document.getElementById('timerLabelText');
+      const countdown = document.getElementById('engineCountdownText');
+      const cycleNum = document.getElementById('engineBatchCycleNum');
+      const sentNum = document.getElementById('engineSentInBatch');
+      const progFill = document.getElementById('engineProgressBarFill');
+      const testPill = document.getElementById('engineTestModeText');
+
+      if (cycleNum) cycleNum.textContent = eStatus.batch_cycle || 1;
+      if (sentNum) sentNum.textContent = eStatus.current_batch_sent || 0;
+
+      const pct = Math.min(100, Math.round(((eStatus.current_batch_sent || 0) / (eStatus.batch_target || 60)) * 100));
+      if (progFill) progFill.style.width = `${pct}%`;
+
+      if (testPill) testPill.textContent = eStatus.test_mode ? 'ACTIVE' : 'OFF';
+
+      if (phaseBadge) {
+        if (eStatus.status === 'running') {
+          if (eStatus.phase === 'cooling') {
+            phaseBadge.className = 'badge-tag yellow';
+            phaseBadge.textContent = '☕ 1-Hour Cooling Break';
+          } else {
+            phaseBadge.className = 'badge-tag green';
+            phaseBadge.textContent = '🟢 Dispatching Active (1 every 2 min)';
+          }
+        } else {
+          phaseBadge.className = 'badge-tag yellow';
+          phaseBadge.textContent = '⏸️ Outreach Paused';
+        }
+      }
+
+      if (startPauseBtn) {
+        if (eStatus.status === 'running') {
+          startPauseBtn.className = 'btn btn-sm btn-outline-warning';
+          startPauseBtn.textContent = '⏸ Pause Engine';
+        } else {
+          startPauseBtn.className = 'btn btn-sm btn-success';
+          startPauseBtn.textContent = '▶ Start Engine';
+        }
+      }
+
+      // Format Countdown Timer
+      if (eStatus.phase === 'cooling') {
+        if (timerLabel) timerLabel.textContent = '☕ COOLING BREAK ENDS IN:';
+        const rem = eStatus.cooling_seconds_remaining || 0;
+        const m = Math.floor(rem / 60);
+        const s = rem % 60;
+        if (countdown) countdown.textContent = `${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+      } else {
+        if (timerLabel) timerLabel.textContent = '⏳ NEXT DISPATCH IN:';
+        const rem = eStatus.next_send_seconds || 0;
+        const m = Math.floor(rem / 60);
+        const s = rem % 60;
+        if (countdown) countdown.textContent = `${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+      }
+    }
+  } catch (err) {
+    // Silent fail on background poll
   }
 }

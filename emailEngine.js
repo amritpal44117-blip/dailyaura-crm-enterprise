@@ -5,6 +5,29 @@ class EmailEngine {
   constructor() {
     this.timer = null;
     this.isProcessing = false;
+    this.defaultIntervalSec = 120; // 2 minutes per email
+    this.defaultBatchTarget = 60;  // 60 emails per 2-hour window
+    this.defaultCoolingSec = 3600; // 1 hour cooling pause
+
+    // Initialize campaign schedule defaults in database
+    this.initScheduleState();
+  }
+
+  initScheduleState() {
+    const state = db.get();
+    if (!state.campaign) {
+      state.campaign = {};
+    }
+    const c = state.campaign;
+    if (c.batch_target === undefined) c.batch_target = this.defaultBatchTarget;
+    if (c.interval_seconds === undefined) c.interval_seconds = this.defaultIntervalSec;
+    if (c.cooling_seconds === undefined) c.cooling_seconds = this.defaultCoolingSec;
+    if (c.current_batch_sent === undefined) c.current_batch_sent = 0;
+    if (c.phase === undefined) c.phase = 'sending';
+    if (c.test_mode === undefined) c.test_mode = true; // Enabled for today's live test
+    if (c.batch_cycle === undefined) c.batch_cycle = 1;
+    if (c.total_sent_today === undefined) c.total_sent_today = 0;
+    db.save();
   }
 
   getTransporter() {
@@ -17,14 +40,15 @@ class EmailEngine {
         user: s.smtp_user,
         pass: s.smtp_pass,
       },
+      connectionTimeout: 10000, // 10s connection timeout
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
     });
   }
 
-  getRandomDelay(minSec, maxSec) {
-    // Enforce minimum 120 seconds (2 minutes) if not configured
-    const min = (minSec && minSec >= 120 ? minSec : 120) * 1000;
-    const max = (maxSec && maxSec >= minSec ? maxSec : minSec + 60) * 1000;
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  isWeekend() {
+    const day = new Date().getDay();
+    return day === 0 || day === 6; // 0 = Sunday, 6 = Saturday
   }
 
   wrapEmailContent(lead, rawTemplate, rawSubject) {
@@ -88,7 +112,7 @@ class EmailEngine {
     const camp = state.campaign;
 
     // Check suppression list
-    const isBlacklisted = (state.blacklist || []).some(b => b.email.toLowerCase() === lead.email.toLowerCase());
+    const isBlacklisted = (state.blacklist || []).some(b => b.email && b.email.toLowerCase() === lead.email.toLowerCase());
     if (isBlacklisted) {
       console.log(`[CRM Engine] Skipping blacklisted email: ${lead.email}`);
       db.updateLead(lead.id, { status: 'suppressed', last_error: 'Blacklisted address' });
@@ -107,7 +131,7 @@ class EmailEngine {
       html,
     };
 
-    console.log(`[CRM Engine] Sending email to ${lead.email} (${lead.website})...`);
+    console.log(`[CRM Engine] Dispatching outreach to ${lead.email} (${lead.website})...`);
     const info = await transporter.sendMail(mailOptions);
 
     db.updateLead(lead.id, {
@@ -125,87 +149,241 @@ class EmailEngine {
       message_id: info.messageId,
     });
 
-    console.log(`[CRM Engine] Successfully sent to ${lead.email} (ID: ${info.messageId})`);
+    console.log(`[CRM Engine] Successfully sent to ${lead.email} (Message ID: ${info.messageId})`);
     return info;
   }
 
   async processQueue() {
     const state = db.get();
-    if (state.campaign.status !== 'running' || this.isProcessing) {
+    const camp = state.campaign;
+
+    if (camp.status !== 'running' || this.isProcessing) {
+      return;
+    }
+
+    // Check weekday schedule rule unless test_mode is enabled
+    if (this.isWeekend() && !camp.test_mode) {
+      console.log('[CRM Engine] Weekend outreach hold active (Mon-Fri only). Standing by...');
+      camp.phase = 'weekend_hold';
+      db.save();
+      return;
+    }
+
+    // Check if in cooling break
+    if (camp.phase === 'cooling') {
+      const now = Date.now();
+      const coolingEnds = camp.cooling_ends_at ? new Date(camp.cooling_ends_at).getTime() : 0;
+      if (now < coolingEnds) {
+        const remainingMs = coolingEnds - now;
+        console.log(`[CRM Engine] In 1-Hour Cooling Break. ${Math.round(remainingMs / 60000)} minutes remaining.`);
+        if (this.timer) clearTimeout(this.timer);
+        this.timer = setTimeout(() => {
+          this.processQueue();
+        }, Math.min(remainingMs, 30000));
+        return;
+      } else {
+        // Cooling break finished! Transition back to sending phase
+        console.log('[CRM Engine] 1-Hour Cooling Break completed! Starting next 60-email batch.');
+        camp.phase = 'sending';
+        camp.current_batch_sent = 0;
+        camp.batch_cycle = (camp.batch_cycle || 1) + 1;
+        camp.cooling_ends_at = null;
+        db.save();
+      }
+    }
+
+    // Check if current 60-email batch is complete
+    const batchTarget = camp.batch_target || 60;
+    if ((camp.current_batch_sent || 0) >= batchTarget) {
+      console.log(`[CRM Engine] Batch target of ${batchTarget} emails reached (2-hour active window complete).`);
+      camp.phase = 'cooling';
+      const coolingMs = (camp.cooling_seconds || 3600) * 1000;
+      camp.cooling_ends_at = new Date(Date.now() + coolingMs).toISOString();
+      db.save();
+
+      console.log(`[CRM Engine] Entering 1-Hour Cooling Period. Next batch resumes at: ${camp.cooling_ends_at}`);
+      if (this.timer) clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.processQueue();
+      }, coolingMs);
       return;
     }
 
     this.isProcessing = true;
 
     try {
-      // Find next pending lead, optionally filtered by selected niche
+      // Find next pending lead (optionally filtered by selected niche)
       let pendingLead = null;
-      if (state.campaign.selected_niche && state.campaign.selected_niche !== 'All Niches') {
-        pendingLead = state.leads.find(l => l.status === 'pending' && l.niche === state.campaign.selected_niche);
+      if (camp.selected_niche && camp.selected_niche !== 'All Niches') {
+        pendingLead = state.leads.find(l => l.status === 'pending' && l.niche === camp.selected_niche);
       }
       if (!pendingLead) {
         pendingLead = state.leads.find(l => l.status === 'pending');
       }
 
+      // If no pending lead found, try to auto-mine immediately
       if (!pendingLead) {
-        console.log('[CRM Engine] All leads have been processed! Campaign completed.');
-        state.campaign.status = 'completed';
-        db.save();
+        try {
+          const leadFinder = require('./leadFinderEngine');
+          console.log('[CRM Engine] Pending leads queue low. Requesting LeadFinderEngine to mine 15 new verified prospects...');
+          leadFinder.mineBatch(15);
+          pendingLead = db.get().leads.find(l => l.status === 'pending');
+        } catch (e) {
+          console.warn('[CRM Engine] Auto-mine error:', e.message);
+        }
+      }
+
+      if (!pendingLead) {
+        console.log('[CRM Engine] All leads have been processed. Standing by for new discovered prospects...');
         this.isProcessing = false;
+        // Check again in 30 seconds
+        if (this.timer) clearTimeout(this.timer);
+        this.timer = setTimeout(() => this.processQueue(), 30000);
         return;
       }
 
-      await this.sendOne(pendingLead);
-
-      // Check remaining pending leads
-      const remaining = db.get().leads.filter(l => l.status === 'pending').length;
-      if (remaining > 0 && db.get().campaign.status === 'running') {
-        // Enforce the 2-minute minimum gap (120-180 seconds)
-        const delay = this.getRandomDelay(state.campaign.delay_min, state.campaign.delay_max);
-        console.log(`[CRM Engine] Throttling: Waiting ${(delay / 1000).toFixed(1)}s (approx. ${Math.round(delay/60000)} min) before next send to protect domain reputation... (${remaining} remaining)`);
-        this.timer = setTimeout(() => {
-          this.isProcessing = false;
-          this.processQueue();
-        }, delay);
-      } else {
-        if (remaining === 0) {
-          db.get().campaign.status = 'completed';
-          db.save();
-        }
-        this.isProcessing = false;
+      // Send the email
+      let sendSuccess = false;
+      try {
+        await this.sendOne(pendingLead);
+        sendSuccess = true;
+      } catch (sendErr) {
+        console.error(`[CRM Engine] Send error for ${pendingLead.email}:`, sendErr.message);
+        db.updateLead(pendingLead.id, {
+          status: 'failed',
+          last_error: sendErr.message
+        });
+        db.addEvent({
+          type: 'error',
+          lead_id: pendingLead.id,
+          email: pendingLead.email,
+          message: sendErr.message
+        });
       }
-    } catch (err) {
-      console.error('[CRM Engine] Send error:', err.message);
-      this.isProcessing = false;
-      db.get().campaign.status = 'paused';
+
+      // Update counters
+      const updatedCamp = db.get().campaign;
+      if (sendSuccess) {
+        updatedCamp.current_batch_sent = (updatedCamp.current_batch_sent || 0) + 1;
+        updatedCamp.total_sent_today = (updatedCamp.total_sent_today || 0) + 1;
+        updatedCamp.last_sent_at = new Date().toISOString();
+      }
+
+      // Check if we reached batch target immediately after this send
+      if (updatedCamp.current_batch_sent >= batchTarget) {
+        updatedCamp.phase = 'cooling';
+        const coolingMs = (updatedCamp.cooling_seconds || 3600) * 1000;
+        updatedCamp.cooling_ends_at = new Date(Date.now() + coolingMs).toISOString();
+        updatedCamp.next_send_at = null;
+        db.save();
+        this.isProcessing = false;
+
+        console.log(`[CRM Engine] Batch of ${batchTarget} emails completed! 1-Hour Cooling break initiated.`);
+        if (this.timer) clearTimeout(this.timer);
+        this.timer = setTimeout(() => this.processQueue(), coolingMs);
+        return;
+      }
+
+      // Enforce the 2-Minute (120 seconds) Pacing
+      const intervalSec = updatedCamp.interval_seconds || 120;
+      const nextDelayMs = intervalSec * 1000;
+      updatedCamp.next_send_at = new Date(Date.now() + nextDelayMs).toISOString();
       db.save();
+
+      console.log(`[CRM Engine] Batch Progress: ${updatedCamp.current_batch_sent}/${batchTarget} emails sent. Next dispatch scheduled in ${intervalSec}s (2 minutes)...`);
+
+      if (this.timer) clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.isProcessing = false;
+        this.processQueue();
+      }, nextDelayMs);
+
+    } catch (fatalErr) {
+      console.error('[CRM Engine] Fatal queue processing error:', fatalErr.message);
+      this.isProcessing = false;
+      if (this.timer) clearTimeout(this.timer);
+      this.timer = setTimeout(() => this.processQueue(), 30000);
     }
   }
 
   start() {
-    db.get().campaign.status = 'running';
+    const state = db.get();
+    state.campaign.status = 'running';
+    if (!state.campaign.phase || state.campaign.phase === 'idle') {
+      state.campaign.phase = 'sending';
+    }
+    state.campaign.test_mode = true; // Ensure today's live test run is enabled
     db.save();
+
+    console.log('[CRM Engine] Outreach campaign STARTED. 2-Hour (60 Emails @ 1 every 2 min) + 1-Hour Break cadence active.');
+    this.isProcessing = false;
     this.processQueue();
   }
 
   pause() {
-    db.get().campaign.status = 'paused';
+    const state = db.get();
+    state.campaign.status = 'paused';
     db.save();
     if (this.timer) {
       clearTimeout(this.timer);
       this.timer = null;
     }
     this.isProcessing = false;
+    console.log('[CRM Engine] Outreach campaign PAUSED.');
   }
 
   stop() {
-    db.get().campaign.status = 'idle';
+    const state = db.get();
+    state.campaign.status = 'idle';
+    state.campaign.phase = 'idle';
+    state.campaign.current_batch_sent = 0;
+    state.campaign.next_send_at = null;
+    state.campaign.cooling_ends_at = null;
     db.save();
     if (this.timer) {
       clearTimeout(this.timer);
       this.timer = null;
     }
     this.isProcessing = false;
+    console.log('[CRM Engine] Outreach campaign STOPPED.');
+  }
+
+  getStatus() {
+    const state = db.get();
+    const camp = state.campaign || {};
+    const leads = state.leads || [];
+    const pendingCount = leads.filter(l => l.status === 'pending').length;
+    const sentCount = leads.filter(l => l.status === 'sent').length;
+
+    let nextSendSecRemaining = 0;
+    if (camp.next_send_at && camp.status === 'running') {
+      nextSendSecRemaining = Math.max(0, Math.floor((new Date(camp.next_send_at).getTime() - Date.now()) / 1000));
+    }
+
+    let coolingSecRemaining = 0;
+    if (camp.cooling_ends_at && camp.phase === 'cooling') {
+      coolingSecRemaining = Math.max(0, Math.floor((new Date(camp.cooling_ends_at).getTime() - Date.now()) / 1000));
+    }
+
+    return {
+      status: camp.status || 'idle',
+      phase: camp.phase || 'sending',
+      batch_target: camp.batch_target || 60,
+      current_batch_sent: camp.current_batch_sent || 0,
+      batch_cycle: camp.batch_cycle || 1,
+      interval_seconds: camp.interval_seconds || 120,
+      cooling_seconds: camp.cooling_seconds || 3600,
+      total_sent_today: camp.total_sent_today || 0,
+      test_mode: camp.test_mode !== undefined ? camp.test_mode : true,
+      next_send_at: camp.next_send_at,
+      cooling_ends_at: camp.cooling_ends_at,
+      next_send_seconds: nextSendSecRemaining,
+      cooling_seconds_remaining: coolingSecRemaining,
+      last_sent_at: camp.last_sent_at,
+      pendingCount,
+      sentCount,
+      totalLeads: leads.length
+    };
   }
 }
 
