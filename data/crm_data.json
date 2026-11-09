@@ -28,20 +28,20 @@
     "subject": "Free Guest Post & Do-Follow Backlink Collaboration ({{website}})",
     "template": "Hi {{name}},\n\nI noticed you manage off-page SEO, guest posting, and link outreach for {{website}}.\n\nI manage the publishing platform over at DailyAura (https://guestposts.dailyaura.in). We are currently offering free guest post placements with permanent do-follow backlinks in Tech, AI, Digital Marketing, and Business.\n\nWhat we offer for link builders and SEO specialists:\n- 100% Free Guest Post submission (no fees)\n- Permanent do-follow contextual backlinks\n- Fast editorial approval & indexing within 24-48 hours\n- Open to mutual link exchanges (https://guestposts.dailyaura.in/link-exchange/)\n\nYou can review guidelines and submit articles directly here:\nhttps://guestposts.dailyaura.in/submit-guest-post/\n\nOr feel free to reply directly to this email with your article draft, topics, or target URLs, and I will get them reviewed for you immediately.\n\nBest regards,\n\nEditorial & SEO Outreach Team\nDailyAura Publishing\noutreach@dailyaura.in | https://guestposts.dailyaura.in",
     "active_track": "cold_outreach",
-    "phase": "cooling",
+    "phase": "sending",
     "batch_target": 5,
-    "current_batch_sent": 5,
+    "current_batch_sent": 2,
     "interval_seconds": 720,
     "cooling_seconds": 3600,
     "test_mode": true,
-    "next_send_at": null,
-    "batch_cycle": 1,
-    "total_sent_today": 5,
+    "next_send_at": "2026-11-09T17:10:23.776Z",
+    "batch_cycle": 2,
+    "total_sent_today": 7,
     "cadence_desc": "Ultra-Safe Elite Cadence: 5 emails/hour (1 every 12 mins)",
     "consecutive_smtp_errors": 0,
     "smtp_diagnostic": null,
-    "last_sent_at": "2026-11-09T15:48:59.293Z",
-    "cooling_ends_at": "2026-11-09T16:48:59.293Z"
+    "last_sent_at": "2026-11-09T16:58:23.776Z",
+    "cooling_ends_at": null
   },
   "campaigns": [
     {
@@ -303,6 +303,24 @@
   ],
   "contributors": [
     {
+      "id": "contrib_astrolabs",
+      "name": "Astrolabs",
+      "email": "infobloginscribe@gmail.com",
+      "website": "astrolabs.com",
+      "niche": "Business & International Consulting",
+      "registered_at": "2026-11-09T13:03:54.000Z",
+      "posts_submitted": 1,
+      "published_urls": [
+        "https://guestposts.dailyaura.in/why-international-companies-outsource-pro-services-in-saudi-arabia/"
+      ],
+      "stage": "pending_welcome",
+      "welcome_sent_at": null,
+      "day2_digest_sent_at": null,
+      "day10_retention_sent_at": null,
+      "open_count": 0,
+      "click_count": 0
+    },
+    {
       "id": "contrib_1",
       "name": "The Blue Kite",
       "email": "thebluekite15@gmail.com",
@@ -394,63 +412,113 @@
   ],
   "articles": [
     {
-      "id": "art_1",
+      "id": "art_373",
+      "wp_id": 373,
+      "title": "Why International Companies Outsource PRO Services in Saudi Arabia",
+      "url": "https://guestposts.dailyaura.in/why-international-companies-outsource-pro-services-in-saudi-arabia/",
+      "category": "Guest Post",
+      "author": "Astrolabs",
+      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
+      "excerpt": "An international company can have its Saudi office, local team and first clients in place and still struggle with routine [&hellip;]...",
+      "published_at": "2026-11-09"
+    },
+    {
+      "id": "art_360",
+      "wp_id": 360,
+      "title": "Why Professional Pest Control Is Important for a Healthy Home",
+      "url": "https://guestposts.dailyaura.in/why-professional-pest-control-is-important-for-a-healthy-home/",
+      "category": "Guest Post",
+      "author": "NoPest UK",
+      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
+      "excerpt": "A pest problem can develop in almost any property, whether it is a family home, a rented flat, a restaurant [&hellip;]...",
+      "published_at": "2026-11-06"
+    },
+    {
+      "id": "art_358",
+      "wp_id": 358,
       "title": "Dedicated Server Hosting: Complete Guide for Growing Businesses",
       "url": "https://guestposts.dailyaura.in/dedicated-server-hosting-complete-guide-for-growing-businesses/",
-      "category": "Cloud Computing",
+      "category": "Guest Post",
       "author": "Bharat Datacenter",
-      "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=80",
-      "excerpt": "Essential guide on choosing reliable dedicated server hardware and bandwidth to expand your business securely.",
+      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
+      "excerpt": "Choosing the right host to expand your business. When expanding your business, it is essential that you also choose the [&hellip;]...",
       "published_at": "2026-11-04"
     },
     {
-      "id": "art_2",
+      "id": "art_357",
+      "wp_id": 357,
       "title": "Top 5 Cheap Dedicated Server Providers in India",
       "url": "https://guestposts.dailyaura.in/top-5-cheap-dedicated-server-providers-in-india/",
-      "category": "Technology",
+      "category": "Guest Post",
       "author": "Bharat Datacenter",
-      "image": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&auto=format&fit=crop&q=80",
-      "excerpt": "Startups and enterprises look for cheap dedicated servers. An executive analysis of the top 5 platforms.",
+      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
+      "excerpt": "Dedicated server hosting provides a complete physical server with exclusive CPU, RAM, storage, and bandwidth for one customer. It gives [&hellip;]...",
       "published_at": "2026-11-02"
     },
     {
-      "id": "art_3",
+      "id": "art_345",
+      "wp_id": 345,
       "title": "AI Fluency and Executive Skill Building: Education & Career Strategies in 2026",
       "url": "https://guestposts.dailyaura.in/ai-fluency-and-executive-skill-building-education-career-strategies-in-2026/",
-      "category": "Education & AI",
+      "category": "Guest Post",
       "author": "Amrit Chhabra",
-      "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80",
-      "excerpt": "The global career landscape is experiencing rapid evolution. How executives build enduring AI workflows.",
+      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
+      "excerpt": "The global career landscape is experiencing its most rapid transformation in decades. AI fluency and executive skill building guide....",
       "published_at": "2026-10-27"
     },
     {
-      "id": "art_4",
+      "id": "art_343",
+      "wp_id": 343,
       "title": "Biophilic Design and Acoustic Comfort in Modern Home Improvement",
       "url": "https://guestposts.dailyaura.in/biophilic-design-and-acoustic-comfort-in-modern-home-improvement/",
-      "category": "Home Improvement",
+      "category": "Guest Post",
       "author": "Amrit Chhabra",
-      "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop&q=80",
-      "excerpt": "Integrating acoustic architecture, sound-dampening engineering, and biophilic natural design in modern living spaces.",
+      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
+      "excerpt": "Residential architecture and interior renovation in 2026 have shifted from purely aesthetic staging toward restorative environmental engineering. Homeowners and...",
       "published_at": "2026-10-27"
     },
     {
-      "id": "art_5",
+      "id": "art_341",
+      "wp_id": 341,
       "title": "Circular Fashion and Clean Beauty: The Conscious Wardrobe Playbook",
       "url": "https://guestposts.dailyaura.in/circular-fashion-and-clean-beauty-the-conscious-wardrobe-playbook/",
-      "category": "Fashion & Beauty",
+      "category": "Guest Post",
       "author": "Amrit Chhabra",
-      "image": "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&auto=format&fit=crop&q=80",
-      "excerpt": "Regenerative textile innovations, non-toxic formulations, and circular capsule wardrobes for conscious consumers.",
+      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
+      "excerpt": "The fashion and cosmetics industries are undergoing a profound evolution driven by informed consumer awareness. Disposable fast-fashion cycles and synthetic-hea...",
       "published_at": "2026-10-27"
     },
     {
-      "id": "art_6",
+      "id": "art_339",
+      "wp_id": 339,
+      "title": "Sustainable Eco-Tourism and Modern Remote Work Travel in 2026",
+      "url": "https://guestposts.dailyaura.in/sustainable-eco-tourism-and-modern-remote-work-travel-in-2026/",
+      "category": "Guest Post",
+      "author": "Amrit Chhabra",
+      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
+      "excerpt": "Global travel has entered an era of thoughtful transformation. As distributed remote work matures, modern travelers are shifting away from [&hellip;]...",
+      "published_at": "2026-10-27"
+    },
+    {
+      "id": "art_337",
+      "wp_id": 337,
       "title": "Doctor-Backed Longevity Protocols: Biomarkers and Preventative Health",
       "url": "https://guestposts.dailyaura.in/doctor-backed-longevity-protocols-biomarkers-and-preventative-health/",
-      "category": "Health & Fitness",
+      "category": "Guest Post",
       "author": "Amrit Chhabra",
-      "image": "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=600&auto=format&fit=crop&q=80",
-      "excerpt": "Preventative clinical medicine shifts from reactive illness care toward proactive biomarker surveillance.",
+      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
+      "excerpt": "Preventative clinical medicine is undergoing a transformative paradigm shift in 2026. Rather than reacting to chronic conditions after clinical manifestation, [...",
+      "published_at": "2026-10-27"
+    },
+    {
+      "id": "art_335",
+      "wp_id": 335,
+      "title": "Minimalist Living and Digital Wellness in 2026: A Practical Guide",
+      "url": "https://guestposts.dailyaura.in/minimalist-living-and-digital-wellness-in-2026-a-practical-guide/",
+      "category": "Guest Post",
+      "author": "Amrit Chhabra",
+      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
+      "excerpt": "Modern lifestyle design in 2026 is no longer defined merely by empty white walls or discarding physical items. Instead, the [&hellip;]...",
       "published_at": "2026-10-27"
     }
   ],
@@ -1505,13 +1573,14 @@
       "da_score": 86,
       "role": "Cloud Content Director",
       "url": "https://linode.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-09T16:58:23.766Z",
+      "last_error": null,
+      "message_id": "<98624179-9002-2dc0-dbac-00b377904186@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_7551",
@@ -1573,13 +1642,14 @@
       "da_score": 87,
       "role": "Content & Partner Lead",
       "url": "https://wpengine.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-09T16:49:01.482Z",
+      "last_error": null,
+      "message_id": "<887c2150-5556-4d8b-e320-531d37abb2f0@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_3334",
@@ -1944,6 +2014,24 @@
     }
   ],
   "events": [
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_5312",
+      "email": "info@linode.com",
+      "website": "linode.com",
+      "message_id": "<98624179-9002-2dc0-dbac-00b377904186@dailyaura.in>",
+      "id": "ev_1794243503772_5922",
+      "timestamp": "2026-11-09T16:58:23.772Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_6994",
+      "email": "info@wpengine.com",
+      "website": "wpengine.com",
+      "message_id": "<887c2150-5556-4d8b-e320-531d37abb2f0@dailyaura.in>",
+      "id": "ev_1794242941486_646",
+      "timestamp": "2026-11-09T16:49:01.486Z"
+    },
     {
       "type": "sent",
       "lead_id": "lead_1794227793075_3846",

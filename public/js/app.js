@@ -2280,48 +2280,63 @@ async function loadContributors() {
     }
 
     tbody.innerHTML = allContributors.map(c => {
-      let stageBadge = `<span class="badge-stage-welcome">Welcome Sent</span>`;
-      if (c.stage === 'day2_digest_sent') {
-        stageBadge = `<span class="badge-stage-day2">Day 2-4 Digest</span>`;
+      const isNew = c.id === 'contrib_astrolabs' || c.stage === 'pending_welcome';
+      let stageBadge = `<span class="badge-stage-welcome">✓ Welcome Sent</span>`;
+      if (c.stage === 'pending_welcome') {
+        stageBadge = `<span class="badge-stage-pending"><span class="pulse-dot-amber"></span> Pending Welcome (New)</span>`;
+      } else if (c.stage === 'day2_digest_sent') {
+        stageBadge = `<span class="badge-stage-day2">📰 Day 2-4 Digest</span>`;
       } else if (c.stage === 'day10_retention_sent') {
-        stageBadge = `<span class="badge-stage-day10">Day 10 Retention</span>`;
-      } else if (c.stage === 'draft_submitted') {
-        stageBadge = `<span class="badge-stage-draft">Draft Submitted</span>`;
+        stageBadge = `<span class="badge-stage-day10">🎯 Day 10 Retention</span>`;
       }
 
+      const initials = (c.name || 'Author').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+      const postsCount = c.posts_submitted || (c.published_urls ? c.published_urls.length : 1);
+      const postUrl = c.published_urls && c.published_urls[0] ? c.published_urls[0] : 'https://guestposts.dailyaura.in';
+      const regDate = c.registered_at ? c.registered_at.substring(0, 10) : '2026-11-09';
+
       return `
-        <tr>
+        <tr class="${isNew ? 'tr-new-author' : ''}">
           <td>
-            <div style="font-weight: 700; color: #fff;">${escapeHtml(c.name)}</div>
-            <div style="font-size: 11px; color: var(--text-muted); font-family: monospace;">${escapeHtml(c.email)}</div>
+            <div class="author-cell">
+              <div class="author-avatar ${isNew ? 'avatar-teal' : ''}">
+                <span>${initials}</span>
+              </div>
+              <div class="author-details">
+                <div class="author-name">
+                  ${escapeHtml(c.name)}
+                  ${isNew ? '<span class="badge-new-pill">NEW TODAY</span>' : ''}
+                </div>
+                <div class="author-email">${escapeHtml(c.email)}</div>
+              </div>
+            </div>
           </td>
           <td>
-            <span style="font-weight: 600; color: #93c5fd;">${escapeHtml(c.website || 'N/A')}</span>
+            <a href="${escapeHtml(c.website ? (c.website.startsWith('http') ? c.website : 'https://' + c.website) : postUrl)}" target="_blank" class="author-web-link">
+              ${escapeHtml(c.website || 'astrolabs.com')}
+            </a>
           </td>
           <td>
-            <span class="badge" style="background: rgba(255,255,255,0.06); font-size: 11px;">${escapeHtml(c.niche || 'General')}</span>
-          </td>
-          <td style="font-size: 11px; color: var(--text-muted);">
-            ${escapeHtml(c.registered_at || 'Recently')}
+            <span class="niche-badge-pill">${escapeHtml(c.niche || 'General')}</span>
           </td>
           <td>
-            <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; font-weight: 700;">
-              ${c.articles_submitted || 0} Posts
-            </span>
+            <span class="reg-date-cell">${escapeHtml(regDate)}</span>
+          </td>
+          <td>
+            <a href="${escapeHtml(postUrl)}" target="_blank" class="posts-count-pill" title="View published post on DailyAura">
+              ${postsCount} Post${postsCount > 1 ? 's' : ''} ↗
+            </a>
           </td>
           <td>${stageBadge}</td>
           <td style="text-align: right;">
-            <div style="display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap;">
-              <button class="btn btn-secondary btn-xs action-send-welcome" data-id="${c.id}" title="Send Instant Welcome SLA Email">
-                ⚡ Welcome SLA
+            <div style="display: flex; gap: 6px; justify-content: flex-end; align-items: center; flex-wrap: wrap;">
+              <button class="btn btn-xs ${isNew ? 'btn-primary' : 'btn-secondary'} action-send-welcome" data-id="${c.id}" title="Send Welcome SLA Email">
+                ⚡ Send Welcome
               </button>
-              <button class="btn btn-primary btn-xs action-send-digest" data-id="${c.id}" title="Send Day 2-4 Post Showcase with Images">
+              <button class="btn btn-outline-teal btn-xs action-send-digest" data-id="${c.id}" title="Send Day 2-4 Post Showcase Digest">
                 📰 2-4d Digest
               </button>
-              <button class="btn btn-ghost btn-xs action-send-retention" data-id="${c.id}" title="Send Day 10 Author Retention & Review">
-                🎯 Day 10
-              </button>
-              <button class="btn btn-ghost btn-xs action-delete-contrib" data-id="${c.id}" title="Delete Contributor" style="color: #ef4444;">
+              <button class="btn btn-ghost btn-xs action-delete-contrib" data-id="${c.id}" title="Delete Author" style="color: #ef4444;">
                 ✕
               </button>
             </div>
@@ -2338,15 +2353,19 @@ async function loadContributors() {
         btn.textContent = 'Sending...';
         try {
           const res = await API.post(`/api/contributors/${id}/send-welcome`);
-          alert(res.message || 'Welcome SLA Email dispatched via Hostinger SMTP!');
-          loadContributorStats();
-          loadContributors();
-          loadContribStream();
+          if (res.success) {
+            showToast('✅ Welcome Email Sent Successfully via Hostinger SMTP!', 'success');
+            loadContributors();
+            loadContributorStats();
+          } else {
+            showToast(res.error || 'Failed to send welcome email', 'danger');
+            btn.disabled = false;
+            btn.textContent = '⚡ Send Welcome';
+          }
         } catch (err) {
-          alert('Failed to send Welcome SLA: ' + err.message);
-        } finally {
+          showToast('Network error sending welcome email', 'danger');
           btn.disabled = false;
-          btn.textContent = '⚡ Welcome SLA';
+          btn.textContent = '⚡ Send Welcome';
         }
       });
     });
@@ -2358,35 +2377,19 @@ async function loadContributors() {
         btn.textContent = 'Sending...';
         try {
           const res = await API.post(`/api/contributors/${id}/send-day2-digest`);
-          alert(res.message || 'Day 2-4 Post Showcase (with Featured Images) dispatched via Hostinger SMTP!');
-          loadContributorStats();
-          loadContributors();
-          loadContribStream();
+          if (res.success) {
+            showToast('✅ Day 2-4 Content Digest Dispatched!', 'success');
+            loadContributors();
+            loadContributorStats();
+          } else {
+            showToast(res.error || 'Failed to send digest', 'danger');
+            btn.disabled = false;
+            btn.textContent = '📰 2-4d Digest';
+          }
         } catch (err) {
-          alert('Failed to send Day 2 Digest: ' + err.message);
-        } finally {
+          showToast('Network error sending digest', 'danger');
           btn.disabled = false;
           btn.textContent = '📰 2-4d Digest';
-        }
-      });
-    });
-
-    tbody.querySelectorAll('.action-send-retention').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const id = btn.getAttribute('data-id');
-        btn.disabled = true;
-        btn.textContent = 'Sending...';
-        try {
-          const res = await API.post(`/api/contributors/${id}/send-day10-retention`);
-          alert(res.message || 'Day 10 Indexing Retention email dispatched via Hostinger SMTP!');
-          loadContributorStats();
-          loadContributors();
-          loadContribStream();
-        } catch (err) {
-          alert('Failed to send Day 10 Retention: ' + err.message);
-        } finally {
-          btn.disabled = false;
-          btn.textContent = '🎯 Day 10';
         }
       });
     });
@@ -2394,10 +2397,14 @@ async function loadContributors() {
     tbody.querySelectorAll('.action-delete-contrib').forEach(btn => {
       btn.addEventListener('click', async () => {
         const id = btn.getAttribute('data-id');
-        if (confirm('Delete this contributor profile?')) {
+        if (!confirm('Are you sure you want to remove this contributor from tracking?')) return;
+        try {
           await API.del(`/api/contributors/${id}`);
-          loadContributorStats();
+          showToast('Contributor removed', 'info');
           loadContributors();
+          loadContributorStats();
+        } catch (err) {
+          showToast('Failed to remove contributor', 'danger');
         }
       });
     });
@@ -2413,33 +2420,40 @@ async function loadArticlesCatalog() {
   if (!container) return;
 
   try {
-    allArticles = await API.get('/api/articles') || [];
+    const allArticles = await API.get('/api/articles') || [];
     if (allArticles.length === 0) {
-      container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 30px; color: var(--text-muted);">No published articles retrieved.</div>`;
+      container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No published articles found.</div>`;
       return;
     }
 
-    container.innerHTML = allArticles.map(art => `
-      <div class="article-showcase-card">
+    container.innerHTML = allArticles.map(art => {
+      const img = art.image || art.featured_image || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80';
+      const dateStr = art.published_at || art.date || 'Recent';
+      const isAstrolabs = art.author && art.author.toLowerCase().includes('astrolabs');
+
+      return `
+      <div class="article-showcase-card ${isAstrolabs ? 'card-highlight-new' : ''}">
         <div class="article-cover-wrap">
-          <img src="${escapeHtml(art.featured_image)}" alt="${escapeHtml(art.title)}" loading="lazy">
+          <img src="${escapeHtml(img)}" alt="${escapeHtml(art.title)}" loading="lazy">
           <span class="article-category-badge">${escapeHtml(art.category || 'Featured Article')}</span>
+          ${isAstrolabs ? '<span class="article-badge-new">⚡ LATEST FROM TODAY</span>' : ''}
         </div>
         <div class="article-body-content">
           <h4>${escapeHtml(art.title)}</h4>
-          <p>${escapeHtml(art.excerpt)}</p>
+          <p>${escapeHtml(art.excerpt || '')}</p>
           <div class="article-meta-row">
-            <span class="article-meta-author">✍️ ${escapeHtml(art.author)}</span>
-            <span>📅 ${escapeHtml(art.date)}</span>
+            <span class="article-meta-author">✍️ <strong>${escapeHtml(art.author)}</strong></span>
+            <span class="article-meta-date">📅 ${escapeHtml(dateStr)}</span>
           </div>
-          <div style="margin-top: 12px; display: flex; gap: 8px;">
-            <a href="${escapeHtml(art.url)}" target="_blank" class="btn btn-ghost btn-xs" style="flex: 1; text-align: center;">
-              🔗 View on DailyAura
+          <div class="article-card-actions">
+            <a href="${escapeHtml(art.url)}" target="_blank" class="btn btn-outline-teal btn-xs" style="flex: 1; text-align: center;">
+              🔗 Read on DailyAura
             </a>
           </div>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
   } catch (err) {
     console.error('Error loading articles catalog:', err);
     container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 30px; color: #ef4444;">Failed to load article feed.</div>`;
@@ -2574,6 +2588,37 @@ async function loadContribStream() {
 }
 
 function setupContributorHub() {
+
+  const syncBtn1 = document.getElementById('btnSyncWpContributors');
+  const syncBtn2 = document.getElementById('btnSyncWpArticles');
+  const handleSync = async (btn) => {
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = '⏳ Syncing...';
+    }
+    try {
+      const res = await API.post('/api/sync-wp');
+      if (res.success) {
+        showToast(`✅ Synced live WordPress: ${res.count} articles and ${res.contributors.length} authors`, 'success');
+        loadContributors();
+        loadArticlesCatalog();
+        loadContributorStats();
+      } else {
+        showToast('Sync error: ' + (res.error || 'failed'), 'danger');
+      }
+    } catch (e) {
+      showToast('Network error during WordPress sync', 'danger');
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = '🔄 Sync Live WordPress';
+      }
+    }
+  };
+
+  if (syncBtn1) syncBtn1.addEventListener('click', () => handleSync(syncBtn1));
+  if (syncBtn2) syncBtn2.addEventListener('click', () => handleSync(syncBtn2));
+
   // Search & Filter listeners
   const searchInput = document.getElementById('contribSearchInput');
   const stageFilter = document.getElementById('contribStageFilter');

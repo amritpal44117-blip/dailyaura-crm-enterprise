@@ -915,6 +915,66 @@ app.get('/api/contributor-stats', authCheck, (req, res) => {
   });
 });
 
+
+// LIVE WORDPRESS SYNCHRONIZATION (Posts & Authors)
+app.post('/api/sync-wp', authCheck, async (req, res) => {
+  try {
+    const wpRes = await fetch('https://guestposts.dailyaura.in/wp-json/wp/v2/posts?per_page=10&_embed');
+    const posts = await wpRes.json();
+    const state = db.get();
+
+    if (Array.isArray(posts) && posts.length > 0) {
+      const syncdArticles = posts.map(p => {
+        let featImg = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80';
+        if (p._embedded && p._embedded['wp:featuredmedia'] && p._embedded['wp:featuredmedia'][0]) {
+          featImg = p._embedded['wp:featuredmedia'][0].source_url || featImg;
+        }
+        const authorName = p._embedded && p._embedded.author && p._embedded.author[0] ? p._embedded.author[0].name : 'DailyAura Contributor';
+        return {
+          id: `art_${p.id}`,
+          wp_id: p.id,
+          title: (p.title?.rendered || '').replace(/&#8217;/g, "'").replace(/&amp;/g, '&'),
+          url: p.link,
+          category: 'Guest Post',
+          author: authorName,
+          image: featImg,
+          excerpt: (p.excerpt?.rendered || '').replace(/<[^>]*>/g, '').trim().substring(0, 160) + '...',
+          published_at: p.date ? p.date.substring(0, 10) : '2026-11-09'
+        };
+      });
+      state.articles = syncdArticles;
+
+      // Ensure Astrolabs exists in contributors
+      const hasAstrolabs = (state.contributors || []).some(c => c.email === 'infobloginscribe@gmail.com');
+      if (!hasAstrolabs) {
+        state.contributors = state.contributors || [];
+        state.contributors.unshift({
+          id: 'contrib_astrolabs',
+          name: 'Astrolabs',
+          email: 'infobloginscribe@gmail.com',
+          website: 'astrolabs.com',
+          niche: 'Business & International Consulting',
+          registered_at: '2026-11-09T13:03:54.000Z',
+          posts_submitted: 1,
+          published_urls: [
+            'https://guestposts.dailyaura.in/why-international-companies-outsource-pro-services-in-saudi-arabia/'
+          ],
+          stage: 'pending_welcome',
+          welcome_sent_at: null,
+          day2_digest_sent_at: null,
+          day10_retention_sent_at: null,
+          open_count: 0,
+          click_count: 0
+        });
+      }
+      db.save();
+    }
+    res.json({ success: true, count: state.articles.length, articles: state.articles, contributors: state.contributors });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get('/api/articles', authCheck, (req, res) => {
   res.json(db.getArticles());
 });
