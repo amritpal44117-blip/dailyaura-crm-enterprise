@@ -15,7 +15,8 @@
     "welcome_email_enabled": true,
     "welcome_email_delay_mins": 3,
     "welcome_email_subject": "Welcome to DailyAura Contributor Community — Publishing Guidelines",
-    "welcome_email_body": "Hi {{name}},\n\nThank you for signing up and submitting to DailyAura (https://guestposts.dailyaura.in)!\n\nOur editorial team has received your contributor profile. Here is what to expect next:\n1. Editorial Review: Our team reviews all articles within 24–48 business hours.\n2. Do-Follow Backlinks: High-quality, non-promotional contextual links are preserved.\n3. Live Notification: As soon as your post is published and indexed, you will receive a direct link.\n\nSubmission Guidelines:\nhttps://guestposts.dailyaura.in/submit-guest-post/\n\nIf you have any drafts or link exchange proposals, simply reply directly to this email.\n\nBest regards,\n\nEditorial & SEO Outreach Team\nDailyAura Publishing\noutreach@dailyaura.in | https://guestposts.dailyaura.in"
+    "welcome_email_body": "Hi {{name}},\n\nThank you for signing up and submitting to DailyAura (https://guestposts.dailyaura.in)!\n\nOur editorial team has received your contributor profile. Here is what to expect next:\n1. Editorial Review: Our team reviews all articles within 24–48 business hours.\n2. Do-Follow Backlinks: High-quality, non-promotional contextual links are preserved.\n3. Live Notification: As soon as your post is published and indexed, you will receive a direct link.\n\nSubmission Guidelines:\nhttps://guestposts.dailyaura.in/submit-guest-post/\n\nIf you have any drafts or link exchange proposals, simply reply directly to this email.\n\nBest regards,\n\nEditorial & SEO Outreach Team\nDailyAura Publishing\noutreach@dailyaura.in | https://guestposts.dailyaura.in",
+    "admin_pin": "0852"
   },
   "campaign": {
     "status": "running",
@@ -27,19 +28,20 @@
     "subject": "Free Guest Post & Do-Follow Backlink Collaboration ({{website}})",
     "template": "Hi {{name}},\n\nI noticed you manage off-page SEO, guest posting, and link outreach for {{website}}.\n\nI manage the publishing platform over at DailyAura (https://guestposts.dailyaura.in). We are currently offering free guest post placements with permanent do-follow backlinks in Tech, AI, Digital Marketing, and Business.\n\nWhat we offer for link builders and SEO specialists:\n- 100% Free Guest Post submission (no fees)\n- Permanent do-follow contextual backlinks\n- Fast editorial approval & indexing within 24-48 hours\n- Open to mutual link exchanges (https://guestposts.dailyaura.in/link-exchange/)\n\nYou can review guidelines and submit articles directly here:\nhttps://guestposts.dailyaura.in/submit-guest-post/\n\nOr feel free to reply directly to this email with your article draft, topics, or target URLs, and I will get them reviewed for you immediately.\n\nBest regards,\n\nEditorial & SEO Outreach Team\nDailyAura Publishing\noutreach@dailyaura.in | https://guestposts.dailyaura.in",
     "active_track": "cold_outreach",
-    "phase": "sending",
+    "phase": "cooling",
     "batch_target": 5,
-    "current_batch_sent": 2,
+    "current_batch_sent": 5,
     "interval_seconds": 720,
     "cooling_seconds": 3600,
     "test_mode": true,
-    "next_send_at": "2026-11-09T15:52:03.063Z",
+    "next_send_at": null,
     "batch_cycle": 1,
-    "total_sent_today": 2,
+    "total_sent_today": 5,
     "cadence_desc": "Ultra-Safe Elite Cadence: 5 emails/hour (1 every 12 mins)",
     "consecutive_smtp_errors": 0,
     "smtp_diagnostic": null,
-    "last_sent_at": "2026-11-09T13:25:47.667Z"
+    "last_sent_at": "2026-11-09T15:48:59.293Z",
+    "cooling_ends_at": "2026-11-09T16:48:59.293Z"
   },
   "campaigns": [
     {
@@ -1877,13 +1879,14 @@
       "da_score": 88,
       "role": "Content Strategy Lead",
       "url": "https://bigcommerce.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-09T15:48:54.282Z",
+      "last_error": null,
+      "message_id": "<ac30e7de-1da6-5c37-a0ea-63a92ac06559@dailyaura.in>"
     },
     {
       "id": "lead_1794227793075_4806",
@@ -1894,13 +1897,14 @@
       "da_score": 89,
       "role": "Community Partnerships",
       "url": "https://woocommerce.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-09T15:46:36.670Z",
+      "last_error": null,
+      "message_id": "<503c8082-c3a3-1a0a-59e4-35c70a1eb541@dailyaura.in>"
     },
     {
       "id": "lead_1794227793075_3846",
@@ -1911,13 +1915,14 @@
       "da_score": 88,
       "role": "Brand & Content Lead",
       "url": "https://webflow.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-09T15:48:59.282Z",
+      "last_error": null,
+      "message_id": "<608587e8-7179-6406-034d-62292dce86f5@dailyaura.in>"
     },
     {
       "id": "lead_1794227793075_4791",
@@ -1939,6 +1944,33 @@
     }
   ],
   "events": [
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793075_3846",
+      "email": "hello@webflow.com",
+      "website": "webflow.com",
+      "message_id": "<608587e8-7179-6406-034d-62292dce86f5@dailyaura.in>",
+      "id": "ev_1794239339288_5751",
+      "timestamp": "2026-11-09T15:48:59.288Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793075_3226",
+      "email": "press@bigcommerce.com",
+      "website": "bigcommerce.com",
+      "message_id": "<ac30e7de-1da6-5c37-a0ea-63a92ac06559@dailyaura.in>",
+      "id": "ev_1794239334287_5101",
+      "timestamp": "2026-11-09T15:48:54.287Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793075_4806",
+      "email": "info@woocommerce.com",
+      "website": "woocommerce.com",
+      "message_id": "<503c8082-c3a3-1a0a-59e4-35c70a1eb541@dailyaura.in>",
+      "id": "ev_1794239196671_517",
+      "timestamp": "2026-11-09T15:46:36.671Z"
+    },
     {
       "type": "error",
       "lead_id": "lead_1794227793074_3334",

@@ -64,7 +64,7 @@ const workspaceState = {
     opened: true,
     clicked: true,
     rate: true,
-    range: '28d',
+    range: 'today',
     compare: true
   }
 };
@@ -311,83 +311,138 @@ function setupLiveClock() {
 // ==========================================
 
 function setupAuth() {
-  const loginForm = document.getElementById('loginForm');
-  const loginError = document.getElementById('loginError');
-  const loginSubmitBtn = document.getElementById('loginSubmitBtn');
-  const wsCards = document.querySelectorAll('.login-workspace-card');
+  let enteredPin = '';
+  const pinDots = document.querySelectorAll('.pin-dot');
+  const pinError = document.getElementById('pinErrorMsg');
+  const pinCard = document.querySelector('.pin-lock-card');
+  const keypad = document.getElementById('pinKeypad');
 
-  let selectedWorkspace = localStorage.getItem('dailyaura_mode') || 'cold_outreach';
-
-  function updateLoginWorkspaceCards(mode) {
-    selectedWorkspace = mode;
-    wsCards.forEach(card => {
-      const targetMode = card.getAttribute('data-target-mode');
-      card.classList.toggle('active', targetMode === mode);
-    });
-    if (loginSubmitBtn) {
-      if (mode === 'contributor_lifecycle') {
-        loginSubmitBtn.innerHTML = '👥 Sign In to Contributor & Marketing Hub';
-        loginSubmitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+  function updateDots() {
+    pinDots.forEach((dot, idx) => {
+      if (idx < enteredPin.length) {
+        dot.classList.add('filled');
       } else {
-        loginSubmitBtn.innerHTML = '🚀 Sign In to B2B Cold Outreach Suite';
-        loginSubmitBtn.style.background = 'linear-gradient(135deg, #2563eb, #3b82f6)';
+        dot.classList.remove('filled');
       }
-    }
+    });
   }
 
-  // Bind click on workspace cards on login screen
-  wsCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const targetMode = card.getAttribute('data-target-mode');
-      updateLoginWorkspaceCards(targetMode);
-    });
-  });
-
-  // Set initial login cards state
-  updateLoginWorkspaceCards(selectedWorkspace);
-
-  loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    loginError.classList.add('hidden');
-
-    const username = document.getElementById('loginUsername').value.trim();
-    const password = document.getElementById('loginPassword').value.trim();
-
+  async function submitPin(pin) {
+    if (pinError) pinError.classList.add('hidden');
     try {
       const res = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ pin })
       });
       const data = await res.json();
 
       if (data.success) {
         API.token = data.token;
         localStorage.setItem('dailyaura_token', data.token);
-        localStorage.setItem('dailyaura_mode', selectedWorkspace);
-        workspaceState.mode = selectedWorkspace;
+        localStorage.setItem('dailyaura_mode', 'cold_outreach');
+        workspaceState.mode = 'cold_outreach';
+        enteredPin = '';
+        updateDots();
         showApp();
+        showToast('🔓 Workspace Unlocked Successfully', 'success');
       } else {
-        loginError.textContent = data.message || 'Login failed';
-        loginError.classList.remove('hidden');
+        triggerPinError(data.message || 'Incorrect PIN code');
       }
     } catch (err) {
-      loginError.textContent = 'Server connection error';
-      loginError.classList.remove('hidden');
+      triggerPinError('Server connection error');
+    }
+  }
+
+  function triggerPinError(msg) {
+    if (pinError) {
+      pinError.textContent = msg;
+      pinError.classList.remove('hidden');
+    }
+    if (pinCard) {
+      pinCard.classList.add('pin-shake');
+      setTimeout(() => pinCard.classList.remove('pin-shake'), 450);
+    }
+    setTimeout(() => {
+      enteredPin = '';
+      updateDots();
+    }, 400);
+  }
+
+  // Handle keypad button clicks
+  if (keypad) {
+    keypad.addEventListener('click', (e) => {
+      const btn = e.target.closest('.pin-key');
+      if (!btn) return;
+      const key = btn.getAttribute('data-key');
+      if (key === 'clear') {
+        enteredPin = '';
+        updateDots();
+      } else if (key === 'backspace') {
+        enteredPin = enteredPin.slice(0, -1);
+        updateDots();
+      } else if (key && key.match(/^[0-9]$/)) {
+        if (enteredPin.length < 4) {
+          enteredPin += key;
+          updateDots();
+          if (enteredPin.length === 4) {
+            submitPin(enteredPin);
+          }
+        }
+      }
+    });
+  }
+
+  // Physical Keyboard Support (0-9, Backspace, Escape)
+  window.addEventListener('keydown', (e) => {
+    const loginScreen = document.getElementById('loginScreen');
+    if (loginScreen && !loginScreen.classList.contains('hidden')) {
+      if (e.key >= '0' && e.key <= '9') {
+        if (enteredPin.length < 4) {
+          enteredPin += e.key;
+          updateDots();
+          if (enteredPin.length === 4) {
+            submitPin(enteredPin);
+          }
+        }
+      } else if (e.key === 'Backspace') {
+        enteredPin = enteredPin.slice(0, -1);
+        updateDots();
+      } else if (e.key === 'Escape') {
+        enteredPin = '';
+        updateDots();
+      }
     }
   });
 
+  // Lock Workspace Button
+  const lockBtn = document.getElementById('lockWorkspaceBtn');
+  if (lockBtn) {
+    lockBtn.addEventListener('click', () => {
+      enteredPin = '';
+      updateDots();
+      localStorage.removeItem('dailyaura_token');
+      API.token = '';
+      const loginScreen = document.getElementById('loginScreen');
+      const appContainer = document.getElementById('appContainer');
+      if (loginScreen) loginScreen.classList.remove('hidden');
+      if (appContainer) appContainer.classList.add('hidden');
+      showToast('🔒 Workspace Locked', 'info');
+    });
+  }
+
+  // Sign Out Button
   const logoutBtn = document.getElementById('logoutBtn');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
-      handleUnauthorized();
+      enteredPin = '';
+      updateDots();
+      localStorage.removeItem('dailyaura_token');
+      API.token = '';
+      location.reload();
     });
   }
 }
-
-// ==========================================
-// NAVIGATION (ALL TABS ACROSS WORKSPACES)
-// ==========================================
 
 function setupNavigation() {
   const navItems = document.querySelectorAll('.nav-item');
@@ -2840,6 +2895,44 @@ function setupAutomationHub() {
   setInterval(pollAutomationStatus, 2500);
 }
 
+
+// ==========================================
+// SMOOTH CLIENT-SIDE 1-SECOND TICKER (ZERO JITTER)
+// ==========================================
+let clientCountdownInterval = null;
+let targetNextDispatchTimestamp = 0;
+let isCoolingPhase = false;
+
+function startClientCountdown(secondsRemaining, cooling = false) {
+  targetNextDispatchTimestamp = Date.now() + Math.max(0, secondsRemaining) * 1000;
+  isCoolingPhase = cooling;
+
+  if (clientCountdownInterval) clearInterval(clientCountdownInterval);
+
+  function tick() {
+    const countdown = document.getElementById('engineCountdownText');
+    const timerLabel = document.getElementById('timerLabelText');
+    if (!countdown) return;
+
+    const remainingSec = Math.max(0, Math.floor((targetNextDispatchTimestamp - Date.now()) / 1000));
+    const m = Math.floor(remainingSec / 60);
+    const s = remainingSec % 60;
+    countdown.textContent = `${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+
+    if (timerLabel) {
+      timerLabel.textContent = isCoolingPhase ? '☕ COOLING BREAK ENDS IN:' : '⏳ NEXT DISPATCH IN:';
+    }
+
+    if (remainingSec === 0) {
+      clearInterval(clientCountdownInterval);
+      setTimeout(() => pollAutomationStatus(), 1200);
+    }
+  }
+
+  tick();
+  clientCountdownInterval = setInterval(tick, 1000);
+}
+
 async function pollAutomationStatus() {
   if (!API.token) return;
 
@@ -2941,19 +3034,13 @@ async function pollAutomationStatus() {
         }
       }
 
-      // Format Countdown Timer
-      if (eStatus.phase === 'cooling') {
-        if (timerLabel) timerLabel.textContent = '☕ COOLING BREAK ENDS IN:';
-        const rem = eStatus.cooling_seconds_remaining || 0;
-        const m = Math.floor(rem / 60);
-        const s = rem % 60;
-        if (countdown) countdown.textContent = `${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
-      } else {
-        if (timerLabel) timerLabel.textContent = '⏳ NEXT DISPATCH IN:';
-        const rem = eStatus.next_send_seconds || 0;
-        const m = Math.floor(rem / 60);
-        const s = rem % 60;
-        if (countdown) countdown.textContent = `${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+      // Smooth 1-second countdown sync
+      const isCooling = eStatus.phase === 'cooling';
+      const secRem = isCooling ? (eStatus.cooling_seconds_remaining || 0) : (eStatus.next_send_seconds || 0);
+      const currentClientRem = Math.max(0, Math.floor((targetNextDispatchTimestamp - Date.now()) / 1000));
+
+      if (!clientCountdownInterval || Math.abs(currentClientRem - secRem) > 2 || isCoolingPhase !== isCooling) {
+        startClientCountdown(secRem, isCooling);
       }
     }
   } catch (err) {
