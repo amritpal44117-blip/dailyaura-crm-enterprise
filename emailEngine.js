@@ -57,25 +57,95 @@ class EmailEngine {
     const s = db.get().settings;
     const appUrl = (s.app_url || 'http://localhost:3000').replace(/\/$/, '');
 
-    // Replace dynamic tags
-    let subject = (rawSubject || '')
-      .replace(/{{name}}/gi, lead.name || 'Editorial Team')
-      .replace(/{{website}}/gi, lead.website || 'your site')
-      .replace(/{{niche}}/gi, lead.niche || 'Digital Marketing & SEO')
-      .replace(/Amritpal/gi, 'DailyAura Editorial Team'); // Ensure Amritpal is never sent
+    // Niche-Specific Intelligence
+    const niche = (lead.niche || 'Digital Marketing & Technology').trim();
+    let nicheContext = 'Digital Marketing & SEO';
+    let nicheHook = 'off-page SEO, guest posting, and contextual backlink acquisition';
+    let nicheTopic = 'Tech, Digital Marketing, and Online Business';
 
-    let processed = (rawTemplate || '')
+    const nLower = niche.toLowerCase();
+    if (nLower.includes('seo') || nLower.includes('link') || nLower.includes('marketing') || nLower.includes('agency')) {
+      nicheContext = 'SEO & Digital Marketing';
+      nicheHook = 'off-page SEO, guest posting, and high-authority contextual link building';
+      nicheTopic = 'Search Marketing, Link Building Strategies, and High-DA Off-Page Content';
+    } else if (nLower.includes('tech') || nLower.includes('software') || nLower.includes('saas') || nLower.includes('ai') || nLower.includes('cloud')) {
+      nicheContext = 'Technology & Software';
+      nicheHook = 'technology journalism, SaaS product features, and software innovation';
+      nicheTopic = 'Artificial Intelligence, Cloud Computing, SaaS Growth, and Software Engineering';
+    } else if (nLower.includes('design') || nLower.includes('creative') || nLower.includes('media')) {
+      nicheContext = 'Design & Creative Media';
+      nicheHook = 'digital design case studies, UX/UI insights, and visual branding';
+      nicheTopic = 'Design Systems, Creative Tools, UI/UX, and Digital Product Innovation';
+    } else if (nLower.includes('business') || nLower.includes('finance') || nLower.includes('ecommerce') || nLower.includes('startup')) {
+      nicheContext = 'Business & Enterprise Growth';
+      nicheHook = 'entrepreneurial growth case studies, ecommerce, and B2B strategy';
+      nicheTopic = 'B2B Scaling, Ecommerce Strategies, Market Analysis, and Business Leadership';
+    } else if (nLower.includes('health') || nLower.includes('dental') || nLower.includes('medical')) {
+      nicheContext = 'Healthcare & Professional Services';
+      nicheHook = 'patient education, medical technology, and healthcare practice insights';
+      nicheTopic = 'Healthcare Innovation, Wellness Technology, and Clinical Best Practices';
+    }
+
+    // Dynamic tag replacements with niche intelligence
+    let subject = (rawSubject || 'Free Guest Post & Do-Follow Backlink Collaboration ({{website}})')
       .replace(/{{name}}/gi, lead.name || 'Editorial Team')
       .replace(/{{website}}/gi, lead.website || 'your site')
-      .replace(/{{niche}}/gi, lead.niche || 'Digital Marketing & SEO')
+      .replace(/{{niche}}/gi, nicheContext)
       .replace(/Amritpal/gi, 'DailyAura Editorial Team');
+
+    // Tailored opening & pitch customization
+    let defaultNicheTemplate = 
+`Hi {{name}},
+
+I noticed you manage content, SEO, and editorial partnerships for {{website}} in the ${nicheContext} space.
+
+I run the editorial publishing desk over at DailyAura (https://guestposts.dailyaura.in). We are currently opening 100% free guest post contributor placements with permanent do-follow backlinks for quality sites in ${nicheContext}.
+
+What we offer for {{website}}:
+- 100% Free Guest Post submission (zero fees or charges)
+- Permanent do-follow contextual backlink pointing to {{website}}
+- Fast editorial review & indexing within 24-48 hours
+- Tailored publication matching our ${nicheTopic} readership
+- Open to reciprocal link collaborations (https://guestposts.dailyaura.in/link-exchange/)
+
+You can review our editorial guidelines and submit drafts directly here:
+https://guestposts.dailyaura.in/submit-guest-post/
+
+Alternatively, reply directly to this email with your proposed topics or draft, and I will fast-track review for you.
+
+Best regards,
+
+Editorial & SEO Outreach Team
+DailyAura Publishing
+outreach@dailyaura.in | https://guestposts.dailyaura.in
+
+---
+If you prefer not to receive contributor invitations for {{website}}, simply reply with "unsubscribe" and we will remove your address immediately.`;
+
+    let baseTemplate = rawTemplate && rawTemplate.trim().length > 30 ? rawTemplate : defaultNicheTemplate;
+
+    let processed = baseTemplate
+      .replace(/{{name}}/gi, lead.name || 'Editorial Team')
+      .replace(/{{website}}/gi, lead.website || 'your site')
+      .replace(/{{niche}}/gi, nicheContext)
+      .replace(/Amritpal/gi, 'DailyAura Editorial Team');
+
+    // Ensure compliant anti-spam footer is always present
+    if (!processed.includes('unsubscribe') && !processed.includes('Unsubscribe')) {
+      processed += `\n\n---\nIf you prefer not to receive contributor invitations for {{website}}, simply reply with "unsubscribe" and we will remove your address immediately.`.replace(/{{website}}/gi, lead.website || 'your site');
+    }
 
     const isHtml = processed.includes('<table') || processed.includes('<div') || processed.includes('<!DOCTYPE') || processed.includes('<html');
 
     let textBody = isHtml ? processed.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim() : processed;
     let htmlBody = isHtml ? processed : processed
       .split('\n\n')
-      .map(p => `<p style="margin: 0 0 14px 0; line-height: 1.6; font-size: 15px; color: #222;">${p.replace(/\n/g, '<br>')}</p>`)
+      .map(p => {
+        if (p.startsWith('---')) {
+          return `<hr style="border:0; border-top:1px solid #e5e7eb; margin: 20px 0;"><p style="font-size: 11px; color: #6b7280; line-height: 1.5;">${p.replace(/^---\s*/, '')}</p>`;
+        }
+        return `<p style="margin: 0 0 14px 0; line-height: 1.6; font-size: 15px; color: #1f2937;">${p.replace(/\n/g, '<br>')}</p>`;
+      })
       .join('');
 
     // Rewrite links for Click Tracking if enabled
@@ -131,9 +201,15 @@ class EmailEngine {
       subject,
       text,
       html,
+      headers: {
+        'X-Entity-Ref-ID': String(lead.id),
+        'X-Mailer': 'DailyAura Outreach Enterprise v2.5',
+        'List-Unsubscribe': `<mailto:${s.from_email || s.smtp_user}?subject=Unsubscribe%20${encodeURIComponent(lead.email)}>`,
+        'Precedence': 'bulk'
+      }
     };
 
-    console.log(`[CRM Engine] Dispatching outreach to ${lead.email} (${lead.website})...`);
+    console.log(`[CRM Engine] Dispatching outreach to ${lead.email} (${lead.website} - ${lead.niche})...`);
     const info = await transporter.sendMail(mailOptions);
 
     db.updateLead(lead.id, {

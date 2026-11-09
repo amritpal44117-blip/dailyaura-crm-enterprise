@@ -29,16 +29,17 @@
     "active_track": "cold_outreach",
     "phase": "sending",
     "batch_target": 5,
-    "current_batch_sent": 0,
+    "current_batch_sent": 2,
     "interval_seconds": 720,
     "cooling_seconds": 3600,
     "test_mode": true,
-    "next_send_at": "2026-11-08T04:09:44.057Z",
+    "next_send_at": "2026-11-09T15:52:03.063Z",
     "batch_cycle": 1,
-    "total_sent_today": 0,
+    "total_sent_today": 2,
     "cadence_desc": "Ultra-Safe Elite Cadence: 5 emails/hour (1 every 12 mins)",
     "consecutive_smtp_errors": 0,
-    "smtp_diagnostic": null
+    "smtp_diagnostic": null,
+    "last_sent_at": "2026-11-09T13:25:47.667Z"
   },
   "campaigns": [
     {
@@ -1484,13 +1485,14 @@
       "da_score": 90,
       "role": "Developer Community Editor",
       "url": "https://digitalocean.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-09T13:25:47.663Z",
+      "last_error": null,
+      "message_id": "<dca1c8fe-2a0f-5501-b397-a5ff0288af20@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_5312",
@@ -1586,13 +1588,13 @@
       "da_score": 89,
       "role": "Communications Manager",
       "url": "https://namecheap.com",
-      "status": "pending",
+      "status": "failed",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
       "sent_at": null,
-      "last_error": null
+      "last_error": ""
     },
     {
       "id": "lead_1794227793074_2022",
@@ -1926,16 +1928,43 @@
       "da_score": 94,
       "role": "Creative Partnerships",
       "url": "https://canva.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-09T13:13:45.717Z",
+      "last_error": null,
+      "message_id": "<6364e1b6-b081-9a60-8064-e0598c6c72de@dailyaura.in>"
     }
   ],
   "events": [
+    {
+      "type": "error",
+      "lead_id": "lead_1794227793074_3334",
+      "email": "support@namecheap.com",
+      "message": "",
+      "id": "ev_1794238803062_6457",
+      "timestamp": "2026-11-09T15:40:03.062Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_8347",
+      "email": "contact@digitalocean.com",
+      "website": "digitalocean.com",
+      "message_id": "<dca1c8fe-2a0f-5501-b397-a5ff0288af20@dailyaura.in>",
+      "id": "ev_1794230747665_7882",
+      "timestamp": "2026-11-09T13:25:47.665Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793075_4791",
+      "email": "support@canva.com",
+      "website": "canva.com",
+      "message_id": "<6364e1b6-b081-9a60-8064-e0598c6c72de@dailyaura.in>",
+      "id": "ev_1794230025719_9300",
+      "timestamp": "2026-11-09T13:13:45.719Z"
+    },
     {
       "id": "ev_1",
       "type": "sent",

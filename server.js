@@ -141,15 +141,26 @@ app.get('/api/analytics', authCheck, (req, res) => {
 
   const now = new Date();
   let daysCount = 28;
-  if (range === '7d') daysCount = 7;
+  if (range === 'today') daysCount = 1;
+  else if (range === 'yesterday') daysCount = 1;
+  else if (range === '7d') daysCount = 7;
   else if (range === '28d') daysCount = 28;
   else if (range === '90d') daysCount = 90;
   else if (range === '365d') daysCount = 365;
 
-  const currentEnd = endDate ? new Date(endDate) : now;
-  const currentStart = startDate ? new Date(startDate) : new Date(currentEnd.getTime() - daysCount * 24 * 60 * 60 * 1000);
+  let currentEnd = endDate ? new Date(endDate) : now;
+  let currentStart;
+
+  if (range === 'today') {
+    currentStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+  } else if (range === 'yesterday') {
+    currentEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+    currentStart = new Date(currentEnd.getTime() - 24 * 60 * 60 * 1000);
+  } else {
+    currentStart = startDate ? new Date(startDate) : new Date(currentEnd.getTime() - daysCount * 24 * 60 * 60 * 1000);
+  }
   
-  const periodDuration = currentEnd.getTime() - currentStart.getTime();
+  const periodDuration = Math.max(currentEnd.getTime() - currentStart.getTime(), 24 * 60 * 60 * 1000);
   const prevEnd = new Date(currentStart.getTime());
   const prevStart = new Date(prevEnd.getTime() - periodDuration);
 
