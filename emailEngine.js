@@ -449,12 +449,6 @@ class EmailEngine {
       totalLeads: leads.length
     };
   }
-      last_sent_at: camp.last_sent_at,
-      pendingCount,
-      sentCount,
-      totalLeads: leads.length
-    };
-  }
 }
 
 module.exports = new EmailEngine();
