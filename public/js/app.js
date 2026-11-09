@@ -108,6 +108,29 @@ let currentAiGenerated = null;
 let currentPreviewTemplate = null;
 
 // ==========================================
+// TOAST NOTIFICATIONS (INSTANT VISUAL FEEDBACK)
+// ==========================================
+
+function showToast(message, type = 'info', duration = 3500) {
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
+  const toast = document.createElement('div');
+  toast.className = `crm-toast ${type}`;
+  let icon = 'ℹ️';
+  if (type === 'success') icon = '✅';
+  if (type === 'warning') icon = '⚠️';
+  if (type === 'error') icon = '❌';
+  toast.innerHTML = `<span style="font-size: 16px;">${icon}</span> <span>${message}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(100%)';
+    toast.style.transition = 'all 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+// ==========================================
 // INITIALIZATION
 // ==========================================
 
@@ -1533,22 +1556,43 @@ function setupCampaignControls() {
 
   startBtns.forEach(btn => {
     if (btn) btn.addEventListener('click', async () => {
-      await API.post('/api/campaign/start', {});
-      loadStats();
+      updateCampaignStatusUI('running');
+      showToast('🚀 Outreach Started! Dispatching 60 emails in 2 hours @ 1 every 2 min.', 'success');
+      try {
+        await API.post('/api/campaign/start', {});
+        pollAutomationStatus();
+        loadStats();
+      } catch (err) {
+        showToast('Start error: ' + err.message, 'error');
+      }
     });
   });
 
   pauseBtns.forEach(btn => {
     if (btn) btn.addEventListener('click', async () => {
-      await API.post('/api/campaign/pause', {});
-      loadStats();
+      updateCampaignStatusUI('paused');
+      showToast('⏸️ Outreach Paused. Pending prospect queue safely preserved.', 'warning');
+      try {
+        await API.post('/api/campaign/pause', {});
+        pollAutomationStatus();
+        loadStats();
+      } catch (err) {
+        showToast('Pause error: ' + err.message, 'error');
+      }
     });
   });
 
   if (stopBtn) {
     stopBtn.addEventListener('click', async () => {
-      await API.post('/api/campaign/stop', {});
-      loadStats();
+      updateCampaignStatusUI('idle');
+      showToast('⏹️ Outreach Campaign Stopped.', 'info');
+      try {
+        await API.post('/api/campaign/stop', {});
+        pollAutomationStatus();
+        loadStats();
+      } catch (err) {
+        showToast('Stop error: ' + err.message, 'error');
+      }
     });
   }
 
@@ -1565,7 +1609,7 @@ function setupCampaignControls() {
         selected_niche: document.getElementById('campNicheSelect').value,
       };
       await API.post('/api/campaign/update', payload);
-      alert('Campaign settings saved with 2-minute throttling!');
+      showToast('Campaign settings saved with 2-minute throttling!', 'success');
       loadCampaign();
     });
   }
@@ -1586,13 +1630,16 @@ function setupCampaignControls() {
         if (res.success) {
           testResult.className = 'test-result-box success';
           testResult.textContent = res.message;
+          showToast(`✅ Test email delivered to ${targetEmail}`, 'success');
         } else {
           testResult.className = 'test-result-box error';
-          testResult.textContent = 'Error: ' + res.error;
+          testResult.innerHTML = `❌ <strong>SMTP Delivery Blocked:</strong> ${res.error}<br><small style="margin-top:6px; display:block; color:#fca5a5;">Render Free tier blocks outbound SMTP port 465. To send live emails directly from Render, upgrade to Render Starter ($7/mo) or use HTTPS API mode.</small>`;
+          showToast('SMTP Connection timeout on Render Free', 'error');
         }
       } catch (err) {
         testResult.className = 'test-result-box error';
-        testResult.textContent = 'Failed to connect: ' + err.message;
+        testResult.innerHTML = `❌ <strong>Connection Blocked:</strong> ${err.message}<br><small style="margin-top:6px; display:block; color:#fca5a5;">Render Free tier blocks outbound SMTP port 465. To send live emails directly from Render, upgrade to Render Starter ($7/mo) or use HTTPS API mode.</small>`;
+        showToast('SMTP Port 465 blocked on Render Free', 'error');
       }
     });
   }
@@ -2679,10 +2726,15 @@ function setupAutomationHub() {
       try {
         const isPaused = toggleScraperBtn.textContent.includes('Start');
         const endpoint = isPaused ? '/api/crawler/start' : '/api/crawler/pause';
+        if (isPaused) {
+          showToast('🌐 Lead Prospector Active! Scanning directories every 30s...', 'success');
+        } else {
+          showToast('⏸️ Lead Prospector Paused.', 'warning');
+        }
         await API.post(endpoint, {});
         pollAutomationStatus();
       } catch (err) {
-        console.error('Error toggling scraper:', err);
+        showToast('Scraper error: ' + err.message, 'error');
       }
     });
   }
@@ -2692,12 +2744,13 @@ function setupAutomationHub() {
       mine10BatchBtn.disabled = true;
       mine10BatchBtn.textContent = '⏳ Mining 10...';
       try {
-        await API.post('/api/crawler/mine-batch', { count: 10 });
+        const res = await API.post('/api/crawler/mine-batch', { count: 10 });
+        showToast(`⚡ Injected ${res.added || 10} verified prospects into Master Leads!`, 'success');
         pollAutomationStatus();
         loadLeads();
         loadStats();
       } catch (err) {
-        console.error('Error mining batch:', err);
+        showToast('Mining error: ' + err.message, 'error');
       } finally {
         mine10BatchBtn.disabled = false;
         mine10BatchBtn.textContent = '⚡ Mine 10 Now';
@@ -2710,11 +2763,16 @@ function setupAutomationHub() {
       try {
         const isRunning = engineStartPauseBtn.textContent.includes('Pause');
         const endpoint = isRunning ? '/api/campaign/pause' : '/api/campaign/start';
+        if (isRunning) {
+          showToast('⏸️ Outreach Engine Paused.', 'warning');
+        } else {
+          showToast('🚀 Outreach Started! 60 emails in 2 hours @ 1 every 2 min.', 'success');
+        }
         await API.post(endpoint, {});
         pollAutomationStatus();
         loadStats();
       } catch (err) {
-        console.error('Error toggling engine:', err);
+        showToast('Engine error: ' + err.message, 'error');
       }
     });
   }
