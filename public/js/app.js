@@ -1120,6 +1120,8 @@ function renderGscChart() {
   const svg = document.getElementById('gscSvgChart');
   const axis = document.getElementById('gscDatesAxis');
   const timeline = latestGscData.timeline;
+  const prevTimeline = latestGscData.prevTimeline || [];
+  const hasCompare = !!workspaceState.gsc.compare && prevTimeline.length > 0;
   if (!svg || timeline.length === 0) return;
 
   const width = 1000;
@@ -1130,13 +1132,14 @@ function renderGscChart() {
   const chartH = height - paddingTop - paddingBottom;
   const chartW = width - paddingX * 2;
 
-  let maxSent = Math.max(...timeline.map(d => d.sent), 1);
-  let maxOpened = Math.max(...timeline.map(d => d.opened), 1);
-  let maxClicked = Math.max(...timeline.map(d => d.clicked), 1);
+  let maxCur = Math.max(
+    ...timeline.map(d => Math.max(d.sent || 0, d.opened || 0, d.clicked || 0))
+  );
+  let maxPrev = hasCompare
+    ? Math.max(...prevTimeline.map(d => Math.max(d.sent || 0, d.opened || 0, d.clicked || 0)))
+    : 0;
 
-  // Overall scale max for clean grid
-  const globalMax = Math.max(maxSent, maxOpened, maxClicked, 4);
-
+  const globalMax = Math.max(maxCur, maxPrev, 4);
   const stepX = chartW / Math.max(timeline.length - 1, 1);
 
   const getCoord = (idx, val) => {
@@ -1145,15 +1148,15 @@ function renderGscChart() {
     return { x: Number(x.toFixed(1)), y: Number(y.toFixed(1)) };
   };
 
-  const buildPath = (key) => {
-    return timeline.map((d, i) => {
+  const buildPath = (list, key) => {
+    return list.map((d, i) => {
       const { x, y } = getCoord(i, d[key] || 0);
       return `${i === 0 ? 'M' : 'L'} ${x} ${y}`;
     }).join(' ');
   };
 
-  const buildArea = (key) => {
-    const coords = timeline.map((d, i) => getCoord(i, d[key] || 0));
+  const buildArea = (list, key) => {
+    const coords = list.map((d, i) => getCoord(i, d[key] || 0));
     if (coords.length === 0) return '';
     const linePath = coords.map((c, i) => `${i === 0 ? 'M' : 'L'} ${c.x} ${c.y}`).join(' ');
     const firstX = coords[0].x;
@@ -1185,33 +1188,46 @@ function renderGscChart() {
     <line x1="${paddingX}" y1="${paddingTop + chartH}" x2="${width - paddingX}" y2="${paddingTop + chartH}" stroke="#cbd5e1" stroke-width="1.5"/>
   `;
 
-  // Draw Areas first (background fills)
+  // Draw Area for Current Period
   if (workspaceState.gsc.sent) {
-    svgContent += `<path d="${buildArea('sent')}" fill="url(#gradSent)"/>`;
+    svgContent += `<path d="${buildArea(timeline, 'sent')}" fill="url(#gradSent)"/>`;
   }
   if (workspaceState.gsc.opened) {
-    svgContent += `<path d="${buildArea('opened')}" fill="url(#gradOpened)"/>`;
+    svgContent += `<path d="${buildArea(timeline, 'opened')}" fill="url(#gradOpened)"/>`;
   }
   if (workspaceState.gsc.clicked) {
-    svgContent += `<path d="${buildArea('clicked')}" fill="url(#gradClicked)"/>`;
+    svgContent += `<path d="${buildArea(timeline, 'clicked')}" fill="url(#gradClicked)"/>`;
   }
 
-  // Draw Stroke Lines
+  // Draw Previous Period Dashed Comparison Lines if Compare is ON
+  if (hasCompare) {
+    if (workspaceState.gsc.sent) {
+      svgContent += `<path d="${buildPath(prevTimeline, 'sent')}" fill="none" stroke="#0d9488" stroke-width="2" stroke-dasharray="6,4" stroke-opacity="0.55"/>`;
+    }
+    if (workspaceState.gsc.opened) {
+      svgContent += `<path d="${buildPath(prevTimeline, 'opened')}" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="6,4" stroke-opacity="0.55"/>`;
+    }
+    if (workspaceState.gsc.clicked) {
+      svgContent += `<path d="${buildPath(prevTimeline, 'clicked')}" fill="none" stroke="#0284c7" stroke-width="2" stroke-dasharray="6,4" stroke-opacity="0.55"/>`;
+    }
+  }
+
+  // Draw Current Period Solid Stroke Lines
   if (workspaceState.gsc.sent) {
-    svgContent += `<path d="${buildPath('sent')}" fill="none" stroke="#0d9488" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+    svgContent += `<path d="${buildPath(timeline, 'sent')}" fill="none" stroke="#0d9488" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`;
   }
   if (workspaceState.gsc.opened) {
-    svgContent += `<path d="${buildPath('opened')}" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+    svgContent += `<path d="${buildPath(timeline, 'opened')}" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`;
   }
   if (workspaceState.gsc.clicked) {
-    svgContent += `<path d="${buildPath('clicked')}" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+    svgContent += `<path d="${buildPath(timeline, 'clicked')}" fill="none" stroke="#0284c7" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`;
   }
 
-  // Draw Circular Interactive Dots
+  // Draw Interactive Data Point Dots
   timeline.forEach((d, i) => {
     if (workspaceState.gsc.sent) {
       const c = getCoord(i, d.sent || 0);
-      svgContent += `<circle cx="${c.x}" cy="${c.y}" r="4.5" fill="#ffffff" stroke="#0d9488" stroke-width="2.5"><title>${d.label}: ${d.sent} Sent</title></circle>`;
+      svgContent += `<circle cx="${c.x}" cy="${c.y}" r="4.5" fill="#ffffff" stroke="#0d9488" stroke-width="2.5"><title>${d.label}: ${d.sent} Sent (Current)</title></circle>`;
     }
     if (workspaceState.gsc.opened && (d.opened || 0) > 0) {
       const c = getCoord(i, d.opened);
@@ -1225,6 +1241,7 @@ function renderGscChart() {
 
   svg.innerHTML = svgContent;
 
+  // Update dates axis
   if (axis) {
     const stepCount = Math.min(timeline.length, 8);
     const interval = Math.max(1, Math.floor(timeline.length / stepCount));

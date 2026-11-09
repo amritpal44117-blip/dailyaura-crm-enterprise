@@ -301,6 +301,37 @@ app.get('/api/analytics', authCheck, (req, res) => {
     }
   }
 
+  // Generate Previous Period Timeline for Comparison (Dashed Lines)
+  const prevTimeline = [];
+  if (compare === 'true') {
+    const prevDuration = Math.max(prevEnd.getTime() - prevStart.getTime(), 1000);
+    const count = Math.max(timeline.length, 1);
+    const step = prevDuration / count;
+    for (let i = 0; i < count; i++) {
+      const pIter = new Date(prevStart.getTime() + i * step);
+      const nextPIter = new Date(prevStart.getTime() + (i + 1) * step);
+      const pEvents = prevEvents.filter(e => {
+        const t = new Date(e.timestamp);
+        return t >= pIter && t < nextPIter;
+      });
+      const pLeads = prevSentLeads.filter(l => {
+        if (!l.sent_at) return false;
+        const t = new Date(l.sent_at);
+        return t >= pIter && t < nextPIter;
+      });
+      const ps = Math.max(pEvents.filter(e => e.type === 'sent').length, pLeads.length);
+      const po = pEvents.filter(e => e.type === 'open').length;
+      const pc = pEvents.filter(e => e.type === 'click').length;
+      prevTimeline.push({
+        date: pIter.toISOString(),
+        label: timeline[i] ? timeline[i].label : '',
+        sent: ps,
+        opened: po,
+        clicked: pc
+      });
+    }
+  }
+
   // Niche Leaderboard & Rankings
   const nicheStats = db.NICHES.map(niche => {
     const nLeads = leads.filter(l => l.niche === niche);
@@ -338,6 +369,7 @@ app.get('/api/analytics', authCheck, (req, res) => {
       openRate: currentMetrics.openRate - prevMetrics.openRate,
     },
     timeline,
+    prevTimeline,
     nicheStats,
     hourly: {
       past1Hour: sentPast1h,

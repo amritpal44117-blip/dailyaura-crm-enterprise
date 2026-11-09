@@ -103,7 +103,7 @@
           </button>
 
           <!-- GROUP 2: OUTREACH & LEADS -->
-          <div class="nav-section-title">OUTREACH & TARGETS</div>
+          <div class="nav-section-title">OUTREACH & CAMPAIGNS</div>
           <button class="nav-item" data-tab="campaigns">
             <span class="nav-icon">🚀</span>
             <span class="nav-label">Active Campaigns</span>
@@ -120,6 +120,19 @@
           <button class="nav-item" data-tab="templates">
             <span class="nav-icon">📝</span>
             <span class="nav-label">Template Studio</span>
+          </button>
+
+          <!-- INTEGRATED COMMUNITY & WELCOME DISPATCH (DIRECTLY ATTACHED AS REQUESTED) -->
+          <div class="nav-section-title">COMMUNITY & WELCOME MAIL</div>
+          <button class="nav-item" data-tab="contrib-users">
+            <span class="nav-icon">💌</span>
+            <span class="nav-label">Authors & Welcome Mail</span>
+            <span class="badge-pill green">Instant SLA</span>
+          </button>
+          <button class="nav-item" data-tab="contrib-triggers">
+            <span class="nav-icon">⏱️</span>
+            <span class="nav-label">3-Stage Lifecycle Flow</span>
+            <span class="badge-pill yellow">Auto Flow</span>
           </button>
 
           <!-- GROUP 3: COMMUNICATION & SYSTEM -->
@@ -608,10 +621,11 @@
         <div class="card gsc-chart-card">
           <div class="chart-header">
             <h4>Performance Timeline</h4>
-            <div class="chart-legends">
+            <div class="chart-legends" id="gscChartLegends">
               <span class="legend-dot dot-sent"></span> Sent
               <span class="legend-dot dot-opened"></span> Opened
               <span class="legend-dot dot-clicked"></span> Clicked
+              <span class="legend-compare-hint" id="gscCompareLegendHint">(Solid: Current &bull; Dashed: Previous)</span>
             </div>
           </div>
           <div class="gsc-chart-viewport" id="gscChartViewport">
