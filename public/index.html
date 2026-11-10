@@ -1176,8 +1176,71 @@
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="margin-top: 16px;">Save SMTP Configuration</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 16px;">Save Primary SMTP</button>
           </form>
+        </div>
+
+        <!-- MULTI-MAILBOX NETWORK & ROTATION CARD -->
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 20px;">📬</span>
+                <h3 style="margin: 0;">Multi-Mailbox Network & Round-Robin Rotation</h3>
+                <span class="badge-tag green">Bulk Scaling Ready</span>
+              </div>
+              <p class="card-desc" style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">
+                Rotate outreach across multiple sender mailboxes to double or triple your daily capacity without triggering spam flags.
+              </p>
+            </div>
+            <button id="btnOpenAddMailbox" class="btn btn-sm btn-primary">➕ Connect New Mailbox</button>
+          </div>
+
+          <!-- Mailbox List Strip -->
+          <div id="mailboxesList" style="display: grid; gap: 12px; margin-top: 16px;">
+            <div style="padding: 16px; text-align: center; color: #94a3b8;">Loading connected mailboxes...</div>
+          </div>
+
+          <!-- Add Mailbox Inline Form (Hidden by default) -->
+          <div id="addMailboxBox" class="card" style="margin-top: 16px; background: #f8fafc; border: 1px dashed #cbd5e1; display: none;">
+            <h4 style="margin: 0 0 12px 0;">Add Additional Sender Mailbox</h4>
+            <form id="addMailboxForm">
+              <div class="form-row">
+                <div class="form-group col">
+                  <label>Mailbox Label / Tag</label>
+                  <input type="text" id="mbLabel" class="form-control" placeholder="e.g. DailyAura Partnerships Desk" required>
+                </div>
+                <div class="form-group col">
+                  <label>Sender Display Name</label>
+                  <input type="text" id="mbFromName" class="form-control" value="DailyAura Editorial Team" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col">
+                  <label>Email Address</label>
+                  <input type="email" id="mbEmail" class="form-control" placeholder="e.g. editor@dailyaura.in" required>
+                </div>
+                <div class="form-group col">
+                  <label>Email Password</label>
+                  <input type="password" id="mbPass" class="form-control" placeholder="Mailbox password" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col">
+                  <label>SMTP Host</label>
+                  <input type="text" id="mbHost" class="form-control" value="smtp.hostinger.com" required>
+                </div>
+                <div class="form-group col">
+                  <label>SMTP Port</label>
+                  <input type="number" id="mbPort" class="form-control" value="465" required>
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; margin-top: 12px;">
+                <button type="submit" class="btn btn-sm btn-success">💾 Save & Add to Active Rotation</button>
+                <button type="button" id="btnCancelAddMailbox" class="btn btn-sm btn-secondary">Cancel</button>
+              </div>
+            </form>
+          </div>
         </div>
       </section>
 

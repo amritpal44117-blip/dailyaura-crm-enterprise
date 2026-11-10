@@ -7,6 +7,7 @@ class EmailEngine {
     this.watchdog = null;
     this.isProcessing = false;
     this.processingStartedAt = null;
+    this.currentMailboxIndex = 0;
     this.defaultIntervalSec = 180; // 3 minutes per email (24/7 Continuous: ~20/hour, 480/day)
     this.defaultBatchTarget = 20;  // 20 emails per active batch
     this.defaultCoolingSec = 300;  // 5-minute breather between batches
@@ -103,20 +104,42 @@ class EmailEngine {
     }
   }
 
-  getTransporter() {
+  getNextMailbox() {
     const s = db.get().settings;
-    return nodemailer.createTransport({
-      host: s.smtp_host || 'smtp.hostinger.com',
-      port: parseInt(s.smtp_port || 465),
-      secure: parseInt(s.smtp_port) === 465,
-      auth: {
+    const boxes = (s.mailboxes || []).filter(b => b.is_active !== false);
+    if (boxes.length === 0) {
+      return {
+        id: 'box_primary',
+        label: 'Primary Outreach',
+        host: s.smtp_host || 'smtp.hostinger.com',
+        port: parseInt(s.smtp_port || 465),
         user: s.smtp_user,
         pass: s.smtp_pass,
-      },
-      connectionTimeout: 10000, // 10s connection timeout
-      greetingTimeout: 10000,
-      socketTimeout: 15000,
-    });
+        from_name: s.from_name || 'DailyAura Editorial Team',
+        from_email: s.from_email || s.smtp_user
+      };
+    }
+    this.currentMailboxIndex = (this.currentMailboxIndex + 1) % boxes.length;
+    return boxes[this.currentMailboxIndex];
+  }
+
+  getTransporter(mailbox) {
+    const mb = mailbox || this.getNextMailbox();
+    return {
+      transporter: nodemailer.createTransport({
+        host: mb.host || mb.smtp_host || 'smtp.hostinger.com',
+        port: parseInt(mb.port || mb.smtp_port || 465),
+        secure: parseInt(mb.port || mb.smtp_port || 465) === 465,
+        auth: {
+          user: mb.user || mb.smtp_user,
+          pass: mb.pass || mb.smtp_pass,
+        },
+        connectionTimeout: 10000,
+        greetingTimeout: 10000,
+        socketTimeout: 15000,
+      }),
+      mailbox: mb
+    };
   }
 
   isWeekend() {
@@ -262,12 +285,17 @@ If you prefer not to receive contributor invitations for {{website}}, simply rep
       return null;
     }
 
-    const transporter = this.getTransporter();
+    // Mark dispatching immediately to prevent duplicate pick
+    db.updateLead(lead.id, { status: 'dispatching' });
+
+    const { transporter, mailbox } = this.getTransporter();
     const { subject, text, html } = this.wrapEmailContent(lead, camp.template, camp.subject);
 
-    const senderDisplayName = s.from_name || 'DailyAura Editorial Team';
+    const senderDisplayName = mailbox.from_name || s.from_name || 'DailyAura Editorial Team';
+    const senderEmail = mailbox.from_email || mailbox.user || s.from_email || s.smtp_user;
+
     const mailOptions = {
-      from: `"${senderDisplayName}" <${s.from_email || s.smtp_user}>`,
+      from: `"${senderDisplayName}" <${senderEmail}>`,
       to: lead.email,
       subject,
       text,
@@ -275,12 +303,12 @@ If you prefer not to receive contributor invitations for {{website}}, simply rep
       headers: {
         'X-Entity-Ref-ID': String(lead.id),
         'X-Mailer': 'DailyAura Outreach Enterprise v2.5',
-        'List-Unsubscribe': `<mailto:${s.from_email || s.smtp_user}?subject=Unsubscribe%20${encodeURIComponent(lead.email)}>`,
+        'List-Unsubscribe': `<mailto:${senderEmail}?subject=Unsubscribe%20${encodeURIComponent(lead.email)}>`,
         'Precedence': 'bulk'
       }
     };
 
-    console.log(`[CRM Engine] Dispatching outreach to ${lead.email} (${lead.website} - ${lead.niche})...`);
+    console.log(`[CRM Engine] Dispatching outreach via [${senderEmail}] to ${lead.email} (${lead.website} - ${lead.niche})...`);
     const info = await transporter.sendMail(mailOptions);
 
     db.updateLead(lead.id, {
@@ -365,7 +393,7 @@ If you prefer not to receive contributor invitations for {{website}}, simply rep
       // Find candidate leads: "send only to them who looks good"
       // Filter for valid email, reputable domain, and rank by highest DA authority first
       let candidates = (state.leads || []).filter(l => 
-        l.status === 'pending' &&
+        (l.status === 'pending' || (l.status === 'dispatching' && (!l.sent_at || Date.now() - new Date(l.sent_at).getTime() > 120000))) &&
         l.email &&
         l.email.includes('@') &&
         !l.email.endsWith('.test') &&
@@ -421,16 +449,21 @@ If you prefer not to receive contributor invitations for {{website}}, simply rep
       } catch (sendErr) {
         console.error(`[CRM Engine] Send error for ${pendingLead.email}:`, sendErr.message);
 
-        const isTimeoutOrBlock = 
+        const isNetworkGlitch = 
+          !sendErr.message ||
           sendErr.message.includes('timeout') ||
           sendErr.message.includes('ETIMEDOUT') ||
           sendErr.message.includes('ECONNREFUSED') ||
           sendErr.message.includes('ECONNRESET') ||
+          sendErr.message.includes('ENOTFOUND') ||
+          sendErr.message.includes('EAI_AGAIN') ||
+          sendErr.message.includes('ENETUNREACH') ||
+          sendErr.message.includes('EHOSTUNREACH') ||
           sendErr.message.includes('Greeting never received');
 
         const campRef = db.get().campaign;
 
-        if (isTimeoutOrBlock) {
+        if (isNetworkGlitch) {
           // Do NOT mark good leads as failed! Preserve them in pending pool.
           campRef.consecutive_smtp_errors = (campRef.consecutive_smtp_errors || 0) + 1;
           console.warn(`[CRM Circuit Breaker] Outbound connection timeout (${campRef.consecutive_smtp_errors}/2). Preserving lead ${pendingLead.email} in pending state.`);

@@ -2213,10 +2213,78 @@ async function loadSettings() {
     if (document.getElementById('setTrackClicks')) document.getElementById('setTrackClicks').checked = s.track_clicks !== false;
 
     if (document.getElementById('setAdminUser')) document.getElementById('setAdminUser').value = s.admin_user || 'admin';
+
+    // Load multi-mailboxes
+    loadMailboxes();
   } catch (err) {
     console.error('Error loading settings:', err);
   }
 }
+
+async function loadMailboxes() {
+  const container = document.getElementById('mailboxesList');
+  if (!container) return;
+
+  try {
+    const res = await API.get('/api/settings/mailboxes');
+    const boxes = (res && res.mailboxes) || [];
+    if (boxes.length === 0) {
+      container.innerHTML = '<div style="padding: 14px; text-align: center; color: #64748b;">No mailboxes configured.</div>';
+      return;
+    }
+
+    container.innerHTML = boxes.map((mb, idx) => `
+      <div style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.03);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 38px; height: 38px; border-radius: 8px; background: ${mb.is_active !== false ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)'}; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+            ${mb.is_active !== false ? '📬' : '⏸️'}
+          </div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <strong style="color: #0f172a; font-size: 14px;">${escapeHtml(mb.label || 'Mailbox')}</strong>
+              ${idx === 0 ? '<span class="badge-tag blue" style="font-size: 10px;">Primary</span>' : ''}
+              <span class="badge-tag ${mb.is_active !== false ? 'green' : 'yellow'}" style="font-size: 10px;">
+                ${mb.is_active !== false ? '🟢 Active in 24/7 Rotation' : '⏸️ Paused'}
+              </span>
+            </div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 2px;">
+              <code>${escapeHtml(mb.user || mb.from_email)}</code> &bull; Host: <code>${escapeHtml(mb.host)}:${mb.port}</code>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <button class="btn btn-sm ${mb.is_active !== false ? 'btn-outline-warning' : 'btn-success'}" onclick="toggleMailbox('${mb.id}')" style="font-size: 11px;">
+            ${mb.is_active !== false ? '⏸ Pause' : '▶ Enable'}
+          </button>
+          ${idx > 0 ? `<button class="btn btn-sm btn-outline-danger" onclick="deleteMailbox('${mb.id}')" style="font-size: 11px;">🗑️</button>` : ''}
+        </div>
+      </div>
+    `).join('');
+  } catch (err) {
+    container.innerHTML = `<div style="color: #ef4444; font-size: 12px;">Error loading mailboxes: ${escapeHtml(err.message)}</div>`;
+  }
+}
+
+window.toggleMailbox = async function(id) {
+  try {
+    await API.put(`/api/settings/mailboxes/${id}/toggle`, {});
+    showToast('Mailbox status updated!', 'success');
+    loadMailboxes();
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+};
+
+window.deleteMailbox = async function(id) {
+  if (!confirm('Remove this secondary mailbox from outreach rotation?')) return;
+  try {
+    await API.delete(`/api/settings/mailboxes/${id}`);
+    showToast('Mailbox removed.', 'info');
+    loadMailboxes();
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+};
 
 // ==========================================
 // WORKSPACE B: CONTRIBUTOR & EMAIL MARKETING HUB

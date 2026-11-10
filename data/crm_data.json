@@ -30,17 +30,17 @@
     "active_track": "cold_outreach",
     "phase": "sending",
     "batch_target": 20,
-    "current_batch_sent": 6,
+    "current_batch_sent": 19,
     "interval_seconds": 180,
     "cooling_seconds": 300,
     "test_mode": true,
-    "next_send_at": "2026-11-10T12:44:55.424Z",
-    "batch_cycle": 2,
-    "total_sent_today": 11,
-    "cadence_desc": "Continuous 24/7 Flow: 1 mail every 3 mins (~20/hr, 480/day)",
+    "next_send_at": "2026-11-10T17:21:27.500Z",
+    "batch_cycle": 3,
+    "total_sent_today": 44,
+    "cadence_desc": "Continuous 24/7 Autonomous Cadence: 1 mail every 3 mins (~20/hour)",
     "consecutive_smtp_errors": 0,
     "smtp_diagnostic": null,
-    "last_sent_at": "2026-11-10T12:41:55.424Z",
+    "last_sent_at": "2026-11-10T17:18:27.500Z",
     "cooling_ends_at": null
   },
   "campaigns": [
@@ -672,13 +672,14 @@
       "da_score": 76,
       "role": "Outreach & Inbound Director",
       "url": "https://webfx.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:01:34.775Z",
+      "last_error": null,
+      "message_id": "<6ec48311-7fef-f5ee-fd83-4259cba7fc4b@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_6912",
@@ -723,13 +724,14 @@
       "da_score": 68,
       "role": "Content & Outreach Manager",
       "url": "https://thehoth.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:28:13.510Z",
+      "last_error": null,
+      "message_id": "<d26938a0-39db-c94b-4995-dc0816f5b7f4@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_7267",
@@ -757,13 +759,14 @@
       "da_score": 64,
       "role": "Content Marketing Manager",
       "url": "https://siegemedia.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:55:42.845Z",
+      "last_error": null,
+      "message_id": "<9a60999e-677f-892d-591d-e57efc5df7f0@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_3096",
@@ -859,13 +862,14 @@
       "da_score": 78,
       "role": "Technical SEO & Outreach",
       "url": "https://screamingfrog.co.uk",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T15:48:01.974Z",
+      "last_error": null,
+      "message_id": "<f6b4dcee-7d14-25c3-e72a-2f26607c52a5@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_8013",
@@ -944,13 +948,14 @@
       "da_score": 65,
       "role": "Growth & Content Lead",
       "url": "https://singlegrain.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:52:40.694Z",
+      "last_error": null,
+      "message_id": "<24080a17-91eb-d3f6-c9cc-ebe959160868@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_4877",
@@ -961,13 +966,14 @@
       "da_score": 68,
       "role": "Managing Editor",
       "url": "https://brafton.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:31:15.422Z",
+      "last_error": null,
+      "message_id": "<c1bac5e2-2036-aa64-a229-28417bcb1781@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_7546",
@@ -1114,13 +1120,14 @@
       "da_score": 66,
       "role": "SEO Strategy Director",
       "url": "https://tinuiti.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:43:25.010Z",
+      "last_error": null,
+      "message_id": "<565f41eb-acf3-9406-6207-43c870926f5b@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_193",
@@ -1131,13 +1138,14 @@
       "da_score": 63,
       "role": "Earned Media Director",
       "url": "https://wpromote.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T17:04:49.230Z",
+      "last_error": null,
+      "message_id": "<dad77d5b-9dad-7886-c880-8d8ed9b6dbec@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_1030",
@@ -1165,13 +1173,14 @@
       "da_score": 67,
       "role": "Search & Content Strategist",
       "url": "https://seerinteractive.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:40:22.291Z",
+      "last_error": null,
+      "message_id": "<bcfbe403-84a1-5236-e85b-50925f50470c@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_3461",
@@ -1267,13 +1276,14 @@
       "da_score": 64,
       "role": "Content & AI Lead",
       "url": "https://surferseo.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:58:45.302Z",
+      "last_error": null,
+      "message_id": "<e2e64cba-c649-1647-7ba9-9a85b1c9ab65@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_5624",
@@ -1301,13 +1311,14 @@
       "da_score": 69,
       "role": "Content & Community Lead",
       "url": "https://jasper.ai",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T17:18:27.496Z",
+      "last_error": null,
+      "message_id": "<c447af6f-970f-ff6f-fb3c-e9ed70775dea@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_7528",
@@ -1318,13 +1329,14 @@
       "da_score": 66,
       "role": "SEO & Growth Manager",
       "url": "https://writesonic.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:46:27.844Z",
+      "last_error": null,
+      "message_id": "<b01d4446-a264-e3a2-9d37-c4bc8d3d8229@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_1370",
@@ -1335,13 +1347,14 @@
       "da_score": 71,
       "role": "Head of Content",
       "url": "https://copy.ai",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:13:46.858Z",
+      "last_error": null,
+      "message_id": "<d3314c33-3bcd-e0d9-326a-7c8437c99db9@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_2288",
@@ -1420,13 +1433,14 @@
       "da_score": 68,
       "role": "SEO & Outreach Manager",
       "url": "https://invideo.io",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:34:18.295Z",
+      "last_error": null,
+      "message_id": "<6c2f9313-0385-a12e-58b0-9dec6bf28012@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_2826",
@@ -1472,13 +1486,14 @@
       "da_score": 69,
       "role": "Chief Editor",
       "url": "https://Technology & Software Development",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:25:11.397Z",
+      "last_error": null,
+      "message_id": "<7f3da2f0-0a66-90b4-0183-6482f8a780d2@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_3456",
@@ -1489,13 +1504,14 @@
       "da_score": 66,
       "role": "Community Outreach Lead",
       "url": "https://techgig.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:49:36.776Z",
+      "last_error": null,
+      "message_id": "<f3b5100f-88be-ebbe-56b5-5ed0884f3846@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_5027",
@@ -1594,13 +1610,13 @@
       "da_score": 81,
       "role": "Developer Relations Manager",
       "url": "https://vultr.com",
-      "status": "pending",
+      "status": "failed",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
       "sent_at": null,
-      "last_error": null
+      "last_error": ""
     },
     {
       "id": "lead_1794227793074_3440",
@@ -1611,13 +1627,14 @@
       "da_score": 79,
       "role": "Inbound Content Manager",
       "url": "https://cloudways.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T15:41:55.352Z",
+      "last_error": null,
+      "message_id": "<0c222ef9-dba3-2f14-0140-6ac41ed55f9d@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_8428",
@@ -1681,13 +1698,14 @@
       "da_score": 74,
       "role": "Affiliate & Partner Lead",
       "url": "https://a2hosting.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:04:39.779Z",
+      "last_error": null,
+      "message_id": "<91c82524-96ab-57ed-4012-57513197f39b@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_3995",
@@ -1698,13 +1716,14 @@
       "da_score": 74,
       "role": "Community Director",
       "url": "https://growthhackers.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:07:41.833Z",
+      "last_error": null,
+      "message_id": "<07bed72e-5c1a-aebb-313f-090303050833@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_9470",
@@ -1715,13 +1734,14 @@
       "da_score": 78,
       "role": "Senior Strategy Consultant",
       "url": "https://convinceandconvert.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T15:51:12.128Z",
+      "last_error": null,
+      "message_id": "<5c1ec3f6-b125-310b-ce91-a694a32d8719@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_9590",
@@ -1732,13 +1752,14 @@
       "da_score": 79,
       "role": "Director of Publications",
       "url": "https://marketingprofs.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T15:44:59.850Z",
+      "last_error": null,
+      "message_id": "<e225b56f-15eb-8b2f-ecd9-d875aca1284e@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_9581",
@@ -1749,13 +1770,13 @@
       "da_score": 82,
       "role": "Managing Editor",
       "url": "https://contentmarketinginstitute.com",
-      "status": "pending",
+      "status": "failed",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
       "sent_at": null,
-      "last_error": null
+      "last_error": ""
     },
     {
       "id": "lead_1794227793074_3284",
@@ -1766,13 +1787,14 @@
       "da_score": 77,
       "role": "Editor-in-Chief",
       "url": "https://copyblogger.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T15:54:22.182Z",
+      "last_error": null,
+      "message_id": "<c29d4239-3eb9-51af-374c-f7f7c9203295@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_4729",
@@ -1783,13 +1805,14 @@
       "da_score": 64,
       "role": "Managing Editor",
       "url": "https://martechseries.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T17:01:47.494Z",
+      "last_error": null,
+      "message_id": "<f5a9130b-0e18-93a3-1c30-29cf9b3cf469@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_1432",
@@ -1834,13 +1857,14 @@
       "da_score": 81,
       "role": "Managing Editor",
       "url": "https://cmswire.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T15:38:53.113Z",
+      "last_error": null,
+      "message_id": "<bf6f0f8c-761a-8072-f67e-17d763219ed4@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_3351",
@@ -1902,13 +1926,14 @@
       "da_score": 71,
       "role": "Lead Banking Reporter",
       "url": "https://bankingdive.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:16:57.672Z",
+      "last_error": null,
+      "message_id": "<54a0a9ad-933b-3a9a-702e-10afc8f275ca@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_7168",
@@ -1919,13 +1944,14 @@
       "da_score": 68,
       "role": "Executive Editor",
       "url": "https://thefinancialbrand.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:37:20.083Z",
+      "last_error": null,
+      "message_id": "<002c7477-dd4e-0139-229b-f0a6eeceb5d0@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_1029",
@@ -1936,13 +1962,14 @@
       "da_score": 74,
       "role": "Retail Tech Editor",
       "url": "https://retaildive.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T16:10:44.585Z",
+      "last_error": null,
+      "message_id": "<9cb30e22-c6ca-79c0-9b59-f59cac7e1b2d@dailyaura.in>"
     },
     {
       "id": "lead_1794227793075_3226",
@@ -2018,6 +2045,327 @@
     }
   ],
   "events": [
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<c447af6f-970f-ff6f-fb3c-e9ed70775dea@dailyaura.in>",
+      "id": "ev_1794331107498_993",
+      "timestamp": "2026-11-10T17:18:27.498Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<1c055a89-b1e7-1f00-0037-e24e85e6cf7f@dailyaura.in>",
+      "id": "ev_1794331025816_7",
+      "timestamp": "2026-11-10T17:17:05.816Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<e2d1794e-212f-b437-8688-360c8ef11297@dailyaura.in>",
+      "id": "ev_1794330843643_1197",
+      "timestamp": "2026-11-10T17:14:03.643Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<c7d5f032-aac9-71bc-4fc8-551f0f249b36@dailyaura.in>",
+      "id": "ev_1794330653155_7237",
+      "timestamp": "2026-11-10T17:10:53.155Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<7f25dbaa-ec92-13d2-7bc4-d4c6bf65b192@dailyaura.in>",
+      "id": "ev_1794330471294_9072",
+      "timestamp": "2026-11-10T17:07:51.294Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_193",
+      "email": "info@wpromote.com",
+      "website": "wpromote.com",
+      "message_id": "<dad77d5b-9dad-7886-c880-8d8ed9b6dbec@dailyaura.in>",
+      "id": "ev_1794330289232_2840",
+      "timestamp": "2026-11-10T17:04:49.232Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_4729",
+      "email": "editor@martechseries.com",
+      "website": "martechseries.com",
+      "message_id": "<f5a9130b-0e18-93a3-1c30-29cf9b3cf469@dailyaura.in>",
+      "id": "ev_1794330107496_5533",
+      "timestamp": "2026-11-10T17:01:47.496Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_8463",
+      "email": "support@surferseo.com",
+      "website": "surferseo.com",
+      "message_id": "<e2e64cba-c649-1647-7ba9-9a85b1c9ab65@dailyaura.in>",
+      "id": "ev_1794329925307_8737",
+      "timestamp": "2026-11-10T16:58:45.307Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_7292",
+      "email": "info@siegemedia.com",
+      "website": "siegemedia.com",
+      "message_id": "<9a60999e-677f-892d-591d-e57efc5df7f0@dailyaura.in>",
+      "id": "ev_1794329742849_7348",
+      "timestamp": "2026-11-10T16:55:42.849Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_3046",
+      "email": "contact@singlegrain.com",
+      "website": "singlegrain.com",
+      "message_id": "<24080a17-91eb-d3f6-c9cc-ebe959160868@dailyaura.in>",
+      "id": "ev_1794329560699_6021",
+      "timestamp": "2026-11-10T16:52:40.699Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_3456",
+      "email": "contactus@techgig.com",
+      "website": "techgig.com",
+      "message_id": "<f3b5100f-88be-ebbe-56b5-5ed0884f3846@dailyaura.in>",
+      "id": "ev_1794329376780_4427",
+      "timestamp": "2026-11-10T16:49:36.780Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_7528",
+      "email": "support@writesonic.com",
+      "website": "writesonic.com",
+      "message_id": "<b01d4446-a264-e3a2-9d37-c4bc8d3d8229@dailyaura.in>",
+      "id": "ev_1794329187846_9058",
+      "timestamp": "2026-11-10T16:46:27.846Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2373",
+      "email": "info@tinuiti.com",
+      "website": "tinuiti.com",
+      "message_id": "<565f41eb-acf3-9406-6207-43c870926f5b@dailyaura.in>",
+      "id": "ev_1794329005012_584",
+      "timestamp": "2026-11-10T16:43:25.012Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_9660",
+      "email": "info@seerinteractive.com",
+      "website": "seerinteractive.com",
+      "message_id": "<bcfbe403-84a1-5236-e85b-50925f50470c@dailyaura.in>",
+      "id": "ev_1794328822293_2527",
+      "timestamp": "2026-11-10T16:40:22.293Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_7168",
+      "email": "info@thefinancialbrand.com",
+      "website": "thefinancialbrand.com",
+      "message_id": "<002c7477-dd4e-0139-229b-f0a6eeceb5d0@dailyaura.in>",
+      "id": "ev_1794328640084_4636",
+      "timestamp": "2026-11-10T16:37:20.084Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2597",
+      "email": "support@invideo.io",
+      "website": "invideo.io",
+      "message_id": "<6c2f9313-0385-a12e-58b0-9dec6bf28012@dailyaura.in>",
+      "id": "ev_1794328458297_8697",
+      "timestamp": "2026-11-10T16:34:18.297Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_4877",
+      "email": "info@brafton.com",
+      "website": "brafton.com",
+      "message_id": "<c1bac5e2-2036-aa64-a229-28417bcb1781@dailyaura.in>",
+      "id": "ev_1794328275428_6017",
+      "timestamp": "2026-11-10T16:31:15.428Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_9591",
+      "email": "support@thehoth.com",
+      "website": "thehoth.com",
+      "message_id": "<d26938a0-39db-c94b-4995-dc0816f5b7f4@dailyaura.in>",
+      "id": "ev_1794328093516_996",
+      "timestamp": "2026-11-10T16:28:13.516Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_6315",
+      "email": "editor@devops.com",
+      "website": "Technology & Software Development",
+      "message_id": "<7f3da2f0-0a66-90b4-0183-6482f8a780d2@dailyaura.in>",
+      "id": "ev_1794327911404_1476",
+      "timestamp": "2026-11-10T16:25:11.404Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "hey@jasper.ai",
+      "website": "jasper.ai",
+      "message_id": "<268a4971-2eda-1e0b-532c-ac8773a458b7@dailyaura.in>",
+      "id": "ev_1794327609458_451",
+      "timestamp": "2026-11-10T16:20:09.458Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_5345",
+      "email": "editor@bankingdive.com",
+      "website": "bankingdive.com",
+      "message_id": "<54a0a9ad-933b-3a9a-702e-10afc8f275ca@dailyaura.in>",
+      "id": "ev_1794327417678_7126",
+      "timestamp": "2026-11-10T16:16:57.678Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_1370",
+      "email": "help@copy.ai",
+      "website": "copy.ai",
+      "message_id": "<d3314c33-3bcd-e0d9-326a-7c8437c99db9@dailyaura.in>",
+      "id": "ev_1794327226864_9872",
+      "timestamp": "2026-11-10T16:13:46.864Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_1029",
+      "email": "editor@retaildive.com",
+      "website": "retaildive.com",
+      "message_id": "<9cb30e22-c6ca-79c0-9b59-f59cac7e1b2d@dailyaura.in>",
+      "id": "ev_1794327044588_728",
+      "timestamp": "2026-11-10T16:10:44.588Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_3995",
+      "email": "hello@growthhackers.com",
+      "website": "growthhackers.com",
+      "message_id": "<07bed72e-5c1a-aebb-313f-090303050833@dailyaura.in>",
+      "id": "ev_1794326861837_4147",
+      "timestamp": "2026-11-10T16:07:41.837Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2022",
+      "email": "support@a2hosting.com",
+      "website": "a2hosting.com",
+      "message_id": "<91c82524-96ab-57ed-4012-57513197f39b@dailyaura.in>",
+      "id": "ev_1794326679780_5660",
+      "timestamp": "2026-11-10T16:04:39.780Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_12",
+      "email": "info@webfx.com",
+      "website": "webfx.com",
+      "message_id": "<6ec48311-7fef-f5ee-fd83-4259cba7fc4b@dailyaura.in>",
+      "id": "ev_1794326494846_9889",
+      "timestamp": "2026-11-10T16:01:34.846Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_3284",
+      "email": "editorial@copyblogger.com",
+      "website": "copyblogger.com",
+      "message_id": "<c29d4239-3eb9-51af-374c-f7f7c9203295@dailyaura.in>",
+      "id": "ev_1794326062189_7790",
+      "timestamp": "2026-11-10T15:54:22.189Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_9470",
+      "email": "info@convinceandconvert.com",
+      "website": "convinceandconvert.com",
+      "message_id": "<5c1ec3f6-b125-310b-ce91-a694a32d8719@dailyaura.in>",
+      "id": "ev_1794325872134_1560",
+      "timestamp": "2026-11-10T15:51:12.134Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_5373",
+      "email": "info@screamingfrog.co.uk",
+      "website": "screamingfrog.co.uk",
+      "message_id": "<f6b4dcee-7d14-25c3-e72a-2f26607c52a5@dailyaura.in>",
+      "id": "ev_1794325681980_6850",
+      "timestamp": "2026-11-10T15:48:01.980Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_9590",
+      "email": "editor@marketingprofs.com",
+      "website": "marketingprofs.com",
+      "message_id": "<e225b56f-15eb-8b2f-ecd9-d875aca1284e@dailyaura.in>",
+      "id": "ev_1794325499853_9235",
+      "timestamp": "2026-11-10T15:44:59.853Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_3440",
+      "email": "info@cloudways.com",
+      "website": "cloudways.com",
+      "message_id": "<0c222ef9-dba3-2f14-0140-6ac41ed55f9d@dailyaura.in>",
+      "id": "ev_1794325315354_7677",
+      "timestamp": "2026-11-10T15:41:55.355Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_432",
+      "email": "editorial@cmswire.com",
+      "website": "cmswire.com",
+      "message_id": "<bf6f0f8c-761a-8072-f67e-17d763219ed4@dailyaura.in>",
+      "id": "ev_1794325133116_1032",
+      "timestamp": "2026-11-10T15:38:53.116Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_432",
+      "email": "editorial@cmswire.com",
+      "website": "cmswire.com",
+      "message_id": "<50736198-d92b-694c-c9bb-162ea4cd6d69@dailyaura.in>",
+      "id": "ev_1794325125587_4867",
+      "timestamp": "2026-11-10T15:38:45.587Z"
+    },
+    {
+      "type": "error",
+      "lead_id": "lead_1794227793074_7551",
+      "email": "support@vultr.com",
+      "message": "",
+      "id": "ev_1794324940652_3862",
+      "timestamp": "2026-11-10T15:35:40.652Z"
+    },
+    {
+      "type": "error",
+      "lead_id": "lead_1794227793074_9581",
+      "email": "info@contentmarketinginstitute.com",
+      "message": "",
+      "id": "ev_1794324474121_2032",
+      "timestamp": "2026-11-10T15:27:54.121Z"
+    },
+    {
+      "type": "error",
+      "lead_id": "lead_1794227793074_9581",
+      "email": "info@contentmarketinginstitute.com",
+      "message": "getaddrinfo ENOTFOUND smtp.hostinger.com",
+      "id": "ev_1794324473985_322",
+      "timestamp": "2026-11-10T15:27:53.985Z"
+    },
     {
       "type": "sent",
       "lead_id": "lead_1794227793074_8428",

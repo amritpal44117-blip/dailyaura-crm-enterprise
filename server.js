@@ -1430,6 +1430,52 @@ app.post('/api/settings', authCheck, (req, res) => {
   res.json({ success: true, settings: s });
 });
 
+app.get('/api/settings/mailboxes', authCheck, (req, res) => {
+  const s = db.get().settings;
+  res.json({ success: true, mailboxes: s.mailboxes || [] });
+});
+
+app.post('/api/settings/mailboxes', authCheck, (req, res) => {
+  const { label, host, port, user, pass, from_name, from_email } = req.body;
+  if (!user || !pass) {
+    return res.status(400).json({ success: false, error: 'User/Email and Password are required.' });
+  }
+  const s = db.get().settings;
+  if (!s.mailboxes) s.mailboxes = [];
+  const newBox = {
+    id: 'box_' + Date.now(),
+    label: label || `Mailbox (${user})`,
+    host: host || 'smtp.hostinger.com',
+    port: parseInt(port) || 465,
+    user: user.trim(),
+    pass: pass.trim(),
+    from_name: from_name || 'DailyAura Editorial Team',
+    from_email: from_email || user.trim(),
+    is_active: true,
+    sent_today: 0
+  };
+  s.mailboxes.push(newBox);
+  db.save();
+  res.json({ success: true, message: 'Mailbox added successfully! 24/7 rotation active.', mailbox: newBox, mailboxes: s.mailboxes });
+});
+
+app.put('/api/settings/mailboxes/:id/toggle', authCheck, (req, res) => {
+  const s = db.get().settings;
+  const box = (s.mailboxes || []).find(b => b.id === req.params.id);
+  if (!box) return res.status(404).json({ success: false, error: 'Mailbox not found.' });
+  box.is_active = !box.is_active;
+  db.save();
+  res.json({ success: true, mailbox: box, mailboxes: s.mailboxes });
+});
+
+app.delete('/api/settings/mailboxes/:id', authCheck, (req, res) => {
+  const s = db.get().settings;
+  if (!s.mailboxes) s.mailboxes = [];
+  s.mailboxes = s.mailboxes.filter(b => b.id !== req.params.id);
+  db.save();
+  res.json({ success: true, message: 'Mailbox removed.', mailboxes: s.mailboxes });
+});
+
 app.post('/api/test-email', authCheck, async (req, res) => {
   const { target_email } = req.body;
   if (!target_email) return res.status(400).json({ error: 'Target email required.' });
