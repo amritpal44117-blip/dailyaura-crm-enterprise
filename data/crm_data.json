@@ -16,7 +16,33 @@
     "welcome_email_delay_mins": 3,
     "welcome_email_subject": "Welcome to DailyAura Contributor Community — Publishing Guidelines",
     "welcome_email_body": "Hi {{name}},\n\nThank you for signing up and submitting to DailyAura (https://guestposts.dailyaura.in)!\n\nOur editorial team has received your contributor profile. Here is what to expect next:\n1. Editorial Review: Our team reviews all articles within 24–48 business hours.\n2. Do-Follow Backlinks: High-quality, non-promotional contextual links are preserved.\n3. Live Notification: As soon as your post is published and indexed, you will receive a direct link.\n\nSubmission Guidelines:\nhttps://guestposts.dailyaura.in/submit-guest-post/\n\nIf you have any drafts or link exchange proposals, simply reply directly to this email.\n\nBest regards,\n\nEditorial & SEO Outreach Team\nDailyAura Publishing\noutreach@dailyaura.in | https://guestposts.dailyaura.in",
-    "admin_pin": "0852"
+    "admin_pin": "0852",
+    "mailboxes": [
+      {
+        "id": "box_primary",
+        "label": "Primary Outreach Desk",
+        "host": "smtp.hostinger.com",
+        "port": 465,
+        "user": "outreach@dailyaura.in",
+        "pass": "Aarrii@1122",
+        "from_name": "DailyAura Outreach Team",
+        "from_email": "outreach@dailyaura.in",
+        "is_active": true,
+        "sent_today": 48
+      },
+      {
+        "id": "box_info",
+        "label": "Editorial & Partnerships Desk",
+        "host": "smtp.hostinger.com",
+        "port": 465,
+        "user": "info@dailyaura.in",
+        "pass": "Amritpal@2214",
+        "from_name": "DailyAura Editorial Desk",
+        "from_email": "info@dailyaura.in",
+        "is_active": true,
+        "sent_today": 0
+      }
+    ]
   },
   "campaign": {
     "status": "running",
@@ -30,17 +56,17 @@
     "active_track": "cold_outreach",
     "phase": "sending",
     "batch_target": 20,
-    "current_batch_sent": 19,
+    "current_batch_sent": 7,
     "interval_seconds": 180,
     "cooling_seconds": 300,
     "test_mode": true,
-    "next_send_at": "2026-11-10T17:21:27.500Z",
-    "batch_cycle": 3,
-    "total_sent_today": 44,
+    "next_send_at": "2026-11-10T17:45:31.940Z",
+    "batch_cycle": 4,
+    "total_sent_today": 52,
     "cadence_desc": "Continuous 24/7 Autonomous Cadence: 1 mail every 3 mins (~20/hour)",
     "consecutive_smtp_errors": 0,
     "smtp_diagnostic": null,
-    "last_sent_at": "2026-11-10T17:18:27.500Z",
+    "last_sent_at": "2026-11-10T17:42:31.940Z",
     "cooling_ends_at": null
   },
   "campaigns": [
@@ -1316,9 +1342,9 @@
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": "2026-11-10T17:18:27.496Z",
+      "sent_at": "2026-11-10T17:42:31.930Z",
       "last_error": null,
-      "message_id": "<c447af6f-970f-ff6f-fb3c-e9ed70775dea@dailyaura.in>"
+      "message_id": "<985b516d-41a2-0b37-c579-f5f6fffe85c0@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_7528",
@@ -2045,6 +2071,78 @@
     }
   ],
   "events": [
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<985b516d-41a2-0b37-c579-f5f6fffe85c0@dailyaura.in>",
+      "id": "ev_1794332551935_8006",
+      "timestamp": "2026-11-10T17:42:31.935Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<74c455e3-bb4a-c54e-9093-a2bf3e96ecdc@dailyaura.in>",
+      "id": "ev_1794332506583_919",
+      "timestamp": "2026-11-10T17:41:46.583Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<24a0dc42-1e72-244e-3200-c133537d1062@dailyaura.in>",
+      "id": "ev_1794332324867_5725",
+      "timestamp": "2026-11-10T17:38:44.868Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<828c90fa-eb65-fc1c-0436-909a965ebbe5@dailyaura.in>",
+      "id": "ev_1794332142843_1105",
+      "timestamp": "2026-11-10T17:35:42.843Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<0ce8faff-d2c4-c19b-68b0-a644bcd8a463@dailyaura.in>",
+      "id": "ev_1794331960916_6954",
+      "timestamp": "2026-11-10T17:32:40.916Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<6d09accf-ab60-3942-b3c9-a9040f48053e@dailyaura.in>",
+      "id": "ev_1794331777262_5033",
+      "timestamp": "2026-11-10T17:29:37.262Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<c77ef647-6774-743f-b5ab-3ebb3d2d2c19@dailyaura.in>",
+      "id": "ev_1794331591394_226",
+      "timestamp": "2026-11-10T17:26:31.394Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2288",
+      "email": "editor@aithority.com",
+      "website": "aithority.com",
+      "message_id": "<6bd78978-48fb-9a68-27bb-6194eacb8d9f@dailyaura.in>",
+      "id": "ev_1794331289400_9762",
+      "timestamp": "2026-11-10T17:21:29.400Z"
+    },
     {
       "type": "sent",
       "lead_id": "lead_1794227793074_2288",
