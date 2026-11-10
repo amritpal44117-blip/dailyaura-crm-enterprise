@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: dailyaura-crm-enterprise
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: SMTP_HOST
+        value: smtp.hostinger.com
+      - key: SMTP_PORT
+        value: 465
+      - key: SMTP_USER
+        value: outreach@dailyaura.in
+      - key: SMTP_PASS
+        value: Aarrii@1122
+      - key: ADMIN_PIN
+        value: 0852
+      - key: ADMIN_USER
+        value: admin
+      - key: ADMIN_PASS
+        value: dailyaura@123
