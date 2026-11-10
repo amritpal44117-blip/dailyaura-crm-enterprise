@@ -4,13 +4,17 @@ const db = require('./db');
 class EmailEngine {
   constructor() {
     this.timer = null;
+    this.watchdog = null;
     this.isProcessing = false;
-    this.defaultIntervalSec = 720; // 12 minutes per email (Strict 5 emails/hour)
-    this.defaultBatchTarget = 5;   // 5 emails per 1-hour window
-    this.defaultCoolingSec = 3600; // 1 hour cooling pause
+    this.processingStartedAt = null;
+    this.defaultIntervalSec = 180; // 3 minutes per email (24/7 Continuous: ~20/hour, 480/day)
+    this.defaultBatchTarget = 20;  // 20 emails per active batch
+    this.defaultCoolingSec = 300;  // 5-minute breather between batches
 
     // Initialize campaign schedule defaults in database
     this.initScheduleState();
+    // Start autonomous 24/7 watchdog heartbeat
+    this.startWatchdog();
   }
 
   initScheduleState() {
@@ -19,17 +23,84 @@ class EmailEngine {
       state.campaign = {};
     }
     const c = state.campaign;
-    c.batch_target = 5;
-    c.interval_seconds = 720; // 12 mins per send = 5/hour
-    c.cooling_seconds = 3600;
+    c.batch_target = 20;
+    c.interval_seconds = c.interval_seconds || 180; // Default 3 mins (24/7 continuous)
+    c.cooling_seconds = 300; // 5-min breather
     if (c.current_batch_sent === undefined) c.current_batch_sent = 0;
+    if (c.status === undefined) c.status = 'running'; // Always default to 24/7 active
     if (c.phase === undefined) c.phase = 'sending';
     if (c.test_mode === undefined) c.test_mode = true;
     if (c.batch_cycle === undefined) c.batch_cycle = 1;
     if (c.total_sent_today === undefined) c.total_sent_today = 0;
     if (c.consecutive_smtp_errors === undefined) c.consecutive_smtp_errors = 0;
-    c.cadence_desc = 'Ultra-Safe Elite Cadence: 5 emails/hour (1 every 12 mins)';
+    c.cadence_desc = 'Continuous 24/7 Autonomous Cadence: 1 mail every 3 mins (~20/hour)';
     db.save();
+  }
+
+  startWatchdog() {
+    if (this.watchdog) clearInterval(this.watchdog);
+    // Runs every 15 seconds to guarantee 24/7 uninterrupted sending
+    this.watchdog = setInterval(() => {
+      try {
+        this.watchdogCheck();
+      } catch (err) {
+        console.warn('[CRM Watchdog Heartbeat Error]:', err.message);
+      }
+    }, 15000);
+  }
+
+  watchdogCheck() {
+    const state = db.get();
+    const camp = state.campaign;
+    if (!camp || camp.status !== 'running') return;
+
+    const now = Date.now();
+
+    // 1. Auto-release lock if stuck for > 60 seconds
+    if (this.isProcessing) {
+      if (this.processingStartedAt && (now - this.processingStartedAt > 60000)) {
+        console.warn('[CRM Watchdog] Dispatch processing lock was held > 60s. Auto-releasing lock.');
+        this.isProcessing = false;
+        this.processingStartedAt = null;
+      }
+      return;
+    }
+
+    // 2. Auto-replenish pending leads if running low (< 15 pending)
+    const pendingCount = (state.leads || []).filter(l => l.status === 'pending').length;
+    if (pendingCount < 15) {
+      try {
+        const leadFinder = require('./leadFinderEngine');
+        console.log(`[CRM Watchdog] Pending leads queue low (${pendingCount} left). Auto-mining 15 verified high-DA prospects...`);
+        leadFinder.mineBatch(15);
+      } catch (err) {
+        console.warn('[CRM Watchdog] Auto-mine error:', err.message);
+      }
+    }
+
+    // 3. Check cooling breather expiration
+    if (camp.phase === 'cooling') {
+      const coolingEnds = camp.cooling_ends_at ? new Date(camp.cooling_ends_at).getTime() : 0;
+      if (now >= coolingEnds) {
+        console.log('[CRM Watchdog] 24/7 Cooling breather complete! Resuming dispatches.');
+        camp.phase = 'sending';
+        camp.current_batch_sent = 0;
+        camp.cooling_ends_at = null;
+        camp.batch_cycle = (camp.batch_cycle || 1) + 1;
+        db.save();
+        this.processQueue();
+        return;
+      }
+    }
+
+    // 4. In sending phase: Check if scheduled dispatch time has arrived or passed
+    if (camp.phase === 'sending') {
+      const nextSend = camp.next_send_at ? new Date(camp.next_send_at).getTime() : 0;
+      if (!camp.next_send_at || now >= nextSend) {
+        console.log('[CRM Watchdog] Scheduled dispatch due or recovered from standby. Triggering queue...');
+        this.processQueue();
+      }
+    }
   }
 
   getTransporter() {
@@ -288,6 +359,7 @@ If you prefer not to receive contributor invitations for {{website}}, simply rep
     }
 
     this.isProcessing = true;
+    this.processingStartedAt = Date.now();
 
     try {
       // Find candidate leads: "send only to them who looks good"
@@ -524,6 +596,49 @@ If you prefer not to receive contributor invitations for {{website}}, simply rep
       failedCount,
       totalLeads: leads.length
     };
+  }
+  async sendNow() {
+    const state = db.get();
+    let candidates = (state.leads || []).filter(l => 
+      l.status === 'pending' && l.email && l.email.includes('@') && !l.email.endsWith('.test')
+    );
+    candidates.sort((a, b) => (b.da_score || 0) - (a.da_score || 0));
+    let lead = candidates[0];
+    if (!lead) {
+      const leadFinder = require('./leadFinderEngine');
+      leadFinder.mineBatch(5);
+      const fresh = db.get();
+      lead = (fresh.leads || []).find(l => l.status === 'pending');
+    }
+    if (!lead) {
+      throw new Error('No pending verified leads available in pool.');
+    }
+
+    const info = await this.sendOne(lead);
+    const camp = db.get().campaign;
+    camp.current_batch_sent = (camp.current_batch_sent || 0) + 1;
+    camp.total_sent_today = (camp.total_sent_today || 0) + 1;
+    camp.last_sent_at = new Date().toISOString();
+    camp.next_send_at = new Date(Date.now() + (camp.interval_seconds || 180) * 1000).toISOString();
+    db.save();
+    return { success: true, lead, messageId: info?.messageId };
+  }
+
+  setCadence(intervalSec) {
+    const sec = parseInt(intervalSec) || 180;
+    const state = db.get();
+    state.campaign.interval_seconds = sec;
+    if (sec <= 120) {
+      state.campaign.cadence_desc = `Turbo Cadence: 1 mail every ${sec}s (~40/hr)`;
+    } else if (sec <= 240) {
+      state.campaign.cadence_desc = `Continuous 24/7 Flow: 1 mail every ${Math.round(sec/60)} mins (~20/hr, 480/day)`;
+    } else {
+      state.campaign.cadence_desc = `Safe VIP Cadence: 1 mail every ${Math.round(sec/60)} mins (~5-10/hr)`;
+    }
+    state.campaign.next_send_at = new Date(Date.now() + sec * 1000).toISOString();
+    db.save();
+    console.log(`[CRM Engine] Cadence updated to ${sec}s gap: ${state.campaign.cadence_desc}`);
+    return { success: true, interval_seconds: sec, cadence_desc: state.campaign.cadence_desc };
   }
 }
 

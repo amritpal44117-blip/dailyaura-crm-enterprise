@@ -29,18 +29,18 @@
     "template": "Hi {{name}},\n\nI noticed you manage off-page SEO, guest posting, and link outreach for {{website}}.\n\nI manage the publishing platform over at DailyAura (https://guestposts.dailyaura.in). We are currently offering free guest post placements with permanent do-follow backlinks in Tech, AI, Digital Marketing, and Business.\n\nWhat we offer for link builders and SEO specialists:\n- 100% Free Guest Post submission (no fees)\n- Permanent do-follow contextual backlinks\n- Fast editorial approval & indexing within 24-48 hours\n- Open to mutual link exchanges (https://guestposts.dailyaura.in/link-exchange/)\n\nYou can review guidelines and submit articles directly here:\nhttps://guestposts.dailyaura.in/submit-guest-post/\n\nOr feel free to reply directly to this email with your article draft, topics, or target URLs, and I will get them reviewed for you immediately.\n\nBest regards,\n\nEditorial & SEO Outreach Team\nDailyAura Publishing\noutreach@dailyaura.in | https://guestposts.dailyaura.in",
     "active_track": "cold_outreach",
     "phase": "sending",
-    "batch_target": 5,
-    "current_batch_sent": 2,
-    "interval_seconds": 720,
-    "cooling_seconds": 3600,
+    "batch_target": 20,
+    "current_batch_sent": 6,
+    "interval_seconds": 180,
+    "cooling_seconds": 300,
     "test_mode": true,
-    "next_send_at": "2026-11-09T17:10:23.776Z",
+    "next_send_at": "2026-11-10T12:44:55.424Z",
     "batch_cycle": 2,
-    "total_sent_today": 7,
-    "cadence_desc": "Ultra-Safe Elite Cadence: 5 emails/hour (1 every 12 mins)",
+    "total_sent_today": 11,
+    "cadence_desc": "Continuous 24/7 Flow: 1 mail every 3 mins (~20/hr, 480/day)",
     "consecutive_smtp_errors": 0,
     "smtp_diagnostic": null,
-    "last_sent_at": "2026-11-09T16:58:23.776Z",
+    "last_sent_at": "2026-11-10T12:41:55.424Z",
     "cooling_ends_at": null
   },
   "campaigns": [
@@ -1437,13 +1437,14 @@
       "da_score": 84,
       "role": "Senior Tech Editor",
       "url": "https://hackernoon.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-09T17:10:26.492Z",
+      "last_error": null,
+      "message_id": "<1cc75534-391f-570d-cdea-74460d1c85d0@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_3558",
@@ -1454,13 +1455,14 @@
       "da_score": 83,
       "role": "Community Publications Lead",
       "url": "https://dzone.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-09T17:22:28.215Z",
+      "last_error": null,
+      "message_id": "<9b876d38-7ce4-4fc8-34ce-83781c3980d2@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_6315",
@@ -1504,13 +1506,14 @@
       "da_score": 82,
       "role": "Features Editor",
       "url": "https://readwrite.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T12:40:24.532Z",
+      "last_error": null,
+      "message_id": "<85c66f06-d4bb-969b-ff1a-4f8a048fb5de@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_3057",
@@ -1625,13 +1628,14 @@
       "da_score": 82,
       "role": "Global SEO Director",
       "url": "https://kinsta.com",
-      "status": "pending",
+      "status": "sent",
       "open_count": 0,
       "opened_at": null,
       "click_count": 0,
       "clicked_at": null,
-      "sent_at": null,
-      "last_error": null
+      "sent_at": "2026-11-10T12:41:55.417Z",
+      "last_error": null,
+      "message_id": "<97b4e6fb-2a56-c6f2-595f-2a8880f4491b@dailyaura.in>"
     },
     {
       "id": "lead_1794227793074_6994",
@@ -2014,6 +2018,42 @@
     }
   ],
   "events": [
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_8428",
+      "email": "info@kinsta.com",
+      "website": "kinsta.com",
+      "message_id": "<97b4e6fb-2a56-c6f2-595f-2a8880f4491b@dailyaura.in>",
+      "id": "ev_1794314515422_5393",
+      "timestamp": "2026-11-10T12:41:55.422Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_5027",
+      "email": "editor@readwrite.com",
+      "website": "readwrite.com",
+      "message_id": "<85c66f06-d4bb-969b-ff1a-4f8a048fb5de@dailyaura.in>",
+      "id": "ev_1794314424533_8283",
+      "timestamp": "2026-11-10T12:40:24.535Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_3558",
+      "email": "support@dzone.com",
+      "website": "dzone.com",
+      "message_id": "<9b876d38-7ce4-4fc8-34ce-83781c3980d2@dailyaura.in>",
+      "id": "ev_1794244948222_5395",
+      "timestamp": "2026-11-09T17:22:28.222Z"
+    },
+    {
+      "type": "sent",
+      "lead_id": "lead_1794227793074_2826",
+      "email": "editorial@hackernoon.com",
+      "website": "hackernoon.com",
+      "message_id": "<1cc75534-391f-570d-cdea-74460d1c85d0@dailyaura.in>",
+      "id": "ev_1794244226496_8618",
+      "timestamp": "2026-11-09T17:10:26.496Z"
+    },
     {
       "type": "sent",
       "lead_id": "lead_1794227793074_5312",

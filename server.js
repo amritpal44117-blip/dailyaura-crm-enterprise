@@ -564,6 +564,25 @@ app.post('/api/campaign/toggle-test-mode', authCheck, (req, res) => {
   res.json({ success: true, test_mode: camp.test_mode, info: emailEngine.getStatus() });
 });
 
+app.post('/api/campaign/send-now', authCheck, async (req, res) => {
+  try {
+    const result = await emailEngine.sendNow();
+    res.json({ success: true, message: 'Dispatched 1 outreach email successfully', result, info: emailEngine.getStatus() });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/campaign/cadence', authCheck, (req, res) => {
+  try {
+    const { interval_seconds } = req.body;
+    const result = emailEngine.setCadence(interval_seconds);
+    res.json({ success: true, ...result, info: emailEngine.getStatus() });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // ==========================================
 // AUTONOMOUS WEB SCRAPER & LEAD FINDER API
 // ==========================================

@@ -3025,6 +3025,47 @@ function setupAutomationHub() {
     });
   }
 
+  const btnSendOneNow = document.getElementById('btnSendOneNow');
+  if (btnSendOneNow) {
+    btnSendOneNow.addEventListener('click', async () => {
+      try {
+        btnSendOneNow.disabled = true;
+        btnSendOneNow.textContent = '⏳ Dispatching...';
+        const res = await API.post('/api/campaign/send-now', {});
+        if (res && res.success) {
+          const leadEmail = res.result?.lead?.email || 'Prospect';
+          showToast(`⚡ Instant Dispatch Sent to ${leadEmail}!`, 'success');
+          pollAutomationStatus();
+          loadStats();
+          loadGscAnalytics();
+        } else {
+          showToast('Send error: ' + (res?.error || 'Unknown error'), 'error');
+        }
+      } catch (err) {
+        showToast('Send error: ' + err.message, 'error');
+      } finally {
+        btnSendOneNow.disabled = false;
+        btnSendOneNow.textContent = '⚡ Send 1 Now';
+      }
+    });
+  }
+
+  const engineCadenceSelect = document.getElementById('engineCadenceSelect');
+  if (engineCadenceSelect) {
+    engineCadenceSelect.addEventListener('change', async (e) => {
+      try {
+        const val = parseInt(e.target.value) || 180;
+        const res = await API.post('/api/campaign/cadence', { interval_seconds: val });
+        if (res && res.success) {
+          showToast(`⚡ Cadence Updated: ${res.cadence_desc}`, 'success');
+          pollAutomationStatus();
+        }
+      } catch (err) {
+        showToast('Cadence error: ' + err.message, 'error');
+      }
+    });
+  }
+
   if (engineStartPauseBtn) {
     engineStartPauseBtn.addEventListener('click', async () => {
       try {
@@ -3159,6 +3200,10 @@ async function pollAutomationStatus() {
       if (progFill) progFill.style.width = `${pct}%`;
 
       if (testPill) testPill.textContent = eStatus.test_mode ? 'ACTIVE' : 'OFF';
+      const cadenceSel = document.getElementById('engineCadenceSelect');
+      if (cadenceSel && document.activeElement !== cadenceSel && eStatus.interval_seconds) {
+        cadenceSel.value = String(eStatus.interval_seconds);
+      }
 
       if (phaseBadge) {
         if (eStatus.status === 'running') {
