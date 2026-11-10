@@ -81,65 +81,59 @@
       </div>
 
       <div class="sidebar-scrollable-body">
-        <nav id="navColdOutreach" class="sidebar-nav">
-          <!-- GROUP 1: OVERVIEW & INTELLIGENCE -->
-          <div class="nav-section-title">CORE INTELLIGENCE</div>
+        <nav id="unifiedNav" class="sidebar-nav">
+          <!-- CORE 24/7 OUTREACH -->
+          <div class="nav-section-title">24/7 OUTREACH ENGINE</div>
           <button class="nav-item active" data-tab="dashboard">
             <span class="nav-icon">📊</span>
-            <span class="nav-label">Dashboard</span>
-          </button>
-          <button class="nav-item nav-highlight" data-tab="ai-agent">
-            <span class="nav-icon">🤖</span>
-            <span class="nav-label">AI Outreach Agent</span>
-            <span class="badge-pill pink">Live Voice & Chat</span>
+            <span class="nav-label">Overview & Engine</span>
+            <span class="badge-pill green">24/7 Live</span>
           </button>
           <button class="nav-item" data-tab="analytics">
-            <span class="nav-icon">📈</span>
-            <span class="nav-label">Performance Analytics</span>
-          </button>
-          <button class="nav-item" data-tab="funnel">
             <span class="nav-icon">🎯</span>
-            <span class="nav-label">Conversion Funnel</span>
-          </button>
-
-          <!-- GROUP 2: OUTREACH & LEADS -->
-          <div class="nav-section-title">OUTREACH & CAMPAIGNS</div>
-          <button class="nav-item" data-tab="campaigns">
-            <span class="nav-icon">🚀</span>
-            <span class="nav-label">Active Campaigns</span>
+            <span class="nav-label">Analytics & Funnel</span>
           </button>
           <button class="nav-item" data-tab="leads">
             <span class="nav-icon">👥</span>
             <span class="nav-label">Master Leads Base</span>
+            <span class="badge-pill blue" id="navBadgeLeads">Verified DA</span>
           </button>
-          <button class="nav-item" data-tab="niche-hub">
-            <span class="nav-icon">🏷️</span>
-            <span class="nav-label">Niche Rankings</span>
-            <span class="badge-pill blue">8 Niches</span>
+          <button class="nav-item" data-tab="campaigns">
+            <span class="nav-icon">🚀</span>
+            <span class="nav-label">Active Campaigns</span>
           </button>
-          <button class="nav-item" data-tab="templates">
-            <span class="nav-icon">📝</span>
-            <span class="nav-label">Template Studio</span>
-          </button>
-
-
-          <!-- GROUP 3: COMMUNICATION & SYSTEM -->
-          <div class="nav-section-title">COMMUNICATION & SYSTEM</div>
           <button class="nav-item" data-tab="inbox">
             <span class="nav-icon">💬</span>
             <span class="nav-label">Replies & Inbox Hub</span>
             <span class="badge-pill green">Active</span>
           </button>
-          <button class="nav-item" data-tab="blacklist">
-            <span class="nav-icon">🚫</span>
-            <span class="nav-label">Suppression List</span>
+
+          <!-- GUEST POST COMMUNITY & CONTENT -->
+          <div class="nav-section-title">GUEST POST COMMUNITY</div>
+          <button class="nav-item" data-tab="contrib-users">
+            <span class="nav-icon">✍️</span>
+            <span class="nav-label">Registered Authors</span>
+            <span class="badge-pill green">Astrolabs</span>
           </button>
-          <button class="nav-item" data-tab="smtp-settings">
-            <span class="nav-icon">⚙️</span>
-            <span class="nav-label">Hostinger SMTP Setup</span>
+          <button class="nav-item" data-tab="contrib-articles">
+            <span class="nav-icon">📰</span>
+            <span class="nav-label">DailyAura Blog Feed</span>
+            <span class="badge-pill blue">WP Live</span>
+          </button>
+          <button class="nav-item" data-tab="ai-agent">
+            <span class="nav-icon">🤖</span>
+            <span class="nav-label">AI Pitch Assistant</span>
           </button>
 
-          <!-- SUBTLE BOTTOM ACTIONS (SCROLLED DOWN, NOT STICKY) -->
+          <!-- SETTINGS -->
+          <div class="nav-section-title">CONFIGURATION</div>
+          <button class="nav-item" data-tab="smtp-settings">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">SMTP & Mailboxes</span>
+            <span class="badge-pill green">Dual Rotation</span>
+          </button>
+
+          <!-- BOTTOM LOCK / LOGOUT -->
           <div class="sidebar-end-actions">
             <div class="sidebar-nav-divider"></div>
             <button id="lockWorkspaceBtn" class="nav-item sidebar-compact-action" title="Lock Workspace">
@@ -152,59 +146,6 @@
             </button>
           </div>
         </nav>
-
-<nav id="navContributorHub" class="sidebar-nav hidden">
-        <div class="nav-section-title">COMMUNITY INTELLIGENCE</div>
-        <button class="nav-item active" data-tab="contrib-dashboard">
-          <span class="nav-icon">📊</span>
-          <span class="nav-label">Contributor Overview</span>
-        </button>
-        <button class="nav-item nav-highlight" data-tab="contrib-users">
-          <span class="nav-icon">👥</span>
-          <span class="nav-label">Registered Authors</span>
-          <span class="badge-pill green" id="navBadgeSubscribers">5 Registered</span>
-        </button>
-        <button class="nav-item" data-tab="contrib-triggers">
-          <span class="nav-icon">⏱️</span>
-          <span class="nav-label">3-Stage Lifecycle Flow</span>
-          <span class="badge-pill yellow">Auto SLA</span>
-        </button>
-
-        <div class="nav-section-title">CONTENT & SHOWCASE</div>
-        <button class="nav-item" data-tab="contrib-articles">
-          <span class="nav-icon">📰</span>
-          <span class="nav-label">DailyAura Blog Feed</span>
-          <span class="badge-pill blue">Live Posts</span>
-        </button>
-        <button class="nav-item" data-tab="contrib-templates">
-          <span class="nav-icon">📝</span>
-          <span class="nav-label">Marketing & AI Templates</span>
-          <span class="badge-pill pink">English Only</span>
-        </button>
-
-        <div class="nav-section-title">ENGAGEMENT & HOOKS</div>
-        <button class="nav-item" data-tab="contrib-stream">
-          <span class="nav-icon">⚡</span>
-          <span class="nav-label">Delivery & Click Stream</span>
-        </button>
-        <button class="nav-item" data-tab="contrib-settings">
-          <span class="nav-icon">⚙️</span>
-          <span class="nav-label">Webhook & SMTP Health</span>
-        </button>
-
-        <!-- SUBTLE END ACTIONS (AT VERY BOTTOM OF SCROLL, NOT FIXED/STICKY) -->
-        <div class="sidebar-end-actions">
-          <div class="sidebar-nav-divider"></div>
-          <button id="lockWorkspaceBtnContrib" class="nav-item sidebar-compact-action" title="Lock Workspace">
-            <span class="nav-icon">🔒</span>
-            <span class="nav-label">Lock Workspace</span>
-          </button>
-          <button id="logoutBtnContrib" class="nav-item sidebar-compact-action logout-action" title="Sign Out">
-            <span class="nav-icon">🚪</span>
-            <span class="nav-label">Sign Out</span>
-          </button>
-        </div>
-      </nav>
       </div>
     </aside>
 
@@ -1905,5 +1846,29 @@
   <div id="toastContainer" class="toast-container"></div>
 
   <script src="js/app.js"></script>
+
+  <!-- NATIVE MOBILE BOTTOM NAVIGATION BAR (FIXED ON PHONES) -->
+  <nav id="mobileBottomNav" class="mobile-bottom-nav">
+    <button class="bottom-nav-item active" data-tab="dashboard">
+      <span class="bnav-icon">📊</span>
+      <span class="bnav-label">Overview</span>
+    </button>
+    <button class="bottom-nav-item" data-tab="analytics">
+      <span class="bnav-icon">🎯</span>
+      <span class="bnav-label">Funnel</span>
+    </button>
+    <button class="bottom-nav-item" data-tab="leads">
+      <span class="bnav-icon">👥</span>
+      <span class="bnav-label">Leads</span>
+    </button>
+    <button class="bottom-nav-item" data-tab="contrib-users">
+      <span class="bnav-icon">✍️</span>
+      <span class="bnav-label">Authors</span>
+    </button>
+    <button class="bottom-nav-item" data-tab="inbox">
+      <span class="bnav-icon">💬</span>
+      <span class="bnav-label">Inbox</span>
+    </button>
+  </nav>
 </body>
 </html>

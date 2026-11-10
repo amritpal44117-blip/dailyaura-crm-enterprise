@@ -187,31 +187,23 @@ class EmailEngine {
       .replace(/{{niche}}/gi, nicheContext)
       .replace(/Amritpal/gi, 'DailyAura Editorial Team');
 
-    // Tailored opening & pitch customization
+        // Short, punchy, high-converting guest post outreach template
     let defaultNicheTemplate = 
 `Hi {{name}},
 
-I noticed you manage content, SEO, and editorial partnerships for {{website}} in the ${nicheContext} space.
+Quick question — are you open to free guest post collaborations or contextual do-follow backlink placements for {{website}}?
 
-I run the editorial publishing desk over at DailyAura (https://guestposts.dailyaura.in). We are currently opening 100% free guest post contributor placements with permanent do-follow backlinks for quality sites in ${nicheContext}.
+We run DailyAura Publishing (https://guestposts.dailyaura.in) in the ${nicheContext} space. We are opening 100% free contributor spots this week — permanent do-follow links, zero fees, and fast 24-48h editorial indexing.
 
-What we offer for {{website}}:
-- 100% Free Guest Post submission (zero fees or charges)
-- Permanent do-follow contextual backlink pointing to {{website}}
-- Fast editorial review & indexing within 24-48 hours
-- Tailored publication matching our ${nicheTopic} readership
-- Open to reciprocal link collaborations (https://guestposts.dailyaura.in/link-exchange/)
-
-You can review our editorial guidelines and submit drafts directly here:
+Guidelines & 1-click submission:
 https://guestposts.dailyaura.in/submit-guest-post/
 
-Alternatively, reply directly to this email with your proposed topics or draft, and I will fast-track review for you.
+Or simply reply to this email with your proposed draft or topic, and I will fast-track review for you today.
 
 Best regards,
 
-Editorial & SEO Outreach Team
-DailyAura Publishing
-outreach@dailyaura.in | https://guestposts.dailyaura.in
+DailyAura Editorial & Outreach Team
+https://guestposts.dailyaura.in | outreach@dailyaura.in
 
 ---
 If you prefer not to receive contributor invitations for {{website}}, simply reply with "unsubscribe" and we will remove your address immediately.`;

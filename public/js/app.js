@@ -477,45 +477,58 @@ function setupAuth() {
 
 function setupNavigation() {
   const navItems = document.querySelectorAll('.nav-item');
+  const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
   const tabPanes = document.querySelectorAll('.tab-pane');
   const breadcrumb = document.getElementById('activeBreadcrumbTitle');
 
+  function handleTabClick(targetTab) {
+    if (!targetTab) return;
+
+    // Sync all desktop sidebar items
+    navItems.forEach(n => {
+      if (n.getAttribute('data-tab') === targetTab) n.classList.add('active');
+      else n.classList.remove('active');
+    });
+
+    // Sync all mobile bottom nav items
+    bottomNavItems.forEach(bn => {
+      if (bn.getAttribute('data-tab') === targetTab) bn.classList.add('active');
+      else bn.classList.remove('active');
+    });
+
+    // Activate tab pane
+    tabPanes.forEach(p => p.classList.remove('active'));
+    const pane = document.getElementById(`tab-${targetTab}`);
+    if (pane) pane.classList.add('active');
+
+    if (breadcrumb && TAB_TITLES[targetTab]) {
+      breadcrumb.textContent = TAB_TITLES[targetTab];
+    }
+
+    closeMobileMenu();
+
+    // Trigger tab specific data load
+    if (targetTab === 'analytics') loadGscAnalytics();
+    if (targetTab === 'live-feed') loadLiveFeed();
+    if (targetTab === 'campaigns') { loadCampaign(); loadCampaignsDeck(); }
+    if (targetTab === 'templates') loadTemplates();
+    if (targetTab === 'leads') loadLeads();
+    if (targetTab === 'contrib-users') loadContributors();
+    if (targetTab === 'contrib-articles') loadArticlesCatalog();
+    if (targetTab === 'inbox') loadInboxReplies();
+    if (targetTab === 'smtp-settings') loadSettings();
+    if (targetTab === 'ai-agent') scrollChatBottom();
+  }
+
   navItems.forEach(item => {
     item.addEventListener('click', () => {
-      const targetTab = item.getAttribute('data-tab');
+      handleTabClick(item.getAttribute('data-tab'));
+    });
+  });
 
-      navItems.forEach(n => n.classList.remove('active'));
-      tabPanes.forEach(p => p.classList.remove('active'));
-
-      item.classList.add('active');
-      const pane = document.getElementById(`tab-${targetTab}`);
-      if (pane) pane.classList.add('active');
-
-      if (breadcrumb && TAB_TITLES[targetTab]) {
-        breadcrumb.textContent = TAB_TITLES[targetTab];
-      }
-
-      closeMobileMenu();
-
-      // Refresh data on tab switch
-      // Cold Outreach Tabs
-      if (targetTab === 'analytics') loadGscAnalytics();
-      if (targetTab === 'live-feed') loadLiveFeed();
-      if (targetTab === 'campaigns') { loadCampaign(); loadCampaignsDeck(); }
-      if (targetTab === 'templates') loadTemplates();
-      if (targetTab === 'niche-hub') loadGscAnalytics();
-      if (targetTab === 'leads') loadLeads();
-      if (targetTab === 'sequences') loadSequences();
-      if (targetTab === 'blacklist') loadBlacklist();
-      if (targetTab === 'inbox') loadInboxReplies();
-      if (targetTab === 'ai-agent') scrollChatBottom();
-
-      // Contributor Hub Tabs
-      if (targetTab === 'contrib-dashboard') { loadContributorStats(); loadContribStream(); }
-      if (targetTab === 'contrib-users') loadContributors();
-      if (targetTab === 'contrib-articles') loadArticlesCatalog();
-      if (targetTab === 'contrib-templates') loadContribTemplates();
-      if (targetTab === 'contrib-stream') loadContribStream();
+  bottomNavItems.forEach(bItem => {
+    bItem.addEventListener('click', () => {
+      handleTabClick(bItem.getAttribute('data-tab'));
     });
   });
 }
